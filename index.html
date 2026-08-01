@@ -125,6 +125,12 @@
   .chart-dot-fill {
     fill: url(#dotGrid);
   }
+
+  /* Spinner for loading buttons */
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
 </style>
 </head>
 
@@ -148,7 +154,7 @@
         <div class="absolute top-2 right-1.5 w-2 h-2 bg-secondary rounded-full border-2 border-[#fcf8f8]"></div>
       </button>
       <button class="w-9 h-9 rounded-full border border-outline-variant overflow-hidden flex items-center justify-center">
-        <img src="https://api.dicebear.com/10.x/bottts-neutral/svg?eyesVariant=bulging&mouthVariant=smile02&textureVariant=grunge02&backgroundColor=15a876&backgroundColorFill=radial&backgroundColorAngle=357&backgroundColorFillStops=4&seed=Felix" alt="avatar" class="w-full h-full object-cover"/>
+        <img src="https://api.dicebear.com/10.x/dylan/svg?hairVariant=bangs,buns,fluffy,longCurls,parting,plain,roundBob,shaggy,shortCurls,spiky,wavy&backgroundColor=619eff&hairColor=000000,ff543d,ffffff&skinColor=ffd6c0&seed=Felix" alt="avatar" class="w-full h-full object-cover"/>
       </button>
     </div>
   </header>
@@ -616,62 +622,740 @@
 <!-- ===================== OTHER PAGES ===================== -->
 
 <!-- Mining Page -->
-<div id="page-mining" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
-  <header class="flex items-center w-full px-6 h-16 pt-4">
+<div id="page-mining" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto hide-scrollbar pb-36">
+  <header class="flex items-center justify-between w-full px-6 h-16 pt-4 shrink-0">
     <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">Mining</h1>
+    <div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-full">
+      <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
+      <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">$VALO Network</span>
+    </div>
   </header>
-  <div class="px-6 flex flex-col gap-4">
-    <!-- Live Status -->
-    <div class="bg-primary rounded-[22px] p-5">
-      <div class="flex justify-between items-start mb-5">
+
+  <div class="px-6 flex flex-col gap-5">
+
+    <!-- ── FREE MINER CARD ── -->
+    <div class="bg-primary rounded-[22px] p-5 relative overflow-hidden">
+      <div class="absolute -right-6 -top-6 w-32 h-32 rounded-full bg-white/5 pointer-events-none"></div>
+      <div class="relative z-10">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <p class="font-label-sm text-[11px] tracking-[0.06em] uppercase text-on-primary/60 mb-1">Free Miner</p>
+            <p class="font-heading-md text-[22px] font-semibold text-on-primary tracking-tight">Mine $VALO</p>
+          </div>
+          <div id="miner-status-badge" class="bg-white/10 rounded-full px-3 py-1.5 flex items-center gap-1.5">
+            <div class="w-1.5 h-1.5 rounded-full bg-on-primary/40"></div>
+            <span class="font-label-sm text-[11px] text-on-primary tracking-wide">Idle</span>
+          </div>
+        </div>
+
+        <!-- Countdown / Earned display -->
+        <div class="bg-white/8 rounded-[14px] px-4 py-3 mb-4 flex items-center justify-between">
+          <div>
+            <p class="font-label-sm text-[10px] tracking-wide uppercase text-on-primary/50 mb-0.5">Session Earned</p>
+            <p id="miner-earned" class="font-numeric-data text-[22px] font-semibold text-on-primary leading-none">0.000 VALO</p>
+          </div>
+          <div class="text-right">
+            <p class="font-label-sm text-[10px] tracking-wide uppercase text-on-primary/50 mb-0.5">Next Reset</p>
+            <p id="miner-timer" class="font-numeric-data text-[18px] font-semibold text-on-primary leading-none">—</p>
+          </div>
+        </div>
+
+        <!-- Hashrate bar -->
+        <div class="mb-4">
+          <p class="font-label-sm text-[10px] tracking-[0.05em] uppercase text-on-primary/50 mb-2">Hashrate — <span id="miner-hashrate">0</span> H/s</p>
+          <div class="flex items-end gap-[3px] h-6" id="miner-bars">
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+            <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
+          </div>
+        </div>
+
+        <button id="miner-btn" onclick="toggleMiner()" class="w-full bg-white text-primary font-label-sm text-[13px] font-bold py-3 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform">
+          <span class="material-symbols-outlined text-[17px]">play_arrow</span>
+          Start Mining
+        </button>
+      </div>
+    </div>
+
+    <!-- ── TOTAL SUMMARY ── -->
+    <div>
+      <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mb-3">Summary</h2>
+      <div class="grid grid-cols-2 gap-2.5">
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <p class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide mb-1">Active Rigs</p>
+          <p class="font-numeric-data text-[22px] font-semibold text-primary leading-none">3 / 4</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <p class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide mb-1">Total Hashrate</p>
+          <p class="font-numeric-data text-[22px] font-semibold text-primary leading-none">312.4 TH/s</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <p class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide mb-1">Power Draw</p>
+          <p class="font-numeric-data text-[22px] font-semibold text-primary leading-none">3.2 kW</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <p class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide mb-1">Efficiency</p>
+          <p class="font-numeric-data text-[22px] font-semibold text-primary leading-none">97.4%</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <p class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide mb-1">Uptime</p>
+          <p class="font-numeric-data text-[22px] font-semibold text-primary leading-none">18d 6h</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <p class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide mb-1">Total Profit</p>
+          <p class="font-numeric-data text-[22px] font-semibold text-[#1a7f4b] leading-none">$842.17</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CLOUD MINING PACKAGES ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">Cloud Mining</h2>
+        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">$VALO Packages</span>
+      </div>
+      <div class="flex flex-col gap-3">
+
+        <!-- Package: Starter -->
+        <div onclick="openPackage('starter')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">bolt</span>
+              </div>
+              <div>
+                <p class="font-body-md text-[15px] font-semibold text-primary">Starter</p>
+                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">5 TH/s · 30 days</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-body-md text-[15px] font-bold text-primary">$49</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">one-time</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily ROI</p>
+              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">1.5%</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Hashrate</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">5 TH/s</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Est. Return</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">$22/mo</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Package: Pro -->
+        <div onclick="openPackage('pro')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute top-3.5 right-3.5 bg-primary text-on-primary font-label-sm text-[10px] px-2.5 py-1 rounded-full tracking-wide">Popular</div>
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">rocket_launch</span>
+              </div>
+              <div>
+                <p class="font-body-md text-[15px] font-semibold text-primary">Pro</p>
+                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">25 TH/s · 60 days</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-body-md text-[15px] font-bold text-primary">$199</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">one-time</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily ROI</p>
+              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">2.0%</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Hashrate</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">25 TH/s</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Est. Return</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">$119/mo</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Package: Elite -->
+        <div onclick="openPackage('elite')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">workspace_premium</span>
+              </div>
+              <div>
+                <p class="font-body-md text-[15px] font-semibold text-primary">Elite</p>
+                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">100 TH/s · 90 days</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-body-md text-[15px] font-bold text-primary">$699</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">one-time</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily ROI</p>
+              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">2.5%</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Hashrate</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">100 TH/s</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Est. Return</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">$524/mo</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Package: Whale -->
+        <div onclick="openPackage('whale')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">diamond</span>
+              </div>
+              <div>
+                <p class="font-body-md text-[15px] font-semibold text-primary">Whale</p>
+                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">500 TH/s · 180 days</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-body-md text-[15px] font-bold text-primary">$2,999</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">one-time</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily ROI</p>
+              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">2.5%</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Hashrate</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">500 TH/s</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Est. Return</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">$2,249/mo</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── MY PACKAGES ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">My Packages</h2>
+        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">2 active</span>
+      </div>
+      <div class="flex flex-col gap-3">
+
+        <!-- Owned: Pro -->
+        <div onclick="openMyPackage('pro')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[22px]">rocket_launch</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <p class="font-body-md text-[15px] font-semibold text-primary">Pro</p>
+                <div class="flex items-center gap-1.5 bg-[#e6f5ee] px-2.5 py-1 rounded-full">
+                  <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div>
+                  <span class="font-label-sm text-[10px] text-[#1a7f4b] font-semibold tracking-wide">Active</span>
+                </div>
+              </div>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">25 TH/s · expires in 47 days</p>
+            </div>
+          </div>
+          <!-- Progress bar -->
+          <div class="mb-3">
+            <div class="flex justify-between mb-1">
+              <span class="font-label-sm text-[10px] text-on-surface-variant">Day 13 of 60</span>
+              <span class="font-label-sm text-[10px] text-on-surface-variant">21.7%</span>
+            </div>
+            <div class="w-full bg-surface-container-highest rounded-full h-1.5">
+              <div class="h-1.5 rounded-full bg-primary" style="width:21.7%"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Today's Earn</p>
+              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">$3.98</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Total Earned</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">$51.74</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Claimable</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">$3.98</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Owned: Starter -->
+        <div onclick="openMyPackage('starter_owned')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[22px]">bolt</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <p class="font-body-md text-[15px] font-semibold text-primary">Starter</p>
+                <div class="flex items-center gap-1.5 bg-surface-container-highest px-2.5 py-1 rounded-full">
+                  <div class="w-1.5 h-1.5 rounded-full bg-on-surface-variant/40"></div>
+                  <span class="font-label-sm text-[10px] text-on-surface-variant font-semibold tracking-wide">Claimed</span>
+                </div>
+              </div>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">5 TH/s · claimed today</p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="flex justify-between mb-1">
+              <span class="font-label-sm text-[10px] text-on-surface-variant">Day 30 of 30</span>
+              <span class="font-label-sm text-[10px] text-on-surface-variant">100%</span>
+            </div>
+            <div class="w-full bg-surface-container-highest rounded-full h-1.5">
+              <div class="h-1.5 rounded-full bg-primary" style="width:100%"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Today's Earn</p>
+              <p class="font-body-md text-[13px] font-semibold text-on-surface-variant/50">$0.00</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Total Earned</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">$22.05</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Claimable</p>
+              <p class="font-body-md text-[13px] font-semibold text-on-surface-variant/50">$0.00</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── MY CLOUD MINERS ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">My Cloud Miners</h2>
+        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">2 owned</span>
+      </div>
+      <div class="flex flex-col gap-3">
+
+        <!-- Cloud Miner: Pro (reward ready) -->
+        <div onclick="openCloudMiner('cm_pro')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99] relative overflow-hidden">
+          <!-- Pulse badge for claimable reward -->
+          <div class="absolute top-4 right-4 flex items-center gap-1.5 bg-[#e6f5ee] px-2.5 py-1 rounded-full">
+            <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
+            <span class="font-label-sm text-[10px] text-[#1a7f4b] font-semibold tracking-wide">Claim Ready</span>
+          </div>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[22px]">rocket_launch</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-body-md text-[15px] font-semibold text-primary">Pro Miner</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">25 TH/s · expires in 47 days</p>
+            </div>
+          </div>
+          <!-- Progress bar -->
+          <div class="mb-3">
+            <div class="flex justify-between mb-1">
+              <span class="font-label-sm text-[10px] text-on-surface-variant">Day 13 of 60</span>
+              <span class="font-label-sm text-[10px] text-on-surface-variant">21.7%</span>
+            </div>
+            <div class="w-full bg-surface-container-highest rounded-full h-1.5">
+              <div class="h-1.5 rounded-full bg-primary" style="width:21.7%"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily Reward</p>
+              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">$3.98</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Total Earned</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">$51.74</p>
+            </div>
+            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-[#1a7f4b] tracking-wide mb-0.5">Claimable</p>
+              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">$3.98</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cloud Miner: Elite (already claimed today) -->
+        <div onclick="openCloudMiner('cm_elite')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[22px]">workspace_premium</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <p class="font-body-md text-[15px] font-semibold text-primary">Elite Miner</p>
+                <div class="flex items-center gap-1.5 bg-surface-container-highest px-2.5 py-1 rounded-full">
+                  <div class="w-1.5 h-1.5 rounded-full bg-on-surface-variant/40"></div>
+                  <span class="font-label-sm text-[10px] text-on-surface-variant font-semibold tracking-wide">Claimed Today</span>
+                </div>
+              </div>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">100 TH/s · expires in 74 days</p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="flex justify-between mb-1">
+              <span class="font-label-sm text-[10px] text-on-surface-variant">Day 16 of 90</span>
+              <span class="font-label-sm text-[10px] text-on-surface-variant">17.8%</span>
+            </div>
+            <div class="w-full bg-surface-container-highest rounded-full h-1.5">
+              <div class="h-1.5 rounded-full bg-primary" style="width:17.8%"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily Reward</p>
+              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">$17.48</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Total Earned</p>
+              <p class="font-body-md text-[13px] font-semibold text-primary">$279.68</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Claimable</p>
+              <p class="font-body-md text-[13px] font-semibold text-on-surface-variant/50">$0.00</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── MINING CALCULATOR ── -->
+    <div>
+      <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mb-3">Calculator</h2>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="mb-4">
+          <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">Investment Amount (USD)</label>
+          <div class="flex items-center bg-surface-container rounded-[12px] px-4 py-3 gap-2">
+            <span class="font-body-md text-[16px] text-on-surface-variant">$</span>
+            <input id="calc-input" type="number" value="199" min="49" oninput="calcMining()" class="flex-1 bg-transparent font-numeric-data text-[20px] text-primary outline-none w-full" placeholder="199"/>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">Daily ROI Rate</label>
+          <div class="flex gap-2">
+            <button onclick="setCalcRate(1.5)" class="calc-rate-btn flex-1 py-2 rounded-full border border-outline-variant/50 font-label-sm text-[12px] text-on-surface-variant transition-colors">1.5%</button>
+            <button onclick="setCalcRate(2.0)" class="calc-rate-btn flex-1 py-2 rounded-full border border-outline-variant/50 font-label-sm text-[12px] text-on-surface-variant transition-colors bg-primary text-on-primary border-primary">2.0%</button>
+            <button onclick="setCalcRate(2.5)" class="calc-rate-btn flex-1 py-2 rounded-full border border-outline-variant/50 font-label-sm text-[12px] text-on-surface-variant transition-colors">2.5%</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <div class="bg-surface-container rounded-[12px] py-3">
+            <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-1">Daily</p>
+            <p id="calc-daily" class="font-body-md text-[14px] font-bold text-primary">$3.98</p>
+          </div>
+          <div class="bg-surface-container rounded-[12px] py-3">
+            <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-1">Monthly</p>
+            <p id="calc-monthly" class="font-body-md text-[14px] font-bold text-primary">$119.40</p>
+          </div>
+          <div class="bg-surface-container rounded-[12px] py-3">
+            <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-1">Total ROI</p>
+            <p id="calc-total" class="font-body-md text-[14px] font-bold text-[#1a7f4b]">$238.80</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MINING HISTORY ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">History</h2>
+        <button class="font-label-sm text-[12px] text-secondary flex items-center gap-1 hover:opacity-70 transition-opacity">
+          View all <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">account_balance</span></div>
+            <div><p class="font-body-md text-[14px] font-semibold text-primary">Free Miner Payout</p><p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Today, 06:14</p></div>
+          </div>
+          <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+12.48 VALO</p><p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">$0.62</p></div>
+        </div>
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">cloud</span></div>
+            <div><p class="font-body-md text-[14px] font-semibold text-primary">Pro Cloud Payout</p><p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Yesterday, 00:00</p></div>
+          </div>
+          <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+3,980 VALO</p><p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">$3.98</p></div>
+        </div>
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">shopping_cart</span></div>
+            <div><p class="font-body-md text-[14px] font-semibold text-primary">Bought Pro Package</p><p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Jul 28, 14:22</p></div>
+          </div>
+          <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-primary">−$199.00</p><p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">USDC</p></div>
+        </div>
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">account_balance</span></div>
+            <div><p class="font-body-md text-[14px] font-semibold text-primary">Free Miner Payout</p><p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Jul 27, 06:14</p></div>
+          </div>
+          <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+11.92 VALO</p><p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">$0.60</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── MY PACKAGE DETAIL DIALOG ── -->
+<div id="mp-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeMyPackage()"></div>
+  <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10">
+    <div class="w-10 h-1 bg-outline-variant/60 rounded-full mx-auto mb-5"></div>
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-5">
+      <div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+        <span id="mp-icon" class="material-symbols-outlined text-on-surface-variant text-[26px]">rocket_launch</span>
+      </div>
+      <div class="flex-1">
+        <p id="mp-name" class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">Pro</p>
+        <p id="mp-sub" class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">25 TH/s · 60 days</p>
+      </div>
+      <div class="flex items-center gap-1.5 bg-[#e6f5ee] px-3 py-1.5 rounded-full">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
+        <span class="font-label-sm text-[11px] text-[#1a7f4b] font-semibold tracking-wide">Active</span>
+      </div>
+    </div>
+    <!-- Progress -->
+    <div class="mb-5">
+      <div class="flex justify-between mb-1.5">
+        <span id="mp-day-label" class="font-label-sm text-[11px] text-on-surface-variant">Day 13 of 60</span>
+        <span id="mp-pct-label" class="font-label-sm text-[11px] text-on-surface-variant">21.7%</span>
+      </div>
+      <div class="w-full bg-surface-container-highest rounded-full h-2">
+        <div id="mp-progress-bar" class="h-2 rounded-full bg-primary transition-all" style="width:21.7%"></div>
+      </div>
+    </div>
+    <!-- Stats -->
+    <div class="grid grid-cols-2 gap-2.5 mb-5">
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Hashrate</p>
+        <p id="mp-hash" class="font-body-md text-[16px] font-semibold text-primary">25 TH/s</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Daily ROI</p>
+        <p id="mp-roi" class="font-body-md text-[16px] font-semibold text-[#1a7f4b]">2.0%</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Expires In</p>
+        <p id="mp-expires" class="font-body-md text-[16px] font-semibold text-primary">47 days</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Total Earned</p>
+        <p id="mp-total-earned" class="font-body-md text-[16px] font-semibold text-primary">$51.74</p>
+      </div>
+    </div>
+    <!-- Earnings breakdown -->
+    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] px-5 py-4 mb-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+      <div class="flex items-center justify-between mb-3">
+        <p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant">Earnings</p>
+        <p id="mp-next-claim" class="font-label-sm text-[11px] text-on-surface-variant"></p>
+      </div>
+      <div class="flex gap-3">
+        <div class="flex-1 bg-surface-container rounded-[12px] py-3 text-center">
+          <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Today's Earn</p>
+          <p id="mp-daily-earn" class="font-body-md text-[15px] font-semibold text-[#1a7f4b]">$3.98</p>
+        </div>
+        <div class="flex-1 bg-[#e6f5ee] rounded-[12px] py-3 text-center">
+          <p class="font-label-sm text-[10px] text-[#1a7f4b] tracking-wide mb-0.5">Claimable</p>
+          <p id="mp-claimable" class="font-body-md text-[15px] font-bold text-[#1a7f4b]">$3.98</p>
+        </div>
+      </div>
+    </div>
+    <!-- Claim button -->
+    <button id="mp-claim-btn" onclick="claimMyPackage()" class="w-full bg-primary text-on-primary font-label-sm text-[14px] font-bold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all">
+      <span class="material-symbols-outlined text-[18px]">redeem</span>
+      <span>Claim · $3.98</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── CLOUD MINER DETAIL DIALOG ── -->
+<div id="cm-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeCloudMiner()"></div>
+  <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10">
+    <!-- Handle -->
+    <div class="w-10 h-1 bg-outline-variant/60 rounded-full mx-auto mb-5"></div>
+
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-5">
+      <div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+        <span id="cm-icon" class="material-symbols-outlined text-on-surface-variant text-[26px]">rocket_launch</span>
+      </div>
+      <div class="flex-1">
+        <p id="cm-name" class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">Pro Miner</p>
+        <p id="cm-sub" class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">25 TH/s · 60 days</p>
+      </div>
+      <div id="cm-status-badge" class="flex items-center gap-1.5 bg-[#e6f5ee] px-3 py-1.5 rounded-full">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
+        <span class="font-label-sm text-[11px] text-[#1a7f4b] font-semibold tracking-wide">Active</span>
+      </div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="mb-5">
+      <div class="flex justify-between mb-1.5">
+        <span id="cm-day-label" class="font-label-sm text-[11px] text-on-surface-variant">Day 13 of 60</span>
+        <span id="cm-pct-label" class="font-label-sm text-[11px] text-on-surface-variant">21.7%</span>
+      </div>
+      <div class="w-full bg-surface-container-highest rounded-full h-2">
+        <div id="cm-progress-bar" class="h-2 rounded-full bg-primary transition-all" style="width:21.7%"></div>
+      </div>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="grid grid-cols-2 gap-2.5 mb-5">
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Hashrate</p>
+        <p id="cm-hash" class="font-body-md text-[16px] font-semibold text-primary">25 TH/s</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Daily ROI</p>
+        <p id="cm-roi" class="font-body-md text-[16px] font-semibold text-[#1a7f4b]">2.0%</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Expires In</p>
+        <p id="cm-expires" class="font-body-md text-[16px] font-semibold text-primary">47 days</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Total Earned</p>
+        <p id="cm-total-earned" class="font-body-md text-[16px] font-semibold text-primary">$51.74</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Coin Mined</p>
+        <p class="font-body-md text-[16px] font-semibold text-primary">$VALO</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Power Cost</p>
+        <p class="font-body-md text-[16px] font-semibold text-primary">Included</p>
+      </div>
+    </div>
+
+    <!-- Daily Reward Claim Box -->
+    <div id="cm-reward-box" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] px-5 py-4 mb-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+      <div class="flex items-center justify-between mb-1">
+        <p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant">Today's Reward</p>
+        <p id="cm-next-claim" class="font-label-sm text-[11px] text-on-surface-variant tracking-wide"></p>
+      </div>
+      <div class="flex items-center justify-between">
         <div>
-          <p class="font-label-sm text-[11px] uppercase tracking-[0.06em] text-on-primary/60 mb-1">Network</p>
-          <p class="font-heading-md text-[22px] font-semibold text-on-primary tracking-tight">Bitcoin (SHA-256)</p>
+          <p id="cm-reward-amount" class="font-numeric-data text-[28px] font-semibold text-primary leading-none">$3.98</p>
+          <p id="cm-reward-valo" class="font-label-sm text-[11px] text-on-surface-variant mt-1 tracking-wide">≈ 3,980 VALO</p>
         </div>
-        <div class="bg-white/10 rounded-full px-3 py-1.5 flex items-center gap-1.5">
-          <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
-          <span class="font-label-sm text-[11px] text-on-primary">Live</span>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div><p class="font-label-sm text-[10px] uppercase text-on-primary/50 mb-0.5">Hashrate</p><p class="font-body-md text-[16px] font-semibold text-on-primary">312.4 TH/s</p></div>
-        <div><p class="font-label-sm text-[10px] uppercase text-on-primary/50 mb-0.5">Difficulty</p><p class="font-body-md text-[16px] font-semibold text-on-primary">88.1 T</p></div>
-        <div><p class="font-label-sm text-[10px] uppercase text-on-primary/50 mb-0.5">Power Draw</p><p class="font-body-md text-[16px] font-semibold text-on-primary">3.2 kW</p></div>
-        <div><p class="font-label-sm text-[10px] uppercase text-on-primary/50 mb-0.5">Est. Daily</p><p class="font-body-md text-[16px] font-semibold text-on-primary">$214.88</p></div>
+        <div id="cm-claim-pulse" class="w-3 h-3 rounded-full bg-[#4ade80] bar-active"></div>
       </div>
     </div>
-    <!-- Rig List -->
-    <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mt-2">Rigs</h2>
-    <div class="flex flex-col gap-3">
-      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-[#e5e5e5] flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">memory</span></div>
-          <div><p class="font-body-md text-[15px] font-semibold text-primary">Rig-01</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Antminer S19 XP</p></div>
-        </div>
-        <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">140 TH/s</p><div class="flex items-center justify-end gap-1 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div><span class="font-label-sm text-[11px] text-on-surface-variant">Online</span></div></div>
+
+    <!-- Claim / Claimed button -->
+    <button id="cm-claim-btn" onclick="claimReward()" class="w-full bg-primary text-on-primary font-label-sm text-[14px] font-bold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform">
+      <span class="material-symbols-outlined text-[18px]">redeem</span>
+      <span id="cm-btn-label">Claim Daily Reward</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── PACKAGE DETAIL DIALOG ── -->
+<div id="pkg-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closePackage()"></div>
+  <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10">
+    <!-- Handle -->
+    <div class="w-10 h-1 bg-outline-variant/60 rounded-full mx-auto mb-5"></div>
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-5">
+      <div id="pkg-icon-wrap" class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+        <span id="pkg-icon" class="material-symbols-outlined text-on-surface-variant text-[26px]">bolt</span>
       </div>
-      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-[#e5e5e5] flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">memory</span></div>
-          <div><p class="font-body-md text-[15px] font-semibold text-primary">Rig-02</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Antminer S19 Pro</p></div>
-        </div>
-        <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">110 TH/s</p><div class="flex items-center justify-end gap-1 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div><span class="font-label-sm text-[11px] text-on-surface-variant">Online</span></div></div>
+      <div>
+        <p id="pkg-name" class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">Starter</p>
+        <p id="pkg-sub" class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">5 TH/s · 30 days</p>
       </div>
-      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-[#e5e5e5] flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">memory</span></div>
-          <div><p class="font-body-md text-[15px] font-semibold text-primary">Rig-03</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Whatsminer M50S</p></div>
-        </div>
-        <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">62.4 TH/s</p><div class="flex items-center justify-end gap-1 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div><span class="font-label-sm text-[11px] text-on-surface-variant">Online</span></div></div>
-      </div>
-      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)] opacity-50">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-[#e5e5e5] flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">memory</span></div>
-          <div><p class="font-body-md text-[15px] font-semibold text-primary">Rig-04</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Whatsminer M30S</p></div>
-        </div>
-        <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-on-surface-variant">—</p><div class="flex items-center justify-end gap-1 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-on-surface-variant/40"></div><span class="font-label-sm text-[11px] text-on-surface-variant">Offline</span></div></div>
+      <div class="ml-auto text-right">
+        <p id="pkg-price" class="font-numeric-data text-[26px] font-semibold text-primary">$49</p>
+        <p class="font-label-sm text-[11px] text-on-surface-variant">one-time</p>
       </div>
     </div>
+    <!-- Detail grid -->
+    <div class="grid grid-cols-2 gap-2.5 mb-5">
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Daily ROI</p>
+        <p id="pkg-roi" class="font-body-md text-[16px] font-semibold text-[#1a7f4b]">1.5%</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Hashrate</p>
+        <p id="pkg-hash" class="font-body-md text-[16px] font-semibold text-primary">5 TH/s</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Duration</p>
+        <p id="pkg-duration" class="font-body-md text-[16px] font-semibold text-primary">30 days</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Est. Return</p>
+        <p id="pkg-return" class="font-body-md text-[16px] font-semibold text-primary">$22/mo</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Coin Mined</p>
+        <p class="font-body-md text-[16px] font-semibold text-primary">$VALO</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Power Cost</p>
+        <p class="font-body-md text-[16px] font-semibold text-primary">Included</p>
+      </div>
+    </div>
+    <!-- Total profit row -->
+    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[14px] px-4 py-3 flex items-center justify-between mb-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+      <p class="font-label-sm text-[12px] text-on-surface-variant tracking-wide">Total Projected Profit</p>
+      <p id="pkg-profit" class="font-body-md text-[15px] font-bold text-[#1a7f4b]">+$22.05</p>
+    </div>
+    <!-- Pay with -->
+    <p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-2">Pay with</p>
+    <div class="flex gap-2 mb-5">
+      <button onclick="selectPay('usdc')" id="pay-usdc" class="flex-1 py-2.5 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[12px] font-semibold transition-colors">USDC</button>
+      <button onclick="selectPay('valo')" id="pay-valo" class="flex-1 py-2.5 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors">$VALO</button>
+      <button onclick="selectPay('btc')" id="pay-btc" class="flex-1 py-2.5 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors">BTC</button>
+    </div>
+    <!-- Confirm button -->
+    <button id="pkg-confirm-btn" onclick="confirmPurchase()" class="w-full bg-primary text-on-primary font-label-sm text-[14px] font-bold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform">
+      <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+      <span id="pkg-btn-label">Confirm Purchase · $49</span>
+    </button>
   </div>
 </div>
 
@@ -772,6 +1456,24 @@
 </div>
 
 <script>
+  /* ─────────────────────────────────────────────────────────────────
+     HELPER: swap a button between states
+     states = { idle, loading, success, disabled }
+     each state: { label, icon, cls }
+  ───────────────────────────────────────────────────────────────── */
+  const BASE_BTN  = 'w-full font-label-sm text-[14px] font-bold py-4 rounded-full flex items-center justify-center gap-2 transition-all';
+  const BASE_BTN2 = 'w-full font-label-sm text-[13px] font-bold py-3 rounded-full flex items-center justify-center gap-2 transition-all';
+
+  function setBtn(id, state) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML  = state.icon
+      ? `<span class="material-symbols-outlined text-[18px]" style="${state.iconFill||''}">${state.icon}</span><span>${state.label}</span>`
+      : `<span>${state.label}</span>`;
+    el.className  = state.cls;
+    el.disabled   = !!state.disabled;
+  }
+
   // ── Chart data per time range ──────────────────────────────────────
   const chartPaths = {
     '1H': {
@@ -896,6 +1598,414 @@
       balanceEye.textContent = 'visibility';
     }
   });
+
+  // ── FREE MINER ───────────────────────────────────────────────────
+  let minerActive = false;
+  let minerInterval = null;
+  let countdownInterval = null;
+  let minerEarned = 0;
+  let minerResetAt = null;
+
+  function toggleMiner() {
+    const stored = localStorage.getItem('valo_miner_reset_at');
+    if (stored && Date.now() < parseInt(stored) && !minerActive) {
+      alert('Miner already completed. Please wait for the 24h cycle to reset.');
+      return;
+    }
+    if (!minerActive) startMiner(); else stopMiner();
+  }
+
+  const MINER_START = 'w-full bg-white text-primary font-label-sm text-[13px] font-bold py-3 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all';
+  const MINER_STOP  = 'w-full bg-white/20 text-white border border-white/30 font-label-sm text-[13px] font-bold py-3 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all';
+
+  function startMiner() {
+    minerActive = true;
+    minerResetAt = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem('valo_miner_reset_at', minerResetAt);
+
+    const btn = document.getElementById('miner-btn');
+    btn.className = MINER_STOP;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[17px]">stop</span><span>Stop Miner</span>';
+
+    document.getElementById('miner-status-badge').innerHTML =
+      '<div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div><span class="font-label-sm text-[11px] text-on-primary tracking-wide">Mining</span>';
+    document.getElementById('miner-hashrate').textContent = '842';
+    animateBars(true);
+    minerInterval = setInterval(() => {
+      minerEarned += 0.0004 + Math.random() * 0.0003;
+      document.getElementById('miner-earned').textContent = minerEarned.toFixed(4) + ' VALO';
+      animateBars(true);
+    }, 2000);
+    countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  }
+
+  function stopMiner() {
+    minerActive = false;
+    clearInterval(minerInterval);
+    clearInterval(countdownInterval);
+
+    const btn = document.getElementById('miner-btn');
+    btn.className = MINER_START;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[17px]">play_arrow</span><span>Start Mining</span>';
+
+    document.getElementById('miner-status-badge').innerHTML =
+      '<div class="w-1.5 h-1.5 rounded-full bg-on-primary/40"></div><span class="font-label-sm text-[11px] text-on-primary tracking-wide">Idle</span>';
+    document.getElementById('miner-hashrate').textContent = '0';
+    document.getElementById('miner-timer').textContent = '—';
+    animateBars(false);
+  }
+
+  function animateBars(active) {
+    const bars = document.querySelectorAll('#miner-bars .flex-1');
+    bars.forEach((b, i) => {
+      if (active) {
+        const h = 25 + Math.floor(Math.random() * 75);
+        b.style.height = h + '%';
+        b.className = 'flex-1 rounded-sm ' + (i % 3 === 2 ? 'bg-white/50 bar-active' : 'bg-on-primary/30');
+      } else {
+        b.style.height = '30%';
+        b.className = 'flex-1 bg-on-primary/15 rounded-sm';
+      }
+    });
+  }
+
+  function updateCountdown() {
+    const remaining = minerResetAt - Date.now();
+    if (remaining <= 0) {
+      stopMiner();
+      localStorage.removeItem('valo_miner_reset_at');
+      return;
+    }
+    const h = Math.floor(remaining / 3600000);
+    const m = Math.floor((remaining % 3600000) / 60000);
+    const s = Math.floor((remaining % 60000) / 1000);
+    document.getElementById('miner-timer').textContent =
+      String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+
+  // Resume miner if still active from a previous session
+  (function() {
+    const stored = localStorage.getItem('valo_miner_reset_at');
+    if (stored && Date.now() < parseInt(stored)) {
+      minerResetAt = parseInt(stored);
+      startMiner();
+    }
+  })();
+
+  // ── PACKAGE DIALOG ───────────────────────────────────────────────
+  const packages = {
+    starter: { name:'Starter', icon:'bolt',              sub:'5 TH/s · 30 days',    price:'$49',    roi:'1.5%', hash:'5 TH/s',   duration:'30 days',  ret:'$22/mo',    profit:'+$22.05'  },
+    pro:     { name:'Pro',     icon:'rocket_launch',     sub:'25 TH/s · 60 days',   price:'$199',   roi:'2.0%', hash:'25 TH/s',  duration:'60 days',  ret:'$119/mo',   profit:'+$238.80' },
+    elite:   { name:'Elite',   icon:'workspace_premium', sub:'100 TH/s · 90 days',  price:'$699',   roi:'2.5%', hash:'100 TH/s', duration:'90 days',  ret:'$524/mo',   profit:'+$1,572'  },
+    whale:   { name:'Whale',   icon:'diamond',           sub:'500 TH/s · 180 days', price:'$2,999', roi:'2.5%', hash:'500 TH/s', duration:'180 days', ret:'$2,249/mo', profit:'+$13,495' },
+  };
+  let selectedPay = 'usdc';
+
+  function openPackage(key) {
+    const p = packages[key];
+    document.getElementById('pkg-name').textContent     = p.name;
+    document.getElementById('pkg-icon').textContent     = p.icon;
+    document.getElementById('pkg-sub').textContent      = p.sub;
+    document.getElementById('pkg-price').textContent    = p.price;
+    document.getElementById('pkg-roi').textContent      = p.roi;
+    document.getElementById('pkg-hash').textContent     = p.hash;
+    document.getElementById('pkg-duration').textContent = p.duration;
+    document.getElementById('pkg-return').textContent   = p.ret;
+    document.getElementById('pkg-profit').textContent   = p.profit;
+    document.getElementById('pkg-btn-label').textContent = 'Confirm Purchase · ' + p.price;
+    document.getElementById('pkg-dialog').dataset.key  = key;
+    selectedPay = 'usdc';
+    ['usdc','valo','btc'].forEach(id => {
+      const b = document.getElementById('pay-' + id);
+      b.className = id === 'usdc'
+        ? 'flex-1 py-2.5 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[12px] font-semibold transition-colors'
+        : 'flex-1 py-2.5 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors';
+    });
+    document.getElementById('pkg-dialog').classList.remove('hidden');
+    document.getElementById('pkg-dialog').classList.add('flex');
+  }
+
+  function closePackage() {
+    document.getElementById('pkg-dialog').classList.add('hidden');
+    document.getElementById('pkg-dialog').classList.remove('flex');
+  }
+
+  function selectPay(method) {
+    selectedPay = method;
+    ['usdc','valo','btc'].forEach(id => {
+      const b = document.getElementById('pay-' + id);
+      b.className = id === method
+        ? 'flex-1 py-2.5 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[12px] font-semibold transition-colors'
+        : 'flex-1 py-2.5 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors';
+    });
+  }
+
+  function confirmPurchase() {
+    const key = document.getElementById('pkg-dialog').dataset.key;
+    const p = packages[key];
+    const BLACK  = BASE_BTN + ' bg-primary text-on-primary active:scale-95';
+    const SPIN   = BASE_BTN + ' bg-primary/70 text-on-primary cursor-not-allowed';
+    const GREEN  = BASE_BTN + ' bg-[#1a7f4b] text-white cursor-not-allowed';
+
+    // Loading
+    setBtn('pkg-confirm-btn', { label:'Processing…', icon:'autorenew', cls: SPIN, disabled:true });
+
+    setTimeout(() => {
+      // Success
+      setBtn('pkg-confirm-btn', { label:'Purchased!', icon:'check_circle',
+        iconFill:"font-variation-settings:'FILL' 1", cls: GREEN, disabled:true });
+
+      setTimeout(() => {
+        // Reset
+        setBtn('pkg-confirm-btn', { label:'Confirm Purchase · ' + p.price, icon:'shopping_cart', cls: BLACK });
+        document.getElementById('pkg-confirm-btn').innerHTML =
+          '<span class="material-symbols-outlined text-[18px]">shopping_cart</span><span id="pkg-btn-label">Confirm Purchase · ' + p.price + '</span>';
+        document.getElementById('pkg-confirm-btn').disabled = false;
+        document.getElementById('pkg-confirm-btn').className = BLACK;
+        closePackage();
+      }, 1600);
+    }, 1400);
+  }
+
+  // ── MY PACKAGE DETAIL (owned) ────────────────────────────────────
+  const myPackages = {
+    pro: {
+      name:'Pro', icon:'rocket_launch', sub:'25 TH/s · expires in 47 days',
+      hash:'25 TH/s', roi:'2.0%', expires:'47 days', day:13, total:60,
+      totalEarned:'$51.74', dailyEarn:'$3.98', claimable:'$3.98',
+      claimedKey:'valo_mypkg_pro_claimed_at', claimable_val: 3.98,
+    },
+    starter_owned: {
+      name:'Starter', icon:'bolt', sub:'5 TH/s · claimed today',
+      hash:'5 TH/s', roi:'1.5%', expires:'Completed', day:30, total:30,
+      totalEarned:'$22.05', dailyEarn:'$0.00', claimable:'$0.00',
+      claimedKey:'valo_mypkg_starter_claimed_at', claimable_val: 0,
+    },
+  };
+
+  const MP_READY   = BASE_BTN + ' bg-primary text-on-primary active:scale-95';
+  const MP_LOADING = BASE_BTN + ' bg-primary/60 text-on-primary cursor-not-allowed';
+  const MP_SUCCESS = BASE_BTN + ' bg-[#1a7f4b] text-white cursor-not-allowed';
+  const MP_EMPTY   = BASE_BTN + ' bg-surface-container-highest text-on-surface-variant cursor-not-allowed';
+
+  function openMyPackage(key) {
+    const m   = myPackages[key];
+    const pct = ((m.day / m.total) * 100).toFixed(1);
+
+    document.getElementById('mp-icon').textContent         = m.icon;
+    document.getElementById('mp-name').textContent         = m.name;
+    document.getElementById('mp-sub').textContent          = m.sub;
+    document.getElementById('mp-hash').textContent         = m.hash;
+    document.getElementById('mp-roi').textContent          = m.roi;
+    document.getElementById('mp-expires').textContent      = m.expires;
+    document.getElementById('mp-day-label').textContent    = 'Day ' + m.day + ' of ' + m.total;
+    document.getElementById('mp-pct-label').textContent    = pct + '%';
+    document.getElementById('mp-progress-bar').style.width = pct + '%';
+    document.getElementById('mp-total-earned').textContent = m.totalEarned;
+    document.getElementById('mp-daily-earn').textContent   = m.dailyEarn;
+    document.getElementById('mp-claimable').textContent    = m.claimable;
+
+    const stored       = localStorage.getItem(m.claimedKey);
+    const claimedAt    = stored ? parseInt(stored) : null;
+    const nextReset    = claimedAt ? claimedAt + 24 * 60 * 60 * 1000 : null;
+    const alreadyClaimed = nextReset && Date.now() < nextReset;
+    const noReward     = m.claimable_val === 0;
+
+    const btn       = document.getElementById('mp-claim-btn');
+    const nextLabel = document.getElementById('mp-next-claim');
+
+    document.getElementById('mp-dialog').dataset.key = key;
+
+    if (noReward) {
+      nextLabel.textContent = 'Package complete';
+      btn.className = MP_EMPTY;
+      btn.disabled  = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">do_not_disturb</span><span>Nothing to Claim</span>';
+    } else if (alreadyClaimed) {
+      const rem = nextReset - Date.now();
+      const h   = Math.floor(rem / 3600000);
+      const mn  = Math.floor((rem % 3600000) / 60000);
+      nextLabel.textContent = 'Next in ' + h + 'h ' + mn + 'm';
+      btn.className = MP_EMPTY;
+      btn.disabled  = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1">check_circle</span><span>Claimed Today</span>';
+    } else {
+      nextLabel.textContent = 'Available now';
+      btn.className = MP_READY;
+      btn.disabled  = false;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">redeem</span><span>Claim · ' + m.claimable + '</span>';
+    }
+
+    document.getElementById('mp-dialog').classList.remove('hidden');
+    document.getElementById('mp-dialog').classList.add('flex');
+  }
+
+  function closeMyPackage() {
+    document.getElementById('mp-dialog').classList.add('hidden');
+    document.getElementById('mp-dialog').classList.remove('flex');
+  }
+
+  function claimMyPackage() {
+    const key = document.getElementById('mp-dialog').dataset.key;
+    const m   = myPackages[key];
+    const btn = document.getElementById('mp-claim-btn');
+
+    // → Loading
+    btn.className = MP_LOADING;
+    btn.disabled  = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="animation:spin 1s linear infinite;display:inline-block">autorenew</span><span>Claiming…</span>';
+
+    setTimeout(() => {
+      localStorage.setItem(m.claimedKey, Date.now().toString());
+
+      // → Success
+      btn.className = MP_SUCCESS;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1">check_circle</span><span>Claimed · ' + m.claimable + '</span>';
+      document.getElementById('mp-next-claim').textContent = 'Next in 24h 0m';
+      document.getElementById('mp-claimable').textContent  = '$0.00';
+
+      setTimeout(closeMyPackage, 1800);
+    }, 1400);
+  }
+
+  // ── CLOUD MINER DETAIL + CLAIM ────────────────────────────────────
+  const cloudMiners = {
+    cm_pro: {
+      name: 'Pro Miner',
+      icon: 'rocket_launch',
+      sub: '25 TH/s · 60 days',
+      hash: '25 TH/s',
+      roi: '2.0%',
+      expires: '47 days',
+      totalEarned: '$51.74',
+      day: 13, total: 60,
+      reward: '$3.98',
+      rewardValo: '≈ 3,980 VALO',
+      claimedKey: 'valo_cm_pro_claimed_at',
+    },
+    cm_elite: {
+      name: 'Elite Miner',
+      icon: 'workspace_premium',
+      sub: '100 TH/s · 90 days',
+      hash: '100 TH/s',
+      roi: '2.5%',
+      expires: '74 days',
+      totalEarned: '$279.68',
+      day: 16, total: 90,
+      reward: '$17.48',
+      rewardValo: '≈ 17,480 VALO',
+      claimedKey: 'valo_cm_elite_claimed_at',
+    },
+  };
+
+  let currentCM = null;
+
+  const CM_READY    = BASE_BTN + ' bg-primary text-on-primary active:scale-95';
+  const CM_LOADING  = BASE_BTN + ' bg-primary/60 text-on-primary cursor-not-allowed';
+  const CM_SUCCESS  = BASE_BTN + ' bg-[#1a7f4b] text-white cursor-not-allowed';
+  const CM_CLAIMED  = BASE_BTN + ' bg-surface-container-highest text-on-surface-variant cursor-not-allowed';
+
+  function openCloudMiner(key) {
+    const m = cloudMiners[key];
+    currentCM = key;
+    document.getElementById('cm-icon').textContent          = m.icon;
+    document.getElementById('cm-name').textContent          = m.name;
+    document.getElementById('cm-sub').textContent           = m.sub;
+    document.getElementById('cm-hash').textContent          = m.hash;
+    document.getElementById('cm-roi').textContent           = m.roi;
+    document.getElementById('cm-expires').textContent       = m.expires;
+    document.getElementById('cm-total-earned').textContent  = m.totalEarned;
+    document.getElementById('cm-reward-amount').textContent = m.reward;
+    document.getElementById('cm-reward-valo').textContent   = m.rewardValo;
+
+    const pct = ((m.day / m.total) * 100).toFixed(1);
+    document.getElementById('cm-day-label').textContent  = 'Day ' + m.day + ' of ' + m.total;
+    document.getElementById('cm-pct-label').textContent  = pct + '%';
+    document.getElementById('cm-progress-bar').style.width = pct + '%';
+
+    // Check 24h claim window
+    const stored = localStorage.getItem(m.claimedKey);
+    const claimedAt  = stored ? parseInt(stored) : null;
+    const nextReset  = claimedAt ? claimedAt + 24 * 60 * 60 * 1000 : null;
+    const alreadyClaimed = nextReset && Date.now() < nextReset;
+
+    const btn       = document.getElementById('cm-claim-btn');
+    const pulse     = document.getElementById('cm-claim-pulse');
+    const nextLabel = document.getElementById('cm-next-claim');
+
+    if (alreadyClaimed) {
+      const rem = nextReset - Date.now();
+      const h  = Math.floor(rem / 3600000);
+      const mn = Math.floor((rem % 3600000) / 60000);
+      nextLabel.textContent = 'Next in ' + h + 'h ' + mn + 'm';
+      pulse.className = 'w-3 h-3 rounded-full bg-on-surface-variant/30';
+      btn.className   = CM_CLAIMED;
+      btn.disabled    = true;
+      btn.innerHTML   = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1">check_circle</span><span>Reward Claimed</span>';
+    } else {
+      nextLabel.textContent = 'Available now';
+      pulse.className = 'w-3 h-3 rounded-full bg-[#4ade80] bar-active';
+      btn.className   = CM_READY;
+      btn.disabled    = false;
+      btn.innerHTML   = '<span class="material-symbols-outlined text-[18px]">redeem</span><span>Claim Daily Reward</span>';
+    }
+
+    document.getElementById('cm-dialog').classList.remove('hidden');
+    document.getElementById('cm-dialog').classList.add('flex');
+  }
+
+  function closeCloudMiner() {
+    document.getElementById('cm-dialog').classList.add('hidden');
+    document.getElementById('cm-dialog').classList.remove('flex');
+    currentCM = null;
+  }
+
+  function claimReward() {
+    if (!currentCM) return;
+    const m     = cloudMiners[currentCM];
+    const btn   = document.getElementById('cm-claim-btn');
+    const pulse = document.getElementById('cm-claim-pulse');
+
+    // → Loading
+    btn.className = CM_LOADING;
+    btn.disabled  = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="animation:spin 1s linear infinite;display:inline-block">autorenew</span><span>Claiming…</span>';
+
+    setTimeout(() => {
+      localStorage.setItem(m.claimedKey, Date.now().toString());
+
+      // → Success
+      pulse.className = 'w-3 h-3 rounded-full bg-on-surface-variant/30';
+      btn.className   = CM_SUCCESS;
+      btn.innerHTML   = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1">check_circle</span><span>Reward Claimed · ' + m.reward + '</span>';
+      document.getElementById('cm-next-claim').textContent = 'Next in 24h 0m';
+
+      setTimeout(closeCloudMiner, 1800);
+    }, 1400);
+  }
+
+  // ── MINING CALCULATOR ────────────────────────────────────────────
+  let calcRate = 2.0;
+
+  function setCalcRate(r) {
+    calcRate = r;
+    document.querySelectorAll('.calc-rate-btn').forEach(btn => {
+      btn.className = parseFloat(btn.textContent) === r
+        ? 'calc-rate-btn flex-1 py-2 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[12px] font-semibold transition-colors'
+        : 'calc-rate-btn flex-1 py-2 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors';
+    });
+    calcMining();
+  }
+
+  function calcMining() {
+    const amt = parseFloat(document.getElementById('calc-input').value) || 0;
+    const daily = amt * (calcRate / 100);
+    document.getElementById('calc-daily').textContent   = '$' + daily.toFixed(2);
+    document.getElementById('calc-monthly').textContent = '$' + (daily * 30).toFixed(2);
+    document.getElementById('calc-total').textContent   = '$' + (daily * 60).toFixed(2);
+  }
+  calcMining();
 </script>
 
 </body>

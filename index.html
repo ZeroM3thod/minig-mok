@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Vaultron - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface": "#fcf8f8",
+          "on-primary-fixed-variant": "#464747",
+          "inverse-primary": "#c7c6c6",
+          "outline-variant": "#c4c7c7",
+          "background": "#fcf8f8",
+          "primary-fixed-dim": "#c7c6c6",
+          "on-error": "#ffffff",
+          "tertiary-container": "#1e1b1b",
+          "primary-container": "#1b1c1c",
+          "tertiary-fixed": "#e8e1e0",
+          "surface-tint": "#5e5e5e",
+          "on-primary-container": "#848483",
+          "on-tertiary-container": "#888382",
+          "on-background": "#1c1b1b",
+          "secondary-fixed-dim": "#b4c5ff",
+          "on-primary": "#ffffff",
+          "surface-container-highest": "#e5e2e1",
+          "error-container": "#ffdad6",
+          "on-secondary": "#ffffff",
+          "inverse-surface": "#313030",
+          "surface-bright": "#fcf8f8",
+          "surface-variant": "#e5e2e1",
+          "primary-fixed": "#e3e2e1",
+          "on-surface": "#1c1b1b",
+          "surface-dim": "#ddd9d8",
+          "error": "#ba1a1a",
+          "on-secondary-container": "#fefcff",
+          "secondary-container": "#2469ff",
+          "inverse-on-surface": "#f4f0ef",
+          "on-tertiary-fixed": "#1e1b1b",
+          "surface-container-lowest": "#ffffff",
+          "on-tertiary": "#ffffff",
+          "surface-container": "#f1edec",
+          "surface-container-low": "#f7f3f2",
+          "on-surface-variant": "#444747",
+          "on-error-container": "#93000a",
+          "on-secondary-fixed-variant": "#003da9",
+          "primary": "#000000",
+          "on-primary-fixed": "#1b1c1c",
+          "secondary-fixed": "#dbe1ff",
+          "tertiary-fixed-dim": "#ccc5c4",
+          "on-tertiary-fixed-variant": "#4a4646",
+          "surface-container-high": "#ebe7e7",
+          "on-secondary-fixed": "#00174c",
+          "secondary": "#0050d7",
+          "outline": "#747878",
+          "tertiary": "#000000"
+        },
+        "borderRadius": {
+          "DEFAULT": "1rem",
+          "lg": "2rem",
+          "xl": "3rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "lg": "48px",
+          "unit": "4px",
+          "gutter": "24px",
+          "xs": "8px",
+          "xl": "80px",
+          "container-margin": "24px",
+          "md": "24px",
+          "sm": "16px"
+        },
+        "fontFamily": {
+          "body-md": ["Inter"],
+          "numeric-data": ["Inter"],
+          "display-xl": ["Inter"],
+          "label-sm": ["Inter"],
+          "display-lg": ["Inter"],
+          "heading-md": ["Inter"],
+          "body-lg": ["Inter"]
+        },
+        "fontSize": {
+          "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+          "numeric-data": ["24px", { "lineHeight": "1.0", "letterSpacing": "-0.055em", "fontWeight": "500" }],
+          "display-xl": ["82px", { "lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "600" }],
+          "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600" }],
+          "display-lg": ["56px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+          "heading-md": ["28px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+          "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "-0.01em", "fontWeight": "400" }]
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  }
+  .material-symbols-outlined[data-fill="1"] {
+    font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+  }
+  body {
+    background-color: #fcf8f8;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Hashrate bar animation */
+  @keyframes barPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .bar-active { animation: barPulse 2s ease-in-out infinite; }
+
+  /* Dotted chart pattern */
+  .chart-dot-fill {
+    fill: url(#dotGrid);
+  }
+</style>
+</head>
+
+<body class="bg-[#fcf8f8] text-on-surface min-h-screen font-body-md">
+
+<!-- Mobile Artboard -->
+<div class="relative w-full max-w-[393px] mx-auto min-h-screen bg-[#fcf8f8] shadow-2xl flex flex-col overflow-hidden">
+
+  <!-- Top App Bar -->
+  <header class="flex justify-between items-center w-full px-container-margin h-14 pt-4 shrink-0">
+    <div class="flex flex-col">
+      <div class="flex items-center gap-1">
+        <span class="font-label-sm text-[11px] tracking-[0.05em] uppercase text-on-surface-variant">Good morning</span>
+        <span class="material-symbols-outlined text-primary text-[13px]" style="font-variation-settings:'FILL' 1,'wght' 400;">wb_sunny</span>
+      </div>
+      <h1 class="font-heading-md text-[22px] font-bold tracking-tight text-primary leading-tight">Hasan</h1>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="relative w-10 h-10 flex items-center justify-center text-on-surface hover:opacity-70 transition-opacity">
+        <span class="material-symbols-outlined text-[24px]">notifications</span>
+        <div class="absolute top-2 right-1.5 w-2 h-2 bg-secondary rounded-full border-2 border-[#fcf8f8]"></div>
+      </button>
+      <button class="w-9 h-9 rounded-full border border-outline-variant overflow-hidden flex items-center justify-center">
+        <img src="https://api.dicebear.com/10.x/bottts-neutral/svg?eyesVariant=bulging&mouthVariant=smile02&textureVariant=grunge02&backgroundColor=15a876&backgroundColorFill=radial&backgroundColorAngle=357&backgroundColorFillStops=4&seed=Felix" alt="avatar" class="w-full h-full object-cover"/>
+      </button>
+    </div>
+  </header>
+
+  <!-- Scrollable Content -->
+  <main id="home-main" class="flex-1 overflow-y-auto hide-scrollbar pb-36">
+
+    <!-- Total Portfolio Balance -->
+    <section class="px-container-margin mt-4 mb-6">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="font-label-sm text-[11px] tracking-[0.06em] uppercase text-on-surface-variant">Total Portfolio</span>
+        <button id="balance-toggle" class="text-on-surface-variant">
+          <span id="balance-eye" class="material-symbols-outlined text-[15px]">visibility</span>
+        </button>
+      </div>
+      <div class="flex items-baseline gap-2 mb-1">
+        <span id="balance-main" class="font-display-lg text-[52px] font-semibold tracking-tight leading-none text-primary">$48,</span><span id="balance-decimal" class="font-display-lg text-[52px] font-semibold tracking-tight leading-none text-outline">291.04</span>
+      </div>
+      <div id="balance-change" class="flex items-center gap-1.5">
+        <div class="flex items-center gap-0.5 text-[#1a7f4b] bg-[#e6f5ee] px-2 py-1 rounded-full">
+          <span class="material-symbols-outlined text-[13px]" style="font-variation-settings:'FILL' 1,'wght' 400;">north_east</span>
+          <span class="font-label-sm text-[11px] font-semibold tracking-wide">+$842.17 (1.78%)</span>
+        </div>
+        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">24h</span>
+      </div>
+    </section>
+
+    <!-- Portfolio Chart -->
+    <section class="w-full px-0 mb-2 relative overflow-hidden" style="height:160px;">
+      <svg class="w-full h-full" viewBox="0 0 393 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotGrid" x="0" y="0" width="7" height="7" patternUnits="userSpaceOnUse">
+            <circle cx="1.5" cy="1.5" r="0.9" fill="#000000" fill-opacity="0.07"/>
+          </pattern>
+          <linearGradient id="chartFade" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#000000" stop-opacity="0.06"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <!-- Area fill with dot pattern -->
+        <path id="chart-area" d="M0,140 L0,105 C25,115 40,120 60,95 C85,65 100,80 125,55 C150,30 165,75 190,45 C215,15 230,55 255,30 C275,10 295,40 320,20 C345,0 370,30 393,15 L393,140 Z" fill="url(#chartFade)"/>
+        <path d="M0,140 L0,105 C25,115 40,120 60,95 C85,65 100,80 125,55 C150,30 165,75 190,45 C215,15 230,55 255,30 C275,10 295,40 320,20 C345,0 370,30 393,15 L393,140 Z" fill="url(#dotGrid)" opacity="0.6"/>
+        <!-- Line -->
+        <path id="chart-line" d="M0,105 C25,115 40,120 60,95 C85,65 100,80 125,55 C150,30 165,75 190,45 C215,15 230,55 255,30 C275,10 295,40 320,20 C345,0 370,30 393,15" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- End dot -->
+        <circle id="chart-dot-glow" cx="393" cy="15" r="8" fill="#000000" fill-opacity="0.12"/>
+        <circle id="chart-dot" cx="393" cy="15" r="4" fill="#000000"/>
+      </svg>
+      <!-- Gradient fade bottom -->
+      <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#fcf8f8] to-transparent pointer-events-none"></div>
+    </section>
+
+    <!-- Time Range Selector -->
+    <section id="time-range-section" class="flex justify-between items-center px-container-margin mb-8">
+      <button data-range="1H" class="range-btn font-label-sm text-[13px] text-on-surface-variant/60 px-3 py-1.5 rounded-full transition-colors">1H</button>
+      <button data-range="1D" class="range-btn font-label-sm text-[13px] text-on-surface-variant/60 px-3 py-1.5 rounded-full transition-colors">1D</button>
+      <button data-range="1W" class="range-btn range-btn--active font-label-sm text-[13px] font-semibold text-primary bg-surface-container-highest px-4 py-1.5 rounded-full">1W</button>
+      <button data-range="1M" class="range-btn font-label-sm text-[13px] text-on-surface-variant/60 px-3 py-1.5 rounded-full transition-colors">1M</button>
+      <button data-range="1Y" class="range-btn font-label-sm text-[13px] text-on-surface-variant/60 px-3 py-1.5 rounded-full transition-colors">1Y</button>
+      <button data-range="All" class="range-btn font-label-sm text-[13px] text-on-surface-variant/60 px-3 py-1.5 rounded-full transition-colors">All</button>
+    </section>
+
+    <!-- Summary Bento Grid -->
+    <section class="px-container-margin grid grid-cols-2 gap-3 mb-6">
+      <!-- Mining Yield -->
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex flex-col justify-between h-[108px] shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex justify-between items-start">
+          <span class="font-label-sm text-[11px] tracking-[0.05em] uppercase text-on-surface-variant">Mining Yield</span>
+          <span class="material-symbols-outlined text-on-surface-variant text-[18px]">settings_input_antenna</span>
+        </div>
+        <div>
+          <p class="font-numeric-data text-[22px] font-semibold tracking-tight text-primary leading-none">+$214.88</p>
+          <p class="font-label-sm text-[11px] text-on-surface-variant mt-1 tracking-wide">Today</p>
+        </div>
+      </div>
+      <!-- Referral Earn -->
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex flex-col justify-between h-[108px] shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex justify-between items-start">
+          <span class="font-label-sm text-[11px] tracking-[0.05em] uppercase text-on-surface-variant">Referral Earn</span>
+          <span class="material-symbols-outlined text-on-surface-variant text-[18px]">group_add</span>
+        </div>
+        <div>
+          <p class="font-numeric-data text-[22px] font-semibold tracking-tight text-primary leading-none">+$38.50</p>
+          <p class="font-label-sm text-[11px] text-on-surface-variant mt-1 tracking-wide">This month</p>
+        </div>
+      </div>
+      <!-- AI Trades -->
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex flex-col justify-between h-[108px] shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex justify-between items-start">
+          <span class="font-label-sm text-[11px] tracking-[0.05em] uppercase text-on-surface-variant">AI Trades</span>
+          <span class="material-symbols-outlined text-on-surface-variant text-[18px]">auto_awesome</span>
+        </div>
+        <div>
+          <p class="font-numeric-data text-[22px] font-semibold tracking-tight text-primary leading-none">+$627.29</p>
+          <p class="font-label-sm text-[11px] text-on-surface-variant mt-1 tracking-wide">This week</p>
+        </div>
+      </div>
+      <!-- User Level -->
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex flex-col justify-between h-[108px] shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex justify-between items-start">
+          <span class="font-label-sm text-[11px] tracking-[0.05em] uppercase text-on-surface-variant">User Level</span>
+          <span class="material-symbols-outlined text-on-surface-variant text-[18px]">workspace_premium</span>
+        </div>
+        <div>
+          <p class="font-numeric-data text-[22px] font-semibold tracking-tight text-primary leading-none">Gold</p>
+          <p class="font-label-sm text-[11px] text-on-surface-variant mt-1 tracking-wide">Lvl 4 · 720 XP</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mining Status Card -->
+    <section class="px-container-margin mb-6">
+      <div class="bg-primary rounded-[22px] p-5 relative overflow-hidden">
+        <!-- Subtle texture -->
+        <div class="absolute inset-0 opacity-10 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
+        <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/5 pointer-events-none"></div>
+
+        <div class="relative z-10">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <p class="font-label-sm text-[11px] tracking-[0.06em] uppercase text-on-primary/60 mb-1">Active Rigs</p>
+              <p class="font-heading-md text-[22px] font-semibold text-on-primary tracking-tight">3 of 4 online</p>
+            </div>
+            <div class="bg-white/10 rounded-full px-3 py-1.5 flex items-center gap-1.5">
+              <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
+              <span class="font-label-sm text-[11px] text-on-primary tracking-wide">Mining</span>
+            </div>
+          </div>
+
+          <!-- Hashrate Bars -->
+          <div class="mb-4">
+            <p class="font-label-sm text-[11px] tracking-[0.05em] uppercase text-on-primary/50 mb-2">Hashrate — 312.4 TH/s</p>
+            <div class="flex items-end gap-[3px] h-8">
+              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:45%"></div>
+              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:60%"></div>
+              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:50%"></div>
+              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:75%"></div>
+              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:65%"></div>
+              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:80%"></div>
+              <div class="flex-1 bg-white/50 rounded-sm bar-active" style="height:90%"></div>
+              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:70%"></div>
+              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:85%"></div>
+              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:100%"></div>
+              <div class="flex-1 bg-white/50 rounded-sm bar-active" style="height:75%"></div>
+              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:80%"></div>
+              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:60%"></div>
+              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:90%"></div>
+              <div class="flex-1 bg-white/50 rounded-sm bar-active" style="height:85%"></div>
+              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:95%"></div>
+              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:70%"></div>
+              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:80%"></div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <p class="font-label-sm text-[10px] tracking-wide uppercase text-on-primary/50 mb-0.5">Power</p>
+              <p class="font-body-md text-[14px] font-semibold text-on-primary">3.2 kW</p>
+            </div>
+            <div>
+              <p class="font-label-sm text-[10px] tracking-wide uppercase text-on-primary/50 mb-0.5">Efficiency</p>
+              <p class="font-body-md text-[14px] font-semibold text-on-primary">97.4%</p>
+            </div>
+            <div>
+              <p class="font-label-sm text-[10px] tracking-wide uppercase text-on-primary/50 mb-0.5">Uptime</p>
+              <p class="font-body-md text-[14px] font-semibold text-on-primary">18d 6h</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Trading Strategy -->
+    <section class="px-container-margin mb-6">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[20px] font-semibold tracking-tight text-primary">AI Strategy</h2>
+        <button class="font-label-sm text-[12px] text-secondary flex items-center gap-1 hover:opacity-70 transition-opacity">
+          View all
+          <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-3">
+
+        <!-- Strategy Card 1 — Active -->
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center gap-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors">
+          <div class="w-11 h-11 rounded-full bg-[#eef3ff] flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-secondary text-[22px]">trending_up</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-baseline mb-0.5">
+              <span class="font-body-md text-[15px] font-semibold text-primary">BTC Long Momentum</span>
+              <span class="font-numeric-data text-[15px] text-[#1a7f4b] font-semibold">+8.42%</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wide">AI Scalper</span>
+              <div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+              <div class="flex items-center gap-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div>
+                <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Running</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy Card 2 -->
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center gap-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors">
+          <div class="w-11 h-11 rounded-full bg-[#f0f0f0] flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-on-surface-variant text-[22px]">balance</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-baseline mb-0.5">
+              <span class="font-body-md text-[15px] font-semibold text-primary">ETH Grid Bot</span>
+              <span class="font-numeric-data text-[15px] text-[#1a7f4b] font-semibold">+3.18%</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wide">Grid DCA</span>
+              <div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+              <div class="flex items-center gap-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div>
+                <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Running</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy Card 3 — Paused -->
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center gap-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors">
+          <div class="w-11 h-11 rounded-full bg-[#f0f0f0] flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-on-surface-variant text-[22px]">show_chart</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-baseline mb-0.5">
+              <span class="font-body-md text-[15px] font-semibold text-primary">SOL Breakout</span>
+              <span class="font-numeric-data text-[15px] text-on-surface-variant/60 font-semibold">—</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="font-label-sm text-[11px] text-on-surface-variant uppercase tracking-wide">Swing</span>
+              <div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+              <div class="flex items-center gap-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-on-surface-variant/40"></div>
+                <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Paused</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Assets Section -->
+    <section class="px-container-margin mb-6">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[20px] font-semibold tracking-tight text-primary">Assets</h2>
+        <button class="font-label-sm text-[12px] text-secondary flex items-center gap-1 hover:opacity-70 transition-opacity">
+          View all
+          <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-0">
+
+        <!-- BTC Row -->
+        <div class="flex items-center justify-between py-3.5 border-b border-outline-variant/25 cursor-pointer group">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#F7931A]/10 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[#F7931A] text-[20px]">currency_bitcoin</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[15px] font-semibold text-primary">Bitcoin</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">0.4812 BTC</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[15px] font-semibold text-primary">$31,904.10</p>
+            <p class="font-label-sm text-[11px] text-[#1a7f4b] mt-0.5">+1.24%</p>
+          </div>
+        </div>
+
+        <!-- ETH Row -->
+        <div class="flex items-center justify-between py-3.5 border-b border-outline-variant/25 cursor-pointer group">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#627EEA]/10 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[#627EEA] text-[20px]">diamond</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[15px] font-semibold text-primary">Ethereum</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">4.218 ETH</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[15px] font-semibold text-primary">$12,891.44</p>
+            <p class="font-label-sm text-[11px] text-[#1a7f4b] mt-0.5">+2.87%</p>
+          </div>
+        </div>
+
+        <!-- USDC Row -->
+        <div class="flex items-center justify-between py-3.5 cursor-pointer group">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#2775CA]/10 flex items-center justify-center shrink-0">
+              <span class="font-label-sm text-[10px] font-bold text-[#2775CA]">USDC</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[15px] font-semibold text-primary">USDC</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">3,495.50 USDC</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[15px] font-semibold text-primary">$3,495.50</p>
+            <p class="font-label-sm text-[11px] text-on-surface-variant/50 mt-0.5">0.00%</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Referral Program -->
+    <section class="px-container-margin mb-6">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[20px] font-semibold tracking-tight text-primary">Referral</h2>
+        <button class="font-label-sm text-[12px] text-secondary flex items-center gap-1 hover:opacity-70 transition-opacity">
+          Share
+          <span class="material-symbols-outlined text-[14px]">share</span>
+        </button>
+      </div>
+
+      <!-- Referral Code Banner -->
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[22px] shadow-[0_2px_8px_rgba(0,0,0,0.03)] mb-3">
+        <div class="p-4">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center">
+                <span class="material-symbols-outlined text-on-surface-variant text-[17px]">group_add</span>
+              </div>
+              <span class="font-label-sm text-[12px] font-semibold text-on-surface-variant tracking-wide uppercase">Your Code</span>
+            </div>
+            <button onclick="navigator.clipboard.writeText('VLT-H4S4N')" class="flex items-center gap-1.5 bg-surface-container px-3 py-1.5 rounded-full hover:bg-surface-container-high transition-colors">
+              <span class="material-symbols-outlined text-on-surface-variant text-[14px]">content_copy</span>
+              <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Copy</span>
+            </button>
+          </div>
+          <p class="font-numeric-data text-[28px] font-semibold tracking-[0.12em] text-primary leading-none">VLT-H4S4N</p>
+          <p class="font-label-sm text-[11px] text-on-surface-variant mt-2 tracking-wide">Share this code to earn 10% commission on every referral</p>
+        </div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="grid grid-cols-3 gap-2.5">
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[16px] p-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col gap-1">
+          <span class="material-symbols-outlined text-on-surface-variant text-[16px]">people</span>
+          <p class="font-numeric-data text-[20px] font-semibold text-primary leading-none">14</p>
+          <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide uppercase">Referred</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[16px] p-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col gap-1">
+          <span class="material-symbols-outlined text-on-surface-variant text-[16px]">paid</span>
+          <p class="font-numeric-data text-[20px] font-semibold text-primary leading-none">$192</p>
+          <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide uppercase">Earned</p>
+        </div>
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[16px] p-3.5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col gap-1">
+          <span class="material-symbols-outlined text-on-surface-variant text-[16px]">percent</span>
+          <p class="font-numeric-data text-[20px] font-semibold text-primary leading-none">10%</p>
+          <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide uppercase">Commission</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="px-container-margin mb-6">
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[20px] font-semibold tracking-tight text-primary">Activity</h2>
+        <button class="font-label-sm text-[12px] text-secondary flex items-center gap-1 hover:opacity-70 transition-opacity">
+          View all
+          <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-3">
+
+        <!-- Activity: Mining Payout -->
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+              <span class="material-symbols-outlined text-on-surface-variant text-[20px]">account_balance</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Mining Payout</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Today, 06:14</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+$214.88</p>
+            <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">0.00324 BTC</p>
+          </div>
+        </div>
+
+        <!-- Activity: AI Trade BTC -->
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+              <span class="material-symbols-outlined text-on-surface-variant text-[20px]">auto_awesome</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">AI — BTC Long closed</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Yesterday, 22:41</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+$388.50</p>
+            <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">+8.42%</p>
+          </div>
+        </div>
+
+        <!-- Activity: Deposit -->
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+              <span class="material-symbols-outlined text-on-surface-variant text-[20px]">arrow_downward</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Deposit USDC</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Jul 30, 11:03</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-primary">+$2,000.00</p>
+            <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">USDC</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- Floating Action Bar -->
+  <div class="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 w-full max-w-[393px] px-container-margin pb-8 pt-4 bg-gradient-to-t from-[#fcf8f8] via-[#fcf8f8]/95 to-transparent pointer-events-none">
+    <div class="w-full bg-surface-container-lowest/90 backdrop-blur-md rounded-full border border-outline-variant/50 shadow-sm flex items-center p-1.5 pointer-events-auto">
+
+      <button data-page="home" class="nav-btn nav-btn--active flex-1 flex flex-col items-center justify-center py-2.5 rounded-full bg-primary text-on-primary transition-all">
+        <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24;">home</span>
+      </button>
+
+      <button data-page="mining" class="nav-btn flex-1 flex flex-col items-center justify-center py-2.5 rounded-full text-on-surface-variant transition-all">
+        <span class="material-symbols-outlined text-[22px]">settings_input_antenna</span>
+      </button>
+
+      <button data-page="ai" class="nav-btn flex-1 flex flex-col items-center justify-center py-2.5 rounded-full text-on-surface-variant transition-all">
+        <span class="material-symbols-outlined text-[22px]">auto_awesome</span>
+      </button>
+
+      <button data-page="wallet" class="nav-btn flex-1 flex flex-col items-center justify-center py-2.5 rounded-full text-on-surface-variant transition-all">
+        <span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
+      </button>
+
+      <button data-page="profile" class="nav-btn flex-1 flex flex-col items-center justify-center py-2.5 rounded-full text-on-surface-variant transition-all">
+        <span class="material-symbols-outlined text-[22px]">person</span>
+      </button>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ===================== OTHER PAGES ===================== -->
+
+<!-- Mining Page -->
+<div id="page-mining" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
+  <header class="flex items-center w-full px-6 h-16 pt-4">
+    <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">Mining</h1>
+  </header>
+  <div class="px-6 flex flex-col gap-4">
+    <!-- Live Status -->
+    <div class="bg-primary rounded-[22px] p-5">
+      <div class="flex justify-between items-start mb-5">
+        <div>
+          <p class="font-label-sm text-[11px] uppercase tracking-[0.06em] text-on-primary/60 mb-1">Network</p>
+          <p class="font-heading-md text-[22px] font-semibold text-on-primary tracking-tight">Bitcoin (SHA-256)</p>
+        </div>
+        <div class="bg-white/10 rounded-full px-3 py-1.5 flex items-center gap-1.5">
+          <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
+          <span class="font-label-sm text-[11px] text-on-primary">Live</span>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div><p class="font-label-sm text-[10px] uppercase text-on-primary/50 mb-0.5">Hashrate</p><p class="font-body-md text-[16px] font-semibold text-on-primary">312.4 TH/s</p></div>
+        <div><p class="font-label-sm text-[10px] uppercase text-on-primary/50 mb-0.5">Difficulty</p><p class="font-body-md text-[16px] font-semibold text-on-primary">88.1 T</p></div>
+        <div><p class="font-label-sm text-[10px] uppercase text-on-primary/50 mb-0.5">Power Draw</p><p class="font-body-md text-[16px] font-semibold text-on-primary">3.2 kW</p></div>
+        <div><p class="font-label-sm text-[10px] uppercase text-on-primary/50 mb-0.5">Est. Daily</p><p class="font-body-md text-[16px] font-semibold text-on-primary">$214.88</p></div>
+      </div>
+    </div>
+    <!-- Rig List -->
+    <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mt-2">Rigs</h2>
+    <div class="flex flex-col gap-3">
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#e5e5e5] flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">memory</span></div>
+          <div><p class="font-body-md text-[15px] font-semibold text-primary">Rig-01</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Antminer S19 XP</p></div>
+        </div>
+        <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">140 TH/s</p><div class="flex items-center justify-end gap-1 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div><span class="font-label-sm text-[11px] text-on-surface-variant">Online</span></div></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#e5e5e5] flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">memory</span></div>
+          <div><p class="font-body-md text-[15px] font-semibold text-primary">Rig-02</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Antminer S19 Pro</p></div>
+        </div>
+        <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">110 TH/s</p><div class="flex items-center justify-end gap-1 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div><span class="font-label-sm text-[11px] text-on-surface-variant">Online</span></div></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#e5e5e5] flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">memory</span></div>
+          <div><p class="font-body-md text-[15px] font-semibold text-primary">Rig-03</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Whatsminer M50S</p></div>
+        </div>
+        <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">62.4 TH/s</p><div class="flex items-center justify-end gap-1 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div><span class="font-label-sm text-[11px] text-on-surface-variant">Online</span></div></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 flex items-center justify-between shadow-[0_2px_8px_rgba(0,0,0,0.03)] opacity-50">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#e5e5e5] flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">memory</span></div>
+          <div><p class="font-body-md text-[15px] font-semibold text-primary">Rig-04</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">Whatsminer M30S</p></div>
+        </div>
+        <div class="text-right"><p class="font-body-md text-[14px] font-semibold text-on-surface-variant">—</p><div class="flex items-center justify-end gap-1 mt-0.5"><div class="w-1.5 h-1.5 rounded-full bg-on-surface-variant/40"></div><span class="font-label-sm text-[11px] text-on-surface-variant">Offline</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AI Trading Page -->
+<div id="page-ai" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
+  <header class="flex items-center w-full px-6 h-16 pt-4">
+    <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">AI Trading</h1>
+  </header>
+  <div class="px-6 flex flex-col gap-4">
+    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 grid grid-cols-2 gap-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+      <div><p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-1">Win Rate</p><p class="font-numeric-data text-[22px] font-semibold text-primary">74.2%</p></div>
+      <div><p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-1">Total Trades</p><p class="font-numeric-data text-[22px] font-semibold text-primary">1,482</p></div>
+      <div><p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-1">Profit Factor</p><p class="font-numeric-data text-[22px] font-semibold text-primary">2.31</p></div>
+      <div><p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-1">Max Drawdown</p><p class="font-numeric-data text-[22px] font-semibold text-primary">8.4%</p></div>
+    </div>
+    <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mt-2">Active Strategies</h2>
+    <div class="flex flex-col gap-3">
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex justify-between items-start mb-3">
+          <div><p class="font-body-md text-[15px] font-semibold text-primary">BTC Long Momentum</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">AI Scalper · BTC/USDT</p></div>
+          <span class="font-numeric-data text-[15px] text-[#1a7f4b] font-semibold">+8.42%</span>
+        </div>
+        <div class="w-full bg-surface-container-highest rounded-full h-1.5"><div class="h-1.5 rounded-full bg-primary" style="width:74%"></div></div>
+        <div class="flex justify-between mt-1.5"><span class="font-label-sm text-[10px] text-on-surface-variant">Win rate 74%</span><span class="font-label-sm text-[10px] text-on-surface-variant">128 trades</span></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex justify-between items-start mb-3">
+          <div><p class="font-body-md text-[15px] font-semibold text-primary">ETH Grid Bot</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Grid DCA · ETH/USDT</p></div>
+          <span class="font-numeric-data text-[15px] text-[#1a7f4b] font-semibold">+3.18%</span>
+        </div>
+        <div class="w-full bg-surface-container-highest rounded-full h-1.5"><div class="h-1.5 rounded-full bg-primary" style="width:68%"></div></div>
+        <div class="flex justify-between mt-1.5"><span class="font-label-sm text-[10px] text-on-surface-variant">Win rate 68%</span><span class="font-label-sm text-[10px] text-on-surface-variant">344 trades</span></div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] opacity-50">
+        <div class="flex justify-between items-start mb-3">
+          <div><p class="font-body-md text-[15px] font-semibold text-primary">SOL Breakout</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Swing · SOL/USDT · Paused</p></div>
+          <span class="font-numeric-data text-[15px] text-on-surface-variant/50 font-semibold">—</span>
+        </div>
+        <div class="w-full bg-surface-container-highest rounded-full h-1.5"><div class="h-1.5 rounded-full bg-on-surface-variant/30" style="width:0%"></div></div>
+        <div class="flex justify-between mt-1.5"><span class="font-label-sm text-[10px] text-on-surface-variant">Awaiting signal</span><span class="font-label-sm text-[10px] text-on-surface-variant">0 active</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wallet Page -->
+<div id="page-wallet" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
+  <header class="flex items-center w-full px-6 h-16 pt-4">
+    <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">Wallet</h1>
+  </header>
+  <div class="px-6 flex flex-col gap-4">
+    <div class="flex items-baseline gap-1 mb-2">
+      <span class="font-display-lg text-[48px] font-semibold tracking-tight leading-none text-primary">$48,</span><span class="font-display-lg text-[48px] font-semibold tracking-tight leading-none text-outline">291.04</span>
+    </div>
+    <div class="flex gap-3">
+      <button class="flex-1 bg-primary text-on-primary font-label-sm text-[13px] font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[18px]">arrow_upward</span>Send</button>
+      <button class="flex-1 bg-surface-container-lowest border border-outline-variant/60 text-primary font-label-sm text-[13px] font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[18px]">arrow_downward</span>Receive</button>
+      <button class="flex-1 bg-surface-container-lowest border border-outline-variant/60 text-primary font-label-sm text-[13px] font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[18px]">swap_horiz</span>Swap</button>
+    </div>
+    <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mt-2">Holdings</h2>
+    <div class="flex flex-col gap-0">
+      <div class="flex items-center justify-between py-3.5 border-b border-outline-variant/25">
+        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-[#F7931A]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#F7931A] text-[20px]">currency_bitcoin</span></div><div><p class="font-body-md text-[15px] font-semibold text-primary">Bitcoin</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">0.4812 BTC</p></div></div>
+        <div class="text-right"><p class="font-body-md text-[15px] font-semibold text-primary">$31,904.10</p><p class="font-label-sm text-[11px] text-[#1a7f4b] mt-0.5">+1.24%</p></div>
+      </div>
+      <div class="flex items-center justify-between py-3.5 border-b border-outline-variant/25">
+        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-[#627EEA]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#627EEA] text-[20px]">diamond</span></div><div><p class="font-body-md text-[15px] font-semibold text-primary">Ethereum</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">4.218 ETH</p></div></div>
+        <div class="text-right"><p class="font-body-md text-[15px] font-semibold text-primary">$12,891.44</p><p class="font-label-sm text-[11px] text-[#1a7f4b] mt-0.5">+2.87%</p></div>
+      </div>
+      <div class="flex items-center justify-between py-3.5">
+        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-[#2775CA]/10 flex items-center justify-center"><span class="font-label-sm text-[10px] font-bold text-[#2775CA]">USDC</span></div><div><p class="font-body-md text-[15px] font-semibold text-primary">USDC</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">3,495.50 USDC</p></div></div>
+        <div class="text-right"><p class="font-body-md text-[15px] font-semibold text-primary">$3,495.50</p><p class="font-label-sm text-[11px] text-on-surface-variant/50 mt-0.5">0.00%</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Page -->
+<div id="page-profile" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
+  <header class="flex items-center w-full px-6 h-16 pt-4">
+    <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">Profile</h1>
+  </header>
+  <div class="px-6 flex flex-col gap-4">
+    <div class="flex flex-col items-center py-6">
+      <div class="w-20 h-20 rounded-full border border-outline-variant overflow-hidden mb-3"><img src="https://api.dicebear.com/10.x/dylan/svg?hairVariant=bangs,buns,fluffy,longCurls,parting,plain,roundBob,shaggy,shortCurls,spiky,wavy&backgroundColor=619eff&hairColor=000000,ff543d,ffffff&skinColor=ffd6c0&seed=Felix" alt="avatar" class="w-full h-full object-cover"/></div>
+      <p class="font-heading-md text-[20px] font-semibold text-primary tracking-tight">Hasan</p>
+      <p class="font-label-sm text-[12px] text-on-surface-variant mt-1 tracking-wide">hasan@vaultron.io</p>
+      <div class="flex items-center gap-1.5 mt-2 bg-[#e6f5ee] px-3 py-1 rounded-full"><div class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></div><span class="font-label-sm text-[11px] text-[#1a7f4b] font-semibold tracking-wide">Verified</span></div>
+    </div>
+    <div class="flex flex-col gap-0 bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+      <div class="flex items-center justify-between px-4 py-4 border-b border-outline-variant/25 cursor-pointer hover:bg-surface-container-low transition-colors"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">security</span><span class="font-body-md text-[15px] text-primary">Security</span></div><span class="material-symbols-outlined text-on-surface-variant/50 text-[20px]">chevron_right</span></div>
+      <div class="flex items-center justify-between px-4 py-4 border-b border-outline-variant/25 cursor-pointer hover:bg-surface-container-low transition-colors"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">notifications</span><span class="font-body-md text-[15px] text-primary">Notifications</span></div><span class="material-symbols-outlined text-on-surface-variant/50 text-[20px]">chevron_right</span></div>
+      <div class="flex items-center justify-between px-4 py-4 border-b border-outline-variant/25 cursor-pointer hover:bg-surface-container-low transition-colors"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">api</span><span class="font-body-md text-[15px] text-primary">API Keys</span></div><span class="material-symbols-outlined text-on-surface-variant/50 text-[20px]">chevron_right</span></div>
+      <div class="flex items-center justify-between px-4 py-4 cursor-pointer hover:bg-surface-container-low transition-colors"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">help</span><span class="font-body-md text-[15px] text-primary">Support</span></div><span class="material-symbols-outlined text-on-surface-variant/50 text-[20px]">chevron_right</span></div>
+    </div>
+    <button class="w-full border border-outline-variant/60 text-on-surface-variant font-label-sm text-[13px] font-semibold py-3.5 rounded-full mt-2 hover:bg-surface-container-low transition-colors">Sign Out</button>
+  </div>
+</div>
+
+<script>
+  // ── Chart data per time range ──────────────────────────────────────
+  const chartPaths = {
+    '1H': {
+      line: 'M0,120 C20,118 40,115 60,112 C80,108 100,110 120,105 C140,100 160,95 180,90 C200,85 220,88 240,80 C260,72 280,75 300,65 C320,55 350,60 393,40',
+      area: 'M0,140 L0,120 C20,118 40,115 60,112 C80,108 100,110 120,105 C140,100 160,95 180,90 C200,85 220,88 240,80 C260,72 280,75 300,65 C320,55 350,60 393,40 L393,140 Z',
+      dot: { cx: 393, cy: 40 }
+    },
+    '1D': {
+      line: 'M0,130 C30,125 50,118 80,105 C110,92 130,100 155,85 C180,70 200,80 225,60 C250,40 270,55 295,35 C320,15 355,25 393,10',
+      area: 'M0,140 L0,130 C30,125 50,118 80,105 C110,92 130,100 155,85 C180,70 200,80 225,60 C250,40 270,55 295,35 C320,15 355,25 393,10 L393,140 Z',
+      dot: { cx: 393, cy: 10 }
+    },
+    '1W': {
+      line: 'M0,105 C25,115 40,120 60,95 C85,65 100,80 125,55 C150,30 165,75 190,45 C215,15 230,55 255,30 C275,10 295,40 320,20 C345,0 370,30 393,15',
+      area: 'M0,140 L0,105 C25,115 40,120 60,95 C85,65 100,80 125,55 C150,30 165,75 190,45 C215,15 230,55 255,30 C275,10 295,40 320,20 C345,0 370,30 393,15 L393,140 Z',
+      dot: { cx: 393, cy: 15 }
+    },
+    '1M': {
+      line: 'M0,135 C40,130 60,125 90,115 C120,105 140,112 170,95 C200,78 220,90 250,70 C275,52 295,65 320,45 C345,25 370,35 393,20',
+      area: 'M0,140 L0,135 C40,130 60,125 90,115 C120,105 140,112 170,95 C200,78 220,90 250,70 C275,52 295,65 320,45 C345,25 370,35 393,20 L393,140 Z',
+      dot: { cx: 393, cy: 20 }
+    },
+    '1Y': {
+      line: 'M0,138 C50,135 80,132 110,125 C140,118 160,122 190,108 C220,94 240,100 265,82 C290,64 310,72 335,52 C358,33 375,42 393,25',
+      area: 'M0,140 L0,138 C50,135 80,132 110,125 C140,118 160,122 190,108 C220,94 240,100 265,82 C290,64 310,72 335,52 C358,33 375,42 393,25 L393,140 Z',
+      dot: { cx: 393, cy: 25 }
+    },
+    'All': {
+      line: 'M0,140 C30,138 60,136 90,130 C120,124 145,128 175,115 C205,102 225,110 255,92 C280,76 300,85 325,65 C348,46 368,55 393,30',
+      area: 'M0,140 L0,140 C30,138 60,136 90,130 C120,124 145,128 175,115 C205,102 225,110 255,92 C280,76 300,85 325,65 C348,46 368,55 393,30 L393,140 Z',
+      dot: { cx: 393, cy: 30 }
+    }
+  };
+
+  // ── Time range buttons ─────────────────────────────────────────────
+  const rangeBtns = document.querySelectorAll('.range-btn');
+  const chartLine  = document.querySelector('#chart-line');
+  const chartArea  = document.querySelector('#chart-area');
+  const chartDot   = document.querySelector('#chart-dot');
+  const chartDotGlow = document.querySelector('#chart-dot-glow');
+
+  rangeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update button styles
+      rangeBtns.forEach(b => {
+        b.classList.remove('range-btn--active', 'font-semibold', 'text-primary', 'bg-surface-container-highest', 'px-4');
+        b.classList.add('text-on-surface-variant/60', 'px-3');
+      });
+      btn.classList.add('range-btn--active', 'font-semibold', 'text-primary', 'bg-surface-container-highest', 'px-4');
+      btn.classList.remove('text-on-surface-variant/60', 'px-3');
+
+      // Update chart
+      const key = btn.dataset.range;
+      const data = chartPaths[key];
+      if (chartLine)     chartLine.setAttribute('d', data.line);
+      if (chartArea)     chartArea.setAttribute('d', data.area);
+      if (chartDot)    { chartDot.setAttribute('cx', data.dot.cx); chartDot.setAttribute('cy', data.dot.cy); }
+      if (chartDotGlow){ chartDotGlow.setAttribute('cx', data.dot.cx); chartDotGlow.setAttribute('cy', data.dot.cy); }
+    });
+  });
+
+  // ── Bottom nav ─────────────────────────────────────────────────────
+  const navBtns   = document.querySelectorAll('.nav-btn');
+  const mainHome  = document.querySelector('div.relative.w-full');   // the artboard wrapper
+  const pages = {
+    mining:  document.getElementById('page-mining'),
+    ai:      document.getElementById('page-ai'),
+    wallet:  document.getElementById('page-wallet'),
+    profile: document.getElementById('page-profile'),
+  };
+
+  // The main scrollable content (home page)
+  const homeMain = document.getElementById('home-main');
+
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.page;
+
+      // Reset all nav buttons
+      navBtns.forEach(b => {
+        b.classList.remove('bg-primary', 'text-on-primary');
+        b.classList.add('text-on-surface-variant');
+        // Reset icon fill
+        const icon = b.querySelector('.material-symbols-outlined');
+        if (icon) icon.style.fontVariationSettings = "'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 24";
+      });
+
+      // Activate clicked button
+      btn.classList.add('bg-primary', 'text-on-primary');
+      btn.classList.remove('text-on-surface-variant');
+      const activeIcon = btn.querySelector('.material-symbols-outlined');
+      if (activeIcon) activeIcon.style.fontVariationSettings = "'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24";
+
+      // Show/hide pages
+      Object.entries(pages).forEach(([key, el]) => {
+        if (el) el.classList.toggle('hidden', key !== target);
+      });
+      // Show/hide home content
+      if (homeMain) homeMain.classList.toggle('hidden', target !== 'home');
+    });
+  });
+
+  // ── Balance visibility toggle ──────────────────────────────────────
+  const balanceToggle  = document.getElementById('balance-toggle');
+  const balanceEye     = document.getElementById('balance-eye');
+  const balanceMain    = document.getElementById('balance-main');
+  const balanceDecimal = document.getElementById('balance-decimal');
+  const balanceChange  = document.getElementById('balance-change');
+  let balanceHidden = false;
+
+  balanceToggle.addEventListener('click', () => {
+    balanceHidden = !balanceHidden;
+    if (balanceHidden) {
+      balanceMain.textContent    = '••••';
+      balanceDecimal.textContent = '••••';
+      balanceChange.style.visibility = 'hidden';
+      balanceEye.textContent = 'visibility_off';
+    } else {
+      balanceMain.textContent    = '$48,';
+      balanceDecimal.textContent = '291.04';
+      balanceChange.style.visibility = 'visible';
+      balanceEye.textContent = 'visibility';
+    }
+  });
+</script>
+
+</body>
+</html>

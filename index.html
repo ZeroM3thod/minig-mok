@@ -763,15 +763,17 @@
         </div>
 
         <!-- Package: Pro -->
-        <div onclick="openPackage('pro')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99] relative overflow-hidden">
-          <div class="absolute top-3.5 right-3.5 bg-primary text-on-primary font-label-sm text-[10px] px-2.5 py-1 rounded-full tracking-wide">Popular</div>
+        <div onclick="openPackage('pro')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
               <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
                 <span class="material-symbols-outlined text-on-surface-variant text-[22px]">rocket_launch</span>
               </div>
               <div>
-                <p class="font-body-md text-[15px] font-semibold text-primary">Pro</p>
+                <div class="flex items-center gap-2">
+                  <p class="font-body-md text-[15px] font-semibold text-primary">Pro</p>
+                  <span class="bg-primary text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">Popular</span>
+                </div>
                 <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">25 TH/s · 60 days</p>
               </div>
             </div>

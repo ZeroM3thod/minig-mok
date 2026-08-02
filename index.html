@@ -132,12 +132,64 @@
     to   { transform: rotate(360deg); }
   }
 </style>
+
+<style>
+  /* ── Responsive layout ── */
+
+  /* Pages & home: content column centres on tablet/desktop */
+  #home-main,
+  #page-mining > div,
+  #page-ai > div,
+  #page-wallet > div,
+  #page-profile > div {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  /* Home headers and section padding also centre */
+  #artboard > header,
+  #page-mining > header,
+  #page-ai > header,
+  #page-wallet > header,
+  #page-profile > header {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  /* Bottom nav pill — constrain and centre on wide screens */
+  .nav-bar-pill {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Dialog sheets — cap width on tablets so they don't stretch full 1024px */
+  #mp-dialog > div:last-child,
+  #cm-dialog > div:last-child,
+  #pkg-dialog > div:last-child,
+  #strat-dialog > div:last-child,
+  #mystrat-dialog > div:last-child {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 28px 28px 0 0;
+  }
+
+  /* Home chart fills its container */
+  #home-main section svg {
+    width: 100%;
+  }
+</style>
 </head>
 
 <body class="bg-[#fcf8f8] text-on-surface min-h-screen font-body-md">
 
 <!-- Mobile Artboard -->
-<div class="relative w-full max-w-[393px] mx-auto min-h-screen bg-[#fcf8f8] shadow-2xl flex flex-col overflow-hidden">
+<div id="artboard" class="relative w-full min-h-screen bg-[#fcf8f8] flex flex-col">
 
   <!-- Top App Bar -->
   <header class="flex justify-between items-center w-full px-container-margin h-14 pt-4 shrink-0">
@@ -183,8 +235,8 @@
     </section>
 
     <!-- Portfolio Chart -->
-    <section class="w-full px-0 mb-2 relative overflow-hidden" style="height:160px;">
-      <svg class="w-full h-full" viewBox="0 0 393 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <section id="portfolio-chart-section" class="w-full px-0 mb-2 relative overflow-hidden" style="height:160px;">
+      <svg id="portfolio-svg" class="w-full h-full" viewBox="0 0 393 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="dotGrid" x="0" y="0" width="7" height="7" patternUnits="userSpaceOnUse">
             <circle cx="1.5" cy="1.5" r="0.9" fill="#000000" fill-opacity="0.07"/>
@@ -202,9 +254,23 @@
         <!-- End dot -->
         <circle id="chart-dot-glow" cx="393" cy="15" r="8" fill="#000000" fill-opacity="0.12"/>
         <circle id="chart-dot" cx="393" cy="15" r="4" fill="#000000"/>
+        <!-- Crosshair (hidden by default) -->
+        <line id="chart-crosshair" x1="0" y1="0" x2="0" y2="160" stroke="#000000" stroke-width="1" stroke-dasharray="4 3" opacity="0.25" visibility="hidden"/>
+        <circle id="chart-crosshair-dot-glow" cx="0" cy="0" r="7" fill="#000000" fill-opacity="0.1" visibility="hidden"/>
+        <circle id="chart-crosshair-dot" cx="0" cy="0" r="3.5" fill="#000000" visibility="hidden"/>
+        <!-- Invisible hit area -->
+        <rect id="chart-hit" x="0" y="0" width="393" height="160" fill="transparent" style="cursor:crosshair"/>
       </svg>
       <!-- Gradient fade bottom -->
       <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-[#fcf8f8] to-transparent pointer-events-none"></div>
+      <!-- Chart tooltip -->
+      <div id="chart-tooltip" class="hidden absolute pointer-events-none z-50" style="top:8px;">
+        <div class="bg-primary text-on-primary rounded-[10px] px-3 py-2 shadow-[0_4px_16px_rgba(0,0,0,0.18)]" style="min-width:90px;">
+          <p id="chart-tooltip-date" class="font-label-sm text-[9px] uppercase tracking-wide opacity-60 mb-0.5"></p>
+          <p id="chart-tooltip-val" class="font-numeric-data text-[15px] font-semibold leading-none"></p>
+          <p id="chart-tooltip-chg" class="font-label-sm text-[10px] mt-0.5" style="color:#4ade80"></p>
+        </div>
+      </div>
     </section>
 
     <!-- Time Range Selector -->
@@ -285,27 +351,38 @@
           </div>
 
           <!-- Hashrate Bars -->
-          <div class="mb-4">
+          <div class="mb-4 relative" id="hashrate-wrap">
             <p class="font-label-sm text-[11px] tracking-[0.05em] uppercase text-on-primary/50 mb-2">Hashrate — 312.4 TH/s</p>
-            <div class="flex items-end gap-[3px] h-8">
-              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:45%"></div>
-              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:60%"></div>
-              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:50%"></div>
-              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:75%"></div>
-              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:65%"></div>
-              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:80%"></div>
-              <div class="flex-1 bg-white/50 rounded-sm bar-active" style="height:90%"></div>
-              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:70%"></div>
-              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:85%"></div>
-              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:100%"></div>
-              <div class="flex-1 bg-white/50 rounded-sm bar-active" style="height:75%"></div>
-              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:80%"></div>
-              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:60%"></div>
-              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:90%"></div>
-              <div class="flex-1 bg-white/50 rounded-sm bar-active" style="height:85%"></div>
-              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:95%"></div>
-              <div class="flex-1 bg-on-primary/20 rounded-sm" style="height:70%"></div>
-              <div class="flex-1 bg-on-primary/30 rounded-sm" style="height:80%"></div>
+            <!-- Tooltip -->
+            <div id="hashrate-tooltip" class="hidden absolute z-50 pointer-events-none" style="bottom:calc(100% - 8px)">
+              <div class="bg-white rounded-[10px] px-2.5 py-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.18)]">
+                <p id="hashrate-tooltip-time" class="font-label-sm text-[9px] uppercase tracking-wide text-on-surface-variant mb-0.5"></p>
+                <p id="hashrate-tooltip-val" class="font-numeric-data text-[15px] font-semibold text-primary leading-none"></p>
+                <p id="hashrate-tooltip-rig" class="font-label-sm text-[10px] text-secondary mt-0.5"></p>
+              </div>
+              <div class="flex justify-center"><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid white;"></div></div>
+            </div>
+            <div id="hashrate-bars" class="flex items-end gap-[3px] h-8 relative"
+              data-vals='[141,188,157,234,203,250,281,219,266,312,234,250,188,281,266,297,219,250]'
+              data-times='["07:00","07:20","07:40","08:00","08:20","08:40","09:00","09:20","09:40","10:00","10:20","10:40","11:00","11:20","11:40","12:00","12:20","12:40"]'>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:45%;background:rgba(255,255,255,0.2)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:60%;background:rgba(255,255,255,0.2)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:50%;background:rgba(255,255,255,0.3)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:75%;background:rgba(255,255,255,0.2)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:65%;background:rgba(255,255,255,0.3)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:80%;background:rgba(255,255,255,0.2)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm bar-active cursor-pointer transition-all duration-150" style="height:90%;background:rgba(255,255,255,0.5)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:70%;background:rgba(255,255,255,0.3)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:85%;background:rgba(255,255,255,0.2)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:100%;background:rgba(255,255,255,0.3)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm bar-active cursor-pointer transition-all duration-150" style="height:75%;background:rgba(255,255,255,0.5)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:80%;background:rgba(255,255,255,0.2)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:60%;background:rgba(255,255,255,0.3)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:90%;background:rgba(255,255,255,0.2)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm bar-active cursor-pointer transition-all duration-150" style="height:85%;background:rgba(255,255,255,0.5)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:95%;background:rgba(255,255,255,0.3)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:70%;background:rgba(255,255,255,0.2)"></div>
+              <div class="hashrate-bar flex-1 rounded-sm cursor-pointer transition-all duration-150" style="height:80%;background:rgba(255,255,255,0.3)"></div>
             </div>
           </div>
 
@@ -591,8 +668,8 @@
   </main>
 
   <!-- Floating Action Bar -->
-  <div class="fixed bottom-0 left-1/2 -translate-x-1/2 z-50 w-full max-w-[393px] px-container-margin pb-8 pt-4 bg-gradient-to-t from-[#fcf8f8] via-[#fcf8f8]/95 to-transparent pointer-events-none">
-    <div class="w-full bg-surface-container-lowest/90 backdrop-blur-md rounded-full border border-outline-variant/50 shadow-sm flex items-center p-1.5 pointer-events-auto">
+  <div class="fixed bottom-0 left-0 right-0 z-50 px-container-margin pb-8 pt-4 bg-gradient-to-t from-[#fcf8f8] via-[#fcf8f8]/95 to-transparent pointer-events-none">
+    <div class="nav-bar-pill w-full bg-surface-container-lowest/90 backdrop-blur-md rounded-full border border-outline-variant/50 shadow-sm flex items-center p-1.5 pointer-events-auto">
 
       <button data-page="home" class="nav-btn nav-btn--active flex-1 flex flex-col items-center justify-center py-2.5 rounded-full bg-primary text-on-primary transition-all">
         <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' 1,'wght' 300,'GRAD' 0,'opsz' 24;">home</span>
@@ -622,12 +699,17 @@
 <!-- ===================== OTHER PAGES ===================== -->
 
 <!-- Mining Page -->
-<div id="page-mining" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto hide-scrollbar pb-36">
+<div id="page-mining" class="hidden fixed inset-0 bg-[#fcf8f8] z-30 overflow-y-auto hide-scrollbar pb-36">
   <header class="flex items-center justify-between w-full px-6 h-16 pt-4 shrink-0">
     <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">Mining</h1>
-    <div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-full">
-      <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
-      <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">$VALO Network</span>
+    <div class="flex items-center gap-2">
+      <button class="relative w-10 h-10 flex items-center justify-center text-on-surface hover:opacity-70 transition-opacity">
+        <span class="material-symbols-outlined text-[24px]">notifications</span>
+        <div class="absolute top-2 right-1.5 w-2 h-2 bg-secondary rounded-full border-2 border-[#fcf8f8]"></div>
+      </button>
+      <button class="w-9 h-9 rounded-full border border-outline-variant overflow-hidden flex items-center justify-center">
+        <img src="https://api.dicebear.com/10.x/dylan/svg?hairVariant=bangs,buns,fluffy,longCurls,parting,plain,roundBob,shaggy,shortCurls,spiky,wavy&backgroundColor=619eff&hairColor=000000,ff543d,ffffff&skinColor=ffd6c0&seed=Felix" alt="avatar" class="w-full h-full object-cover"/>
+      </button>
     </div>
   </header>
 
@@ -661,8 +743,17 @@
         </div>
 
         <!-- Hashrate bar -->
-        <div class="mb-4">
+        <div class="mb-4 relative" id="miner-bars-wrap">
           <p class="font-label-sm text-[10px] tracking-[0.05em] uppercase text-on-primary/50 mb-2">Hashrate — <span id="miner-hashrate">0</span> H/s</p>
+          <!-- Tooltip -->
+          <div id="miner-tooltip" class="hidden absolute z-50 pointer-events-none" style="bottom:calc(100% - 6px)">
+            <div class="bg-white rounded-[10px] px-2.5 py-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.18)]">
+              <p id="miner-tooltip-idx" class="font-label-sm text-[9px] uppercase tracking-wide text-on-surface-variant mb-0.5">Sample</p>
+              <p id="miner-tooltip-val" class="font-numeric-data text-[15px] font-semibold text-primary leading-none">— H/s</p>
+              <p id="miner-tooltip-state" class="font-label-sm text-[10px] text-secondary mt-0.5">Idle</p>
+            </div>
+            <div class="flex justify-center"><div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid white;"></div></div>
+          </div>
           <div class="flex items-end gap-[3px] h-6" id="miner-bars">
             <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
             <div class="flex-1 bg-on-primary/15 rounded-sm" style="height:30%"></div>
@@ -1138,7 +1229,7 @@
 </div>
 
 <!-- ── MY PACKAGE DETAIL DIALOG ── -->
-<div id="mp-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+<div id="mp-dialog" class="hidden fixed inset-0 z-50 flex items-end">
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeMyPackage()"></div>
   <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10">
     <div class="w-10 h-1 bg-outline-variant/60 rounded-full mx-auto mb-5"></div>
@@ -1211,7 +1302,7 @@
 </div>
 
 <!-- ── CLOUD MINER DETAIL DIALOG ── -->
-<div id="cm-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+<div id="cm-dialog" class="hidden fixed inset-0 z-50 flex items-end">
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeCloudMiner()"></div>
   <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10">
     <!-- Handle -->
@@ -1295,7 +1386,7 @@
 </div>
 
 <!-- ── PACKAGE DETAIL DIALOG ── -->
-<div id="pkg-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+<div id="pkg-dialog" class="hidden fixed inset-0 z-50 flex items-end">
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closePackage()"></div>
   <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10">
     <!-- Handle -->
@@ -1362,14 +1453,19 @@
 </div>
 
 <!-- AI Trading Page -->
-<div id="page-ai" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto hide-scrollbar pb-36">
+<div id="page-ai" class="hidden fixed inset-0 bg-[#fcf8f8] z-30 overflow-y-auto hide-scrollbar pb-36">
 
   <!-- Header -->
   <header class="flex items-center justify-between w-full px-6 h-16 pt-4 shrink-0">
     <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">AI Trading</h1>
-    <div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-full">
-      <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
-      <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">2 Active</span>
+    <div class="flex items-center gap-2">
+      <button class="relative w-10 h-10 flex items-center justify-center text-on-surface hover:opacity-70 transition-opacity">
+        <span class="material-symbols-outlined text-[24px]">notifications</span>
+        <div class="absolute top-2 right-1.5 w-2 h-2 bg-secondary rounded-full border-2 border-[#fcf8f8]"></div>
+      </button>
+      <button class="w-9 h-9 rounded-full border border-outline-variant overflow-hidden flex items-center justify-center">
+        <img src="https://api.dicebear.com/10.x/dylan/svg?hairVariant=bangs,buns,fluffy,longCurls,parting,plain,roundBob,shaggy,shortCurls,spiky,wavy&backgroundColor=619eff&hairColor=000000,ff543d,ffffff&skinColor=ffd6c0&seed=Felix" alt="avatar" class="w-full h-full object-cover"/>
+      </button>
     </div>
   </header>
 
@@ -1379,7 +1475,7 @@
     <div class="bg-primary rounded-[22px] p-5 relative overflow-hidden">
       <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/5 pointer-events-none"></div>
       <div class="relative z-10">
-        <div class="flex justify-between items-start mb-4">
+        <div class="flex justify-between items-start mb-3">
           <div>
             <p class="font-label-sm text-[11px] tracking-[0.06em] uppercase text-on-primary/60 mb-1">Total AI Profit</p>
             <p class="font-display-lg text-[38px] font-semibold text-on-primary tracking-tight leading-none">$4,821.39</p>
@@ -1389,6 +1485,47 @@
             <span class="font-label-sm text-[11px] text-on-primary tracking-wide">+12.4%</span>
           </div>
         </div>
+
+        <!-- Profit Bars -->
+        <div class="mb-4 relative">
+          <p class="font-label-sm text-[11px] tracking-[0.05em] uppercase text-on-primary/50 mb-2">Daily Profit — Last 18 Days</p>
+          <!-- Tooltip -->
+          <div id="profit-tooltip" class="hidden absolute z-50 pointer-events-none">
+            <div class="bg-white rounded-[10px] px-2.5 py-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.18)]" style="min-width:80px;">
+              <p id="profit-tooltip-date" class="font-label-sm text-[9px] uppercase tracking-wide text-on-surface-variant mb-0.5"></p>
+              <p id="profit-tooltip-amt" class="font-numeric-data text-[15px] font-semibold text-primary leading-none"></p>
+              <p id="profit-tooltip-roi" class="font-label-sm text-[10px] text-[#1a7f4b] mt-0.5"></p>
+            </div>
+            <!-- Arrow -->
+            <div class="flex justify-center">
+              <div style="width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid white;"></div>
+            </div>
+          </div>
+          <div id="profit-bars" class="flex items-end gap-[3px] h-8 relative"
+               data-profits='[92,118,105,138,97,161,127,148,173,139,185,162,197,174,210,184,220,232]'
+               data-dates='["Jul 15","Jul 16","Jul 17","Jul 18","Jul 19","Jul 20","Jul 21","Jul 22","Jul 23","Jul 24","Jul 25","Jul 26","Jul 27","Jul 28","Jul 29","Jul 30","Jul 31","Aug 1"]'
+               data-rois='[1.8,2.1,1.9,2.4,1.7,2.7,2.2,2.5,2.9,2.3,3.1,2.7,3.3,2.9,3.5,3.0,3.7,3.9]'>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:35%;background:rgba(255,255,255,0.2)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:50%;background:rgba(255,255,255,0.2)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:45%;background:rgba(255,255,255,0.3)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:60%;background:rgba(255,255,255,0.2)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:40%;background:rgba(255,255,255,0.3)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:70%;background:rgba(255,255,255,0.2)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:55%;background:rgba(255,255,255,0.3)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:65%;background:rgba(255,255,255,0.2)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:75%;background:rgba(255,255,255,0.3)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:60%;background:rgba(255,255,255,0.2)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:80%;background:rgba(255,255,255,0.3)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:70%;background:rgba(255,255,255,0.2)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:85%;background:rgba(255,255,255,0.3)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:75%;background:rgba(255,255,255,0.2)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:90%;background:rgba(255,255,255,0.3)"></div>
+            <div class="profit-bar flex-1 rounded-sm transition-all duration-150 cursor-pointer" style="height:80%;background:rgba(255,255,255,0.2)"></div>
+            <div class="profit-bar flex-1 rounded-sm bar-active transition-all duration-150 cursor-pointer" style="height:95%;background:rgba(255,255,255,0.5)"></div>
+            <div class="profit-bar flex-1 rounded-sm bar-active transition-all duration-150 cursor-pointer" style="height:100%;background:rgba(255,255,255,0.5)"></div>
+          </div>
+        </div>
+
         <div class="grid grid-cols-3 gap-2">
           <div class="bg-white/8 rounded-[14px] px-3 py-2.5">
             <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-primary/50 mb-0.5">Today</p>
@@ -1765,7 +1902,7 @@
 </div>
 
 <!-- ── STRATEGY DETAIL DIALOG (marketplace) ── -->
-<div id="strat-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+<div id="strat-dialog" class="hidden fixed inset-0 z-50 flex items-end">
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeStrategy()"></div>
   <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10 max-h-[90vh] overflow-y-auto hide-scrollbar">
     <div class="w-10 h-1 bg-outline-variant/60 rounded-full mx-auto mb-5"></div>
@@ -1848,7 +1985,7 @@
 </div>
 
 <!-- ── MY STRATEGY DETAIL DIALOG (owned/invested) ── -->
-<div id="mystrat-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+<div id="mystrat-dialog" class="hidden fixed inset-0 z-50 flex items-end">
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeMyStrategy()"></div>
   <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10 max-h-[90vh] overflow-y-auto hide-scrollbar">
     <div class="w-10 h-1 bg-outline-variant/60 rounded-full mx-auto mb-5"></div>
@@ -1927,9 +2064,18 @@
 
 
 <!-- Wallet Page -->
-<div id="page-wallet" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
-  <header class="flex items-center w-full px-6 h-16 pt-4">
+<div id="page-wallet" class="hidden fixed inset-0 bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
+  <header class="flex items-center justify-between w-full px-6 h-16 pt-4">
     <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">Wallet</h1>
+    <div class="flex items-center gap-2">
+      <button class="relative w-10 h-10 flex items-center justify-center text-on-surface hover:opacity-70 transition-opacity">
+        <span class="material-symbols-outlined text-[24px]">notifications</span>
+        <div class="absolute top-2 right-1.5 w-2 h-2 bg-secondary rounded-full border-2 border-[#fcf8f8]"></div>
+      </button>
+      <button class="w-9 h-9 rounded-full border border-outline-variant overflow-hidden flex items-center justify-center">
+        <img src="https://api.dicebear.com/10.x/dylan/svg?hairVariant=bangs,buns,fluffy,longCurls,parting,plain,roundBob,shaggy,shortCurls,spiky,wavy&backgroundColor=619eff&hairColor=000000,ff543d,ffffff&skinColor=ffd6c0&seed=Felix" alt="avatar" class="w-full h-full object-cover"/>
+      </button>
+    </div>
   </header>
   <div class="px-6 flex flex-col gap-4">
     <div class="flex items-baseline gap-1 mb-2">
@@ -1959,7 +2105,7 @@
 </div>
 
 <!-- Profile Page -->
-<div id="page-profile" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
+<div id="page-profile" class="hidden fixed inset-0 bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
   <header class="flex items-center w-full px-6 h-16 pt-4">
     <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">Profile</h1>
   </header>
@@ -2182,16 +2328,59 @@
   }
 
   function animateBars(active) {
-    const bars = document.querySelectorAll('#miner-bars .flex-1');
+    const barsEl = document.getElementById('miner-bars');
+    const wrap   = document.getElementById('miner-bars-wrap');
+    const tip    = document.getElementById('miner-tooltip');
+    const tipIdx = document.getElementById('miner-tooltip-idx');
+    const tipVal = document.getElementById('miner-tooltip-val');
+    const tipSt  = document.getElementById('miner-tooltip-state');
+    const bars   = document.querySelectorAll('#miner-bars .flex-1');
+
     bars.forEach((b, i) => {
       if (active) {
         const h = 25 + Math.floor(Math.random() * 75);
         b.style.height = h + '%';
-        b.className = 'flex-1 rounded-sm ' + (i % 3 === 2 ? 'bg-white/50 bar-active' : 'bg-on-primary/30');
+        b.className = 'flex-1 rounded-sm cursor-pointer ' + (i % 3 === 2 ? 'bg-white/50 bar-active' : 'bg-on-primary/30');
       } else {
         b.style.height = '30%';
-        b.className = 'flex-1 bg-on-primary/15 rounded-sm';
+        b.className = 'flex-1 bg-on-primary/15 rounded-sm cursor-pointer';
       }
+      b.style.opacity = '1';
+    });
+
+    // Re-attach tooltip listeners after bar styles update
+    if (!wrap || !barsEl || !tip) return;
+    bars.forEach((bar, idx) => {
+      bar.onmouseenter = null; bar.onmouseleave = null;
+      bar.addEventListener('mouseenter', function() {
+        const hPct = parseInt(bar.style.height) || 30;
+        const hz   = active ? Math.round((hPct / 100) * 842) : 0;
+        bars.forEach((b, i) => { b.style.opacity = i !== idx ? '0.35' : '1'; });
+        tipIdx.textContent = 'Sample ' + (idx + 1);
+        tipVal.textContent = hz > 0 ? hz + ' H/s' : '— H/s';
+        tipSt.textContent  = active ? 'Mining' : 'Idle';
+        tipSt.style.color  = active ? '#4ade80' : '#999';
+        const br = bar.getBoundingClientRect(), cr = wrap.getBoundingClientRect();
+        const tipW = 80;
+        let left = br.left - cr.left + br.width / 2 - tipW / 2;
+        left = Math.max(0, Math.min(left, cr.width - tipW));
+        tip.style.left = left + 'px'; tip.style.width = tipW + 'px';
+        tip.classList.remove('hidden');
+      });
+      bar.addEventListener('mouseleave', function() {
+        bars.forEach(b => { b.style.opacity = '1'; });
+        tip.classList.add('hidden');
+      });
+      bar.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        bar.dispatchEvent(new Event('mouseenter'));
+      }, { passive: false });
+      bar.addEventListener('touchend', function() {
+        setTimeout(() => {
+          bars.forEach(b => { b.style.opacity = '1'; });
+          tip.classList.add('hidden');
+        }, 1200);
+      });
     });
   }
 
@@ -2208,6 +2397,9 @@
     document.getElementById('miner-timer').textContent =
       String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
   }
+
+  // Attach miner bar tooltips on initial idle state
+  animateBars(false);
 
   // Resume miner if still active from a previous session
   (function() {
@@ -2654,6 +2846,268 @@
       }, 1800);
     }, 1400);
   }
+
+  // ── PORTFOLIO CHART TOOLTIP ──────────────────────────────────────
+  (function() {
+    // Sampled data points [x in viewBox 0-393, y in viewBox 0-160, label, value, change]
+    const chartPoints = {
+      '1W': [
+        { x:0,   y:105, d:'Mon',  v:'$45,210', c:'+0.8%' },
+        { x:65,  y:95,  d:'Tue',  v:'$45,890', c:'+1.5%' },
+        { x:125, y:55,  d:'Wed',  v:'$47,320', c:'+3.1%' },
+        { x:190, y:45,  d:'Thu',  v:'$47,640', c:'+0.7%' },
+        { x:255, y:30,  d:'Fri',  v:'$48,010', c:'+0.8%' },
+        { x:320, y:20,  d:'Sat',  v:'$48,190', c:'+0.4%' },
+        { x:393, y:15,  d:'Today',v:'$48,291', c:'+0.2%' },
+      ],
+      '1D': [
+        { x:0,   y:120, d:'09:00',v:'$47,810', c:'+0.2%' },
+        { x:65,  y:100, d:'11:00',v:'$47,960', c:'+0.3%' },
+        { x:130, y:80,  d:'13:00',v:'$48,050', c:'+0.2%' },
+        { x:195, y:60,  d:'15:00',v:'$48,110', c:'+0.1%' },
+        { x:260, y:40,  d:'17:00',v:'$48,200', c:'+0.2%' },
+        { x:330, y:25,  d:'19:00',v:'$48,250', c:'+0.1%' },
+        { x:393, y:15,  d:'Now',  v:'$48,291', c:'+0.1%' },
+      ],
+    };
+    // Fallback for other ranges
+    ['1H','1M','1Y','All'].forEach(k => { chartPoints[k] = chartPoints['1W']; });
+
+    const svg        = document.getElementById('portfolio-svg');
+    const hitRect    = document.getElementById('chart-hit');
+    const crosshair  = document.getElementById('chart-crosshair');
+    const cDotGlow   = document.getElementById('chart-crosshair-dot-glow');
+    const cDot       = document.getElementById('chart-crosshair-dot');
+    const tip        = document.getElementById('chart-tooltip');
+    const tipDate    = document.getElementById('chart-tooltip-date');
+    const tipVal     = document.getElementById('chart-tooltip-val');
+    const tipChg     = document.getElementById('chart-tooltip-chg');
+    const section    = document.getElementById('portfolio-chart-section');
+    if (!svg || !hitRect) return;
+
+    function getCurrentRange() {
+      const active = document.querySelector('.range-btn--active');
+      return active ? active.dataset.range : '1W';
+    }
+
+    function getNearestPoint(svgX) {
+      const pts = chartPoints[getCurrentRange()] || chartPoints['1W'];
+      let nearest = pts[0], minDist = Infinity;
+      pts.forEach(p => {
+        const d = Math.abs(p.x - svgX);
+        if (d < minDist) { minDist = d; nearest = p; }
+      });
+      return nearest;
+    }
+
+    function getSvgX(clientX) {
+      const rect = svg.getBoundingClientRect();
+      const ratio = 393 / rect.width;
+      return (clientX - rect.left) * ratio;
+    }
+
+    function showChartTip(clientX) {
+      const svgX = getSvgX(clientX);
+      const pt   = getNearestPoint(svgX);
+      crosshair.setAttribute('x1', pt.x); crosshair.setAttribute('x2', pt.x);
+      crosshair.setAttribute('visibility', 'visible');
+      cDotGlow.setAttribute('cx', pt.x); cDotGlow.setAttribute('cy', pt.y);
+      cDotGlow.setAttribute('visibility', 'visible');
+      cDot.setAttribute('cx', pt.x); cDot.setAttribute('cy', pt.y);
+      cDot.setAttribute('visibility', 'visible');
+
+      tipDate.textContent = pt.d;
+      tipVal.textContent  = pt.v;
+      tipChg.textContent  = pt.c;
+
+      const rect    = section.getBoundingClientRect();
+      const svgRect = svg.getBoundingClientRect();
+      const px      = (pt.x / 393) * svgRect.width;
+      const tipW    = 96;
+      let   left    = px - tipW / 2;
+      left = Math.max(8, Math.min(left, rect.width - tipW - 8));
+      tip.style.left = left + 'px';
+      tip.classList.remove('hidden');
+    }
+
+    function hideChartTip() {
+      crosshair.setAttribute('visibility', 'hidden');
+      cDotGlow.setAttribute('visibility', 'hidden');
+      cDot.setAttribute('visibility', 'hidden');
+      tip.classList.add('hidden');
+    }
+
+    hitRect.addEventListener('mousemove',  e => showChartTip(e.clientX));
+    hitRect.addEventListener('mouseleave', hideChartTip);
+    hitRect.addEventListener('touchmove',  e => { e.preventDefault(); showChartTip(e.touches[0].clientX); }, { passive: false });
+    hitRect.addEventListener('touchend',   () => setTimeout(hideChartTip, 1500));
+  })();
+
+  // ── ACTIVE RIGS HASHRATE BAR TOOLTIP ────────────────────────────
+  (function() {
+    const wrap   = document.getElementById('hashrate-wrap');
+    const barsEl = document.getElementById('hashrate-bars');
+    const tip    = document.getElementById('hashrate-tooltip');
+    const tipTime = document.getElementById('hashrate-tooltip-time');
+    const tipVal  = document.getElementById('hashrate-tooltip-val');
+    const tipRig  = document.getElementById('hashrate-tooltip-rig');
+    if (!wrap || !barsEl) return;
+
+    const vals  = JSON.parse(barsEl.dataset.vals);
+    const times = JSON.parse(barsEl.dataset.times);
+    const bars  = barsEl.querySelectorAll('.hashrate-bar');
+    const defaultBg = Array.from(bars).map(b => b.style.background);
+
+    function showTip(idx) {
+      bars.forEach((b, i) => {
+        b.style.background = i === idx ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.12)';
+      });
+      tipTime.textContent = times[idx];
+      tipVal.textContent  = vals[idx] + ' TH/s';
+      tipRig.textContent  = vals[idx] >= 280 ? 'All rigs active' : vals[idx] >= 200 ? '3 rigs active' : '2 rigs active';
+
+      const barRect = bars[idx].getBoundingClientRect();
+      const conRect = wrap.getBoundingClientRect();
+      const tipW    = 90;
+      let   left    = barRect.left - conRect.left + barRect.width / 2 - tipW / 2;
+      left = Math.max(0, Math.min(left, conRect.width - tipW));
+      tip.style.left  = left + 'px';
+      tip.style.width = tipW + 'px';
+      tip.classList.remove('hidden');
+    }
+
+    function hideTip() {
+      bars.forEach((b, i) => { b.style.background = defaultBg[i]; });
+      tip.classList.add('hidden');
+    }
+
+    bars.forEach((bar, idx) => {
+      bar.addEventListener('mouseenter', () => showTip(idx));
+      bar.addEventListener('mouseleave', hideTip);
+      bar.addEventListener('touchstart', e => { e.preventDefault(); showTip(idx); }, { passive: false });
+      bar.addEventListener('touchend',   () => setTimeout(hideTip, 1200));
+    });
+  })();
+
+  // ── MINER PAGE HASHRATE BAR TOOLTIP ─────────────────────────────
+  (function() {
+    const wrap   = document.getElementById('miner-bars-wrap');
+    const barsEl = document.getElementById('miner-bars');
+    const tip    = document.getElementById('miner-tooltip');
+    const tipIdx = document.getElementById('miner-tooltip-idx');
+    const tipVal = document.getElementById('miner-tooltip-val');
+    const tipSt  = document.getElementById('miner-tooltip-state');
+    if (!wrap || !barsEl) return;
+
+    function attachMinerTooltips() {
+      const bars = barsEl.querySelectorAll('.flex-1');
+      bars.forEach((bar, idx) => {
+        bar.style.cursor = 'pointer';
+        bar.addEventListener('mouseenter', () => showMinerTip(bar, idx, bars));
+        bar.addEventListener('mouseleave', () => hideMinerTip());
+        bar.addEventListener('touchstart', e => { e.preventDefault(); showMinerTip(bar, idx, bars); }, { passive: false });
+        bar.addEventListener('touchend',   () => setTimeout(hideMinerTip, 1200));
+      });
+    }
+
+    function showMinerTip(bar, idx, allBars) {
+      const hPct   = parseInt(bar.style.height) || 30;
+      const isActive = minerActive;
+      const hz     = isActive ? Math.round((hPct / 100) * 842) : 0;
+      const sample = idx + 1;
+
+      allBars.forEach((b, i) => {
+        if (i !== idx) b.style.opacity = '0.35';
+      });
+      bar.style.opacity = '1';
+
+      tipIdx.textContent = 'Sample ' + sample;
+      tipVal.textContent = hz > 0 ? hz + ' H/s' : '— H/s';
+      tipSt.textContent  = isActive ? 'Mining' : 'Idle';
+      tipSt.style.color  = isActive ? '#4ade80' : '#999';
+
+      const barRect = bar.getBoundingClientRect();
+      const conRect = wrap.getBoundingClientRect();
+      const tipW    = 80;
+      let   left    = barRect.left - conRect.left + barRect.width / 2 - tipW / 2;
+      left = Math.max(0, Math.min(left, conRect.width - tipW));
+      tip.style.left  = left + 'px';
+      tip.style.width = tipW + 'px';
+      tip.classList.remove('hidden');
+    }
+
+    function hideMinerTip() {
+      const bars = barsEl.querySelectorAll('.flex-1');
+      bars.forEach(b => { b.style.opacity = '1'; });
+      tip.classList.add('hidden');
+    }
+
+    // Attach on load + re-attach after animateBars updates DOM
+    attachMinerTooltips();
+    const origAnimateBars = window.animateBars;
+    // Patch animateBars to re-attach after it runs
+    const _origToggleMiner = window.toggleMiner;
+  })();
+
+  // ── PROFIT BAR TOOLTIP ───────────────────────────────────────────
+  (function() {
+    const barsWrap  = document.getElementById('profit-bars');
+    const tooltip   = document.getElementById('profit-tooltip');
+    const tipDate   = document.getElementById('profit-tooltip-date');
+    const tipAmt    = document.getElementById('profit-tooltip-amt');
+    const tipRoi    = document.getElementById('profit-tooltip-roi');
+    if (!barsWrap) return;
+
+    const profits = JSON.parse(barsWrap.dataset.profits);
+    const dates   = JSON.parse(barsWrap.dataset.dates);
+    const rois    = JSON.parse(barsWrap.dataset.rois);
+    const bars    = barsWrap.querySelectorAll('.profit-bar');
+
+    const defaultBg = [
+      'rgba(255,255,255,0.20)','rgba(255,255,255,0.20)','rgba(255,255,255,0.30)',
+      'rgba(255,255,255,0.20)','rgba(255,255,255,0.30)','rgba(255,255,255,0.20)',
+      'rgba(255,255,255,0.30)','rgba(255,255,255,0.20)','rgba(255,255,255,0.30)',
+      'rgba(255,255,255,0.20)','rgba(255,255,255,0.30)','rgba(255,255,255,0.20)',
+      'rgba(255,255,255,0.30)','rgba(255,255,255,0.20)','rgba(255,255,255,0.30)',
+      'rgba(255,255,255,0.20)','rgba(255,255,255,0.50)','rgba(255,255,255,0.50)'
+    ];
+
+    function showTip(idx) {
+      bars.forEach((b, i) => {
+        b.style.background = i === idx ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.15)';
+      });
+      tipDate.textContent = dates[idx];
+      tipAmt.textContent  = '+$' + profits[idx].toFixed(2);
+      tipRoi.textContent  = '+' + rois[idx] + '% ROI';
+
+      // Position tooltip above the hovered bar
+      const container = barsWrap.parentElement; // the relative mb-4 div
+      const barRect   = bars[idx].getBoundingClientRect();
+      const conRect   = container.getBoundingClientRect();
+      const tipW      = 88;
+      let   left      = barRect.left - conRect.left + barRect.width / 2 - tipW / 2;
+      left = Math.max(0, Math.min(left, conRect.width - tipW));
+
+      tooltip.style.left   = left + 'px';
+      tooltip.style.bottom = (barsWrap.offsetHeight + 10) + 'px';
+      tooltip.style.width  = tipW + 'px';
+      tooltip.classList.remove('hidden');
+    }
+
+    function hideTip() {
+      bars.forEach((b, i) => { b.style.background = defaultBg[i]; });
+      tooltip.classList.add('hidden');
+    }
+
+    bars.forEach((bar, idx) => {
+      // Mouse
+      bar.addEventListener('mouseenter', () => showTip(idx));
+      bar.addEventListener('mouseleave', hideTip);
+      // Touch
+      bar.addEventListener('touchstart', (e) => { e.preventDefault(); showTip(idx); }, { passive: false });
+      bar.addEventListener('touchend',   () => setTimeout(hideTip, 1200));
+    });
+  })();
 
   // ── MY STRATEGY (owned) ───────────────────────────────────────────
   const myStrategies = {

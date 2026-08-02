@@ -1362,46 +1362,569 @@
 </div>
 
 <!-- AI Trading Page -->
-<div id="page-ai" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
-  <header class="flex items-center w-full px-6 h-16 pt-4">
+<div id="page-ai" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto hide-scrollbar pb-36">
+
+  <!-- Header -->
+  <header class="flex items-center justify-between w-full px-6 h-16 pt-4 shrink-0">
     <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">AI Trading</h1>
+    <div class="flex items-center gap-1.5 bg-surface-container-highest px-3 py-1.5 rounded-full">
+      <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
+      <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">2 Active</span>
+    </div>
   </header>
-  <div class="px-6 flex flex-col gap-4">
-    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 grid grid-cols-2 gap-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-      <div><p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-1">Win Rate</p><p class="font-numeric-data text-[22px] font-semibold text-primary">74.2%</p></div>
-      <div><p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-1">Total Trades</p><p class="font-numeric-data text-[22px] font-semibold text-primary">1,482</p></div>
-      <div><p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-1">Profit Factor</p><p class="font-numeric-data text-[22px] font-semibold text-primary">2.31</p></div>
-      <div><p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-1">Max Drawdown</p><p class="font-numeric-data text-[22px] font-semibold text-primary">8.4%</p></div>
+
+  <div class="px-6 flex flex-col gap-5">
+
+    <!-- ── SUMMARY CARD ── -->
+    <div class="bg-primary rounded-[22px] p-5 relative overflow-hidden">
+      <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/5 pointer-events-none"></div>
+      <div class="relative z-10">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <p class="font-label-sm text-[11px] tracking-[0.06em] uppercase text-on-primary/60 mb-1">Total AI Profit</p>
+            <p class="font-display-lg text-[38px] font-semibold text-on-primary tracking-tight leading-none">$4,821.39</p>
+          </div>
+          <div class="bg-white/10 rounded-full px-3 py-1.5 flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[13px] text-on-primary" style="font-variation-settings:'FILL' 1,'wght' 400;">north_east</span>
+            <span class="font-label-sm text-[11px] text-on-primary tracking-wide">+12.4%</span>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div class="bg-white/8 rounded-[14px] px-3 py-2.5">
+            <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-primary/50 mb-0.5">Today</p>
+            <p class="font-numeric-data text-[16px] font-semibold text-on-primary leading-none">+$142.80</p>
+          </div>
+          <div class="bg-white/8 rounded-[14px] px-3 py-2.5">
+            <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-primary/50 mb-0.5">Avg ROI</p>
+            <p class="font-numeric-data text-[16px] font-semibold text-on-primary leading-none">2.4%</p>
+          </div>
+          <div class="bg-white/8 rounded-[14px] px-3 py-2.5">
+            <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-primary/50 mb-0.5">Strategies</p>
+            <p class="font-numeric-data text-[16px] font-semibold text-on-primary leading-none">2 / 4</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mt-2">Active Strategies</h2>
-    <div class="flex flex-col gap-3">
+
+    <!-- ── SUMMARY BENTO ── -->
+    <div class="grid grid-cols-2 gap-3">
       <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-        <div class="flex justify-between items-start mb-3">
-          <div><p class="font-body-md text-[15px] font-semibold text-primary">BTC Long Momentum</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">AI Scalper · BTC/USDT</p></div>
-          <span class="font-numeric-data text-[15px] text-[#1a7f4b] font-semibold">+8.42%</span>
-        </div>
-        <div class="w-full bg-surface-container-highest rounded-full h-1.5"><div class="h-1.5 rounded-full bg-primary" style="width:74%"></div></div>
-        <div class="flex justify-between mt-1.5"><span class="font-label-sm text-[10px] text-on-surface-variant">Win rate 74%</span><span class="font-label-sm text-[10px] text-on-surface-variant">128 trades</span></div>
+        <span class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide">Win Rate</span>
+        <p class="font-numeric-data text-[24px] font-semibold text-primary leading-none mt-1">74.2%</p>
+        <p class="font-label-sm text-[10px] text-on-surface-variant mt-1 tracking-wide">1,482 trades</p>
       </div>
       <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-        <div class="flex justify-between items-start mb-3">
-          <div><p class="font-body-md text-[15px] font-semibold text-primary">ETH Grid Bot</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Grid DCA · ETH/USDT</p></div>
-          <span class="font-numeric-data text-[15px] text-[#1a7f4b] font-semibold">+3.18%</span>
-        </div>
-        <div class="w-full bg-surface-container-highest rounded-full h-1.5"><div class="h-1.5 rounded-full bg-primary" style="width:68%"></div></div>
-        <div class="flex justify-between mt-1.5"><span class="font-label-sm text-[10px] text-on-surface-variant">Win rate 68%</span><span class="font-label-sm text-[10px] text-on-surface-variant">344 trades</span></div>
+        <span class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide">Max Drawdown</span>
+        <p class="font-numeric-data text-[24px] font-semibold text-primary leading-none mt-1">8.4%</p>
+        <p class="font-label-sm text-[10px] text-on-surface-variant mt-1 tracking-wide">All-time low</p>
       </div>
-      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] opacity-50">
-        <div class="flex justify-between items-start mb-3">
-          <div><p class="font-body-md text-[15px] font-semibold text-primary">SOL Breakout</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Swing · SOL/USDT · Paused</p></div>
-          <span class="font-numeric-data text-[15px] text-on-surface-variant/50 font-semibold">—</span>
-        </div>
-        <div class="w-full bg-surface-container-highest rounded-full h-1.5"><div class="h-1.5 rounded-full bg-on-surface-variant/30" style="width:0%"></div></div>
-        <div class="flex justify-between mt-1.5"><span class="font-label-sm text-[10px] text-on-surface-variant">Awaiting signal</span><span class="font-label-sm text-[10px] text-on-surface-variant">0 active</span></div>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <span class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide">Total Invested</span>
+        <p class="font-numeric-data text-[24px] font-semibold text-primary leading-none mt-1">$5,200</p>
+        <p class="font-label-sm text-[10px] text-on-surface-variant mt-1 tracking-wide">Across 2 bots</p>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <span class="font-label-sm text-[10px] uppercase text-on-surface-variant tracking-wide">Profit Factor</span>
+        <p class="font-numeric-data text-[24px] font-semibold text-[#1a7f4b] leading-none mt-1">2.31×</p>
+        <p class="font-label-sm text-[10px] text-on-surface-variant mt-1 tracking-wide">Risk adjusted</p>
       </div>
     </div>
+
+    <!-- ── AI STRATEGIES MARKETPLACE ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">AI Strategies</h2>
+        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">4 available</span>
+      </div>
+
+      <div class="flex flex-col gap-3">
+
+        <!-- Strategy: BTC Scalper -->
+        <div onclick="openStrategy('btc_scalper')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">currency_bitcoin</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <p class="font-body-md text-[15px] font-semibold text-primary">BTC Scalper</p>
+                  <span class="bg-primary text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">Hot</span>
+                </div>
+                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">AI Scalper · BTC/USDT · 15m</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-body-md text-[15px] font-bold text-[#1a7f4b]">+2.8%</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Daily ROI</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Min. Invest</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">$200</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Lock Time</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">30d</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Drawdown</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">6.2%</p>
+            </div>
+            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Total ROI</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">84%</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy: ETH Grid -->
+        <div onclick="openStrategy('eth_grid')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">diamond</span>
+              </div>
+              <div>
+                <p class="font-body-md text-[15px] font-semibold text-primary">ETH Grid Bot</p>
+                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Grid DCA · ETH/USDT · 1h</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-body-md text-[15px] font-bold text-[#1a7f4b]">+1.9%</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Daily ROI</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Min. Invest</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">$500</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Lock Time</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">60d</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Drawdown</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">9.1%</p>
+            </div>
+            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Total ROI</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">114%</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy: SOL Swing -->
+        <div onclick="openStrategy('sol_swing')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">bolt</span>
+              </div>
+              <div>
+                <p class="font-body-md text-[15px] font-semibold text-primary">SOL Swing</p>
+                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Swing · SOL/USDT · 4h</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-body-md text-[15px] font-bold text-[#1a7f4b]">+3.2%</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Daily ROI</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Min. Invest</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">$300</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Lock Time</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">45d</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Drawdown</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">11.8%</p>
+            </div>
+            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Total ROI</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">144%</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy: Multi-Asset -->
+        <div onclick="openStrategy('multi_asset')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">auto_awesome</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <p class="font-body-md text-[15px] font-semibold text-primary">Multi-Asset AI</p>
+                  <span class="bg-secondary text-on-secondary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">New</span>
+                </div>
+                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">AI Quant · BTC+ETH+SOL · 1d</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-body-md text-[15px] font-bold text-[#1a7f4b]">+4.1%</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Daily ROI</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Min. Invest</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">$1,000</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Lock Time</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">90d</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Drawdown</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">7.5%</p>
+            </div>
+            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Total ROI</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">369%</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── MY ACTIVE INVESTMENTS ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">My Investments</h2>
+        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">2 running</span>
+      </div>
+      <div class="flex flex-col gap-3">
+
+        <!-- Invested: BTC Scalper (claim ready) -->
+        <div onclick="openMyStrategy('my_btc')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute top-4 right-4 flex items-center gap-1.5 bg-[#e6f5ee] px-2.5 py-1 rounded-full">
+            <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
+            <span class="font-label-sm text-[10px] text-[#1a7f4b] font-semibold tracking-wide">Claim Ready</span>
+          </div>
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[22px]">currency_bitcoin</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-body-md text-[15px] font-semibold text-primary">BTC Scalper</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Invested $2,000 · expires in 16 days</p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="flex justify-between mb-1">
+              <span class="font-label-sm text-[10px] text-on-surface-variant">Day 14 of 30</span>
+              <span class="font-label-sm text-[10px] text-on-surface-variant">46.7%</span>
+            </div>
+            <div class="w-full bg-surface-container-highest rounded-full h-1.5">
+              <div class="h-1.5 rounded-full bg-primary" style="width:46.7%"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Today's Profit</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">+$56.00</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Total Earned</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">$784.00</p>
+            </div>
+            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Claimable</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">$56.00</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Invested: ETH Grid (already claimed) -->
+        <div onclick="openMyStrategy('my_eth')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[22px]">diamond</span>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <p class="font-body-md text-[15px] font-semibold text-primary">ETH Grid Bot</p>
+                <div class="flex items-center gap-1.5 bg-surface-container-highest px-2.5 py-1 rounded-full">
+                  <div class="w-1.5 h-1.5 rounded-full bg-on-surface-variant/40"></div>
+                  <span class="font-label-sm text-[10px] text-on-surface-variant font-semibold tracking-wide">Claimed</span>
+                </div>
+              </div>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Invested $3,200 · claimed today</p>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="flex justify-between mb-1">
+              <span class="font-label-sm text-[10px] text-on-surface-variant">Day 22 of 60</span>
+              <span class="font-label-sm text-[10px] text-on-surface-variant">36.7%</span>
+            </div>
+            <div class="w-full bg-surface-container-highest rounded-full h-1.5">
+              <div class="h-1.5 rounded-full bg-primary" style="width:36.7%"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Today's Profit</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-surface-variant/50">$0.00</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Total Earned</p>
+              <p class="font-body-md text-[12px] font-semibold text-primary">$1,344.00</p>
+            </div>
+            <div class="bg-surface-container rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Claimable</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-surface-variant/50">$0.00</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── HISTORY ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">History</h2>
+        <button class="font-label-sm text-[12px] text-secondary flex items-center gap-1 hover:opacity-70 transition-opacity">
+          View all <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[20px]">redeem</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">BTC Scalper Profit</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Today, 08:00</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+$56.00</p>
+            <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">+2.8%</p>
+          </div>
+        </div>
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[20px]">redeem</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">ETH Grid Profit</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Today, 08:00</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+$60.80</p>
+            <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">+1.9%</p>
+          </div>
+        </div>
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[20px]">auto_awesome</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">ETH Grid — Invested</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Jul 11, 14:20</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-primary">−$3,200.00</p>
+            <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">USDC</p>
+          </div>
+        </div>
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[20px]">auto_awesome</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">BTC Scalper — Invested</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Jul 19, 10:05</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-primary">−$2,000.00</p>
+            <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">USDC</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
+
+<!-- ── STRATEGY DETAIL DIALOG (marketplace) ── -->
+<div id="strat-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeStrategy()"></div>
+  <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10 max-h-[90vh] overflow-y-auto hide-scrollbar">
+    <div class="w-10 h-1 bg-outline-variant/60 rounded-full mx-auto mb-5"></div>
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-5">
+      <div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+        <span id="strat-icon" class="material-symbols-outlined text-on-surface-variant text-[26px]">currency_bitcoin</span>
+      </div>
+      <div class="flex-1">
+        <p id="strat-name" class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">BTC Scalper</p>
+        <p id="strat-pair" class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">AI Scalper · BTC/USDT</p>
+      </div>
+      <div class="text-right">
+        <p id="strat-roi" class="font-numeric-data text-[24px] font-semibold text-[#1a7f4b]">+2.8%</p>
+        <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Daily ROI</p>
+      </div>
+    </div>
+    <!-- Stats grid -->
+    <div class="grid grid-cols-2 gap-2.5 mb-5">
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Min. Investment</p>
+        <p id="strat-min" class="font-body-md text-[16px] font-semibold text-primary">$200</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Lock Time</p>
+        <p id="strat-lock" class="font-body-md text-[16px] font-semibold text-primary">30 days</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Max Drawdown</p>
+        <p id="strat-drawdown" class="font-body-md text-[16px] font-semibold text-primary">6.2%</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Bot Runtime</p>
+        <p id="strat-runtime" class="font-body-md text-[16px] font-semibold text-primary">142 days</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Total Return</p>
+        <p id="strat-total-return" class="font-body-md text-[16px] font-semibold text-[#1a7f4b]">+84%</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Win Rate</p>
+        <p id="strat-winrate" class="font-body-md text-[16px] font-semibold text-primary">74.2%</p>
+      </div>
+    </div>
+    <!-- Investment amount -->
+    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] px-5 py-4 mb-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+      <p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-3">Select Investment Amount</p>
+      <div class="flex gap-2 mb-3">
+        <button onclick="setInvestAmt(500)"  id="amt-500"  class="amt-btn flex-1 py-2 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors">$500</button>
+        <button onclick="setInvestAmt(1000)" id="amt-1000" class="amt-btn flex-1 py-2 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[12px] font-semibold transition-colors">$1,000</button>
+        <button onclick="setInvestAmt(2000)" id="amt-2000" class="amt-btn flex-1 py-2 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors">$2,000</button>
+        <button onclick="setInvestAmt(5000)" id="amt-5000" class="amt-btn flex-1 py-2 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors">$5,000</button>
+      </div>
+      <div class="flex items-center bg-surface-container rounded-full px-4 py-2.5 gap-2">
+        <span class="font-label-sm text-[13px] text-on-surface-variant">$</span>
+        <input id="strat-invest-input" type="number" value="1000" min="200" class="flex-1 bg-transparent font-numeric-data text-[18px] font-semibold text-primary outline-none" oninput="updateInvestCalc()" />
+      </div>
+    </div>
+    <!-- Projection -->
+    <div class="grid grid-cols-3 gap-2 mb-5">
+      <div class="bg-surface-container rounded-[12px] py-3 text-center">
+        <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-1">Daily Est.</p>
+        <p id="strat-est-daily" class="font-body-md text-[14px] font-bold text-primary">$28.00</p>
+      </div>
+      <div class="bg-surface-container rounded-[12px] py-3 text-center">
+        <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-1">Monthly Est.</p>
+        <p id="strat-est-monthly" class="font-body-md text-[14px] font-bold text-primary">$840.00</p>
+      </div>
+      <div class="bg-[#e6f5ee] rounded-[12px] py-3 text-center">
+        <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-1">Total Est.</p>
+        <p id="strat-est-total" class="font-body-md text-[14px] font-bold text-[#1a7f4b]">$840.00</p>
+      </div>
+    </div>
+    <!-- Confirm Buy button -->
+    <button id="strat-buy-btn" onclick="confirmStrategyBuy()" class="w-full bg-primary text-on-primary font-label-sm text-[14px] font-bold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all">
+      <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
+      <span id="strat-buy-label">Confirm · Invest $1,000</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── MY STRATEGY DETAIL DIALOG (owned/invested) ── -->
+<div id="mystrat-dialog" class="hidden fixed inset-0 max-w-[393px] mx-auto z-50 flex items-end">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeMyStrategy()"></div>
+  <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10 max-h-[90vh] overflow-y-auto hide-scrollbar">
+    <div class="w-10 h-1 bg-outline-variant/60 rounded-full mx-auto mb-5"></div>
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-5">
+      <div class="w-14 h-14 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+        <span id="ms-icon" class="material-symbols-outlined text-on-surface-variant text-[26px]">currency_bitcoin</span>
+      </div>
+      <div class="flex-1">
+        <p id="ms-name" class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">BTC Scalper</p>
+        <p id="ms-sub" class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">Invested $2,000 · 30 days</p>
+      </div>
+      <div id="ms-status-badge" class="flex items-center gap-1.5 bg-[#e6f5ee] px-3 py-1.5 rounded-full">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#4ade80] bar-active"></div>
+        <span class="font-label-sm text-[11px] text-[#1a7f4b] font-semibold tracking-wide">Active</span>
+      </div>
+    </div>
+    <!-- Progress -->
+    <div class="mb-5">
+      <div class="flex justify-between mb-1.5">
+        <span id="ms-day-label" class="font-label-sm text-[11px] text-on-surface-variant">Day 14 of 30</span>
+        <span id="ms-pct-label" class="font-label-sm text-[11px] text-on-surface-variant">46.7%</span>
+      </div>
+      <div class="w-full bg-surface-container-highest rounded-full h-2">
+        <div id="ms-progress-bar" class="h-2 rounded-full bg-primary transition-all" style="width:46.7%"></div>
+      </div>
+    </div>
+    <!-- Stats grid -->
+    <div class="grid grid-cols-2 gap-2.5 mb-5">
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Invested</p>
+        <p id="ms-invested" class="font-body-md text-[16px] font-semibold text-primary">$2,000</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Daily ROI</p>
+        <p id="ms-roi" class="font-body-md text-[16px] font-semibold text-[#1a7f4b]">2.8%</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Expires In</p>
+        <p id="ms-expires" class="font-body-md text-[16px] font-semibold text-primary">16 days</p>
+      </div>
+      <div class="bg-surface-container rounded-[14px] px-4 py-3">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Total Earned</p>
+        <p id="ms-total-earned" class="font-body-md text-[16px] font-semibold text-primary">$784.00</p>
+      </div>
+    </div>
+    <!-- Earnings box -->
+    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[18px] px-5 py-4 mb-3 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+      <div class="flex items-center justify-between mb-3">
+        <p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant">Daily Earnings</p>
+        <p id="ms-next-claim" class="font-label-sm text-[11px] text-on-surface-variant"></p>
+      </div>
+      <div class="flex gap-3">
+        <div class="flex-1 bg-surface-container rounded-[12px] py-3 text-center">
+          <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Today's Profit</p>
+          <p id="ms-daily-earn" class="font-body-md text-[15px] font-semibold text-[#1a7f4b]">$56.00</p>
+        </div>
+        <div class="flex-1 bg-[#e6f5ee] rounded-[12px] py-3 text-center">
+          <p class="font-label-sm text-[10px] text-[#1a7f4b] tracking-wide mb-0.5">Claimable</p>
+          <p id="ms-claimable" class="font-body-md text-[15px] font-bold text-[#1a7f4b]">$56.00</p>
+        </div>
+      </div>
+    </div>
+    <!-- Claim button -->
+    <button id="ms-claim-btn" onclick="claimStrategyProfit()" class="w-full bg-primary text-on-primary font-label-sm text-[14px] font-bold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all mb-3">
+      <span class="material-symbols-outlined text-[18px]">redeem</span>
+      <span>Claim · $56.00</span>
+    </button>
+    <!-- Re-invest button -->
+    <button id="ms-reinvest-btn" onclick="reinvestProfit()" class="w-full border border-outline-variant/60 text-primary font-label-sm text-[14px] font-semibold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-surface-container-low">
+      <span class="material-symbols-outlined text-[18px]">refresh</span>
+      <span id="ms-reinvest-label">Re-invest Profit</span>
+    </button>
+  </div>
+</div>
+
 
 <!-- Wallet Page -->
 <div id="page-wallet" class="hidden fixed inset-0 max-w-[393px] mx-auto bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
@@ -2008,6 +2531,261 @@
     document.getElementById('calc-total').textContent   = '$' + (daily * 60).toFixed(2);
   }
   calcMining();
+
+  // ── AI TRADING STRATEGIES ────────────────────────────────────────
+  const strategies = {
+    btc_scalper: {
+      icon: 'currency_bitcoin', name: 'BTC Scalper', pair: 'AI Scalper · BTC/USDT',
+      roi: '+2.8%', roiVal: 2.8, min: '$200', minVal: 200,
+      lock: '30 days', lockVal: 30, drawdown: '6.2%',
+      runtime: '142 days', totalReturn: '+84%', winrate: '74.2%',
+    },
+    eth_grid: {
+      icon: 'diamond', name: 'ETH Grid Bot', pair: 'Grid DCA · ETH/USDT',
+      roi: '+1.9%', roiVal: 1.9, min: '$500', minVal: 500,
+      lock: '60 days', lockVal: 60, drawdown: '9.1%',
+      runtime: '201 days', totalReturn: '+114%', winrate: '68.4%',
+    },
+    sol_swing: {
+      icon: 'bolt', name: 'SOL Swing', pair: 'Swing · SOL/USDT',
+      roi: '+3.2%', roiVal: 3.2, min: '$300', minVal: 300,
+      lock: '45 days', lockVal: 45, drawdown: '11.8%',
+      runtime: '98 days', totalReturn: '+144%', winrate: '71.8%',
+    },
+    multi_asset: {
+      icon: 'auto_awesome', name: 'Multi-Asset AI', pair: 'AI Quant · BTC+ETH+SOL',
+      roi: '+4.1%', roiVal: 4.1, min: '$1,000', minVal: 1000,
+      lock: '90 days', lockVal: 90, drawdown: '7.5%',
+      runtime: '64 days', totalReturn: '+369%', winrate: '79.3%',
+    },
+  };
+
+  let currentStratKey = null;
+  let currentInvestAmt = 1000;
+
+  function openStrategy(key) {
+    const s = strategies[key];
+    currentStratKey = key;
+    currentInvestAmt = s.minVal < 1000 ? 1000 : s.minVal;
+
+    document.getElementById('strat-icon').textContent = s.icon;
+    document.getElementById('strat-name').textContent = s.name;
+    document.getElementById('strat-pair').textContent = s.pair;
+    document.getElementById('strat-roi').textContent  = s.roi;
+    document.getElementById('strat-min').textContent  = s.min;
+    document.getElementById('strat-lock').textContent = s.lock;
+    document.getElementById('strat-drawdown').textContent    = s.drawdown;
+    document.getElementById('strat-runtime').textContent     = s.runtime;
+    document.getElementById('strat-total-return').textContent= s.totalReturn;
+    document.getElementById('strat-winrate').textContent     = s.winrate;
+
+    // reset amount buttons
+    document.getElementById('strat-invest-input').value = currentInvestAmt;
+    updateInvestCalc();
+    highlightAmtBtn(currentInvestAmt);
+
+    // reset buy button
+    const btn = document.getElementById('strat-buy-btn');
+    btn.className = BASE_BTN + ' bg-primary text-on-primary active:scale-95';
+    btn.disabled = false;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">auto_awesome</span><span id="strat-buy-label">Confirm · Invest $' + currentInvestAmt.toLocaleString() + '</span>';
+
+    document.getElementById('strat-dialog').classList.remove('hidden');
+    document.getElementById('strat-dialog').classList.add('flex');
+  }
+
+  function closeStrategy() {
+    document.getElementById('strat-dialog').classList.add('hidden');
+    document.getElementById('strat-dialog').classList.remove('flex');
+    currentStratKey = null;
+  }
+
+  function setInvestAmt(val) {
+    currentInvestAmt = val;
+    document.getElementById('strat-invest-input').value = val;
+    highlightAmtBtn(val);
+    updateInvestCalc();
+  }
+
+  function highlightAmtBtn(val) {
+    [500, 1000, 2000, 5000].forEach(v => {
+      const btn = document.getElementById('amt-' + v);
+      if (!btn) return;
+      btn.className = v === val
+        ? 'amt-btn flex-1 py-2 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[12px] font-semibold transition-colors'
+        : 'amt-btn flex-1 py-2 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors';
+    });
+  }
+
+  function updateInvestCalc() {
+    if (!currentStratKey) return;
+    const s = strategies[currentStratKey];
+    const amt = parseFloat(document.getElementById('strat-invest-input').value) || 0;
+    const daily = amt * (s.roiVal / 100);
+    const monthly = daily * 30;
+    const total = daily * s.lockVal;
+    document.getElementById('strat-est-daily').textContent   = '$' + daily.toFixed(2);
+    document.getElementById('strat-est-monthly').textContent = '$' + monthly.toFixed(2);
+    document.getElementById('strat-est-total').textContent   = '$' + total.toFixed(2);
+    // Update button label
+    const lbl = document.getElementById('strat-buy-label');
+    if (lbl) lbl.textContent = 'Confirm · Invest $' + amt.toLocaleString();
+  }
+
+  function confirmStrategyBuy() {
+    const s = strategies[currentStratKey];
+    const btn = document.getElementById('strat-buy-btn');
+    const SPIN  = BASE_BTN + ' bg-primary/70 text-on-primary cursor-not-allowed';
+    const GREEN = BASE_BTN + ' bg-[#1a7f4b] text-white cursor-not-allowed';
+    const BLACK = BASE_BTN + ' bg-primary text-on-primary active:scale-95';
+
+    btn.className = SPIN;
+    btn.disabled  = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="animation:spin 1s linear infinite;display:inline-block">autorenew</span><span>Processing…</span>';
+
+    setTimeout(() => {
+      btn.className = GREEN;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1">check_circle</span><span>Investment Confirmed!</span>';
+      setTimeout(() => {
+        btn.className = BLACK;
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">auto_awesome</span><span id="strat-buy-label">Confirm · Invest $' + currentInvestAmt.toLocaleString() + '</span>';
+        btn.disabled = false;
+        closeStrategy();
+      }, 1800);
+    }, 1400);
+  }
+
+  // ── MY STRATEGY (owned) ───────────────────────────────────────────
+  const myStrategies = {
+    my_btc: {
+      icon: 'currency_bitcoin', name: 'BTC Scalper',
+      sub: 'Invested $2,000 · 30 days', invested: '$2,000',
+      roi: '2.8%', expires: '16 days', day: 14, total: 30,
+      totalEarned: '$784.00', dailyEarn: '$56.00', claimable: '$56.00',
+      claimableVal: 56, claimedKey: 'valo_ai_btc_claimed_at',
+    },
+    my_eth: {
+      icon: 'diamond', name: 'ETH Grid Bot',
+      sub: 'Invested $3,200 · 60 days', invested: '$3,200',
+      roi: '1.9%', expires: '38 days', day: 22, total: 60,
+      totalEarned: '$1,344.00', dailyEarn: '$60.80', claimable: '$0.00',
+      claimableVal: 0, claimedKey: 'valo_ai_eth_claimed_at',
+    },
+  };
+
+  let currentMSKey = null;
+
+  const MS_READY   = BASE_BTN + ' bg-primary text-on-primary active:scale-95';
+  const MS_LOADING = BASE_BTN + ' bg-primary/60 text-on-primary cursor-not-allowed';
+  const MS_SUCCESS = BASE_BTN + ' bg-[#1a7f4b] text-white cursor-not-allowed';
+  const MS_EMPTY   = BASE_BTN + ' bg-surface-container-highest text-on-surface-variant cursor-not-allowed';
+
+  const MS_RI_READY   = 'w-full border border-outline-variant/60 text-primary font-label-sm text-[14px] font-semibold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all hover:bg-surface-container-low';
+  const MS_RI_SUCCESS = 'w-full border border-[#1a7f4b] text-[#1a7f4b] font-label-sm text-[14px] font-semibold py-4 rounded-full flex items-center justify-center gap-2 cursor-not-allowed';
+
+  function openMyStrategy(key) {
+    const m   = myStrategies[key];
+    const pct = ((m.day / m.total) * 100).toFixed(1);
+    currentMSKey = key;
+
+    document.getElementById('ms-icon').textContent        = m.icon;
+    document.getElementById('ms-name').textContent        = m.name;
+    document.getElementById('ms-sub').textContent         = m.sub;
+    document.getElementById('ms-invested').textContent    = m.invested;
+    document.getElementById('ms-roi').textContent         = m.roi;
+    document.getElementById('ms-expires').textContent     = m.expires;
+    document.getElementById('ms-total-earned').textContent= m.totalEarned;
+    document.getElementById('ms-daily-earn').textContent  = m.dailyEarn;
+    document.getElementById('ms-claimable').textContent   = m.claimable;
+    document.getElementById('ms-day-label').textContent   = 'Day ' + m.day + ' of ' + m.total;
+    document.getElementById('ms-pct-label').textContent   = pct + '%';
+    document.getElementById('ms-progress-bar').style.width = pct + '%';
+
+    // Re-invest button label
+    const riBtn = document.getElementById('ms-reinvest-btn');
+    const riLbl = document.getElementById('ms-reinvest-label');
+    riBtn.className = MS_RI_READY;
+    riBtn.disabled  = false;
+    if (riLbl) riLbl.textContent = 'Re-invest Profit';
+
+    const stored = localStorage.getItem(m.claimedKey);
+    const claimedAt = stored ? parseInt(stored) : null;
+    const nextReset = claimedAt ? claimedAt + 24 * 60 * 60 * 1000 : null;
+    const alreadyClaimed = nextReset && Date.now() < nextReset;
+    const noReward = m.claimableVal === 0;
+
+    const btn       = document.getElementById('ms-claim-btn');
+    const nextLabel = document.getElementById('ms-next-claim');
+    document.getElementById('mystrat-dialog').dataset.key = key;
+
+    if (noReward) {
+      nextLabel.textContent = 'Already claimed today';
+      btn.className = MS_EMPTY;
+      btn.disabled  = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">do_not_disturb</span><span>Nothing to Claim</span>';
+    } else if (alreadyClaimed) {
+      const rem = nextReset - Date.now();
+      const h   = Math.floor(rem / 3600000);
+      const mn  = Math.floor((rem % 3600000) / 60000);
+      nextLabel.textContent = 'Next in ' + h + 'h ' + mn + 'm';
+      btn.className = MS_EMPTY;
+      btn.disabled  = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1">check_circle</span><span>Claimed Today</span>';
+    } else {
+      nextLabel.textContent = 'Available now';
+      btn.className = MS_READY;
+      btn.disabled  = false;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">redeem</span><span>Claim · ' + m.claimable + '</span>';
+    }
+
+    document.getElementById('mystrat-dialog').classList.remove('hidden');
+    document.getElementById('mystrat-dialog').classList.add('flex');
+  }
+
+  function closeMyStrategy() {
+    document.getElementById('mystrat-dialog').classList.add('hidden');
+    document.getElementById('mystrat-dialog').classList.remove('flex');
+    currentMSKey = null;
+  }
+
+  function claimStrategyProfit() {
+    const key = document.getElementById('mystrat-dialog').dataset.key;
+    const m   = myStrategies[key];
+    const btn = document.getElementById('ms-claim-btn');
+
+    btn.className = MS_LOADING;
+    btn.disabled  = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="animation:spin 1s linear infinite;display:inline-block">autorenew</span><span>Claiming…</span>';
+
+    setTimeout(() => {
+      localStorage.setItem(m.claimedKey, Date.now().toString());
+      btn.className = MS_SUCCESS;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1">check_circle</span><span>Claimed · ' + m.claimable + '</span>';
+      document.getElementById('ms-next-claim').textContent = 'Next in 24h 0m';
+      document.getElementById('ms-claimable').textContent  = '$0.00';
+      setTimeout(closeMyStrategy, 1800);
+    }, 1400);
+  }
+
+  function reinvestProfit() {
+    const key = document.getElementById('mystrat-dialog').dataset.key;
+    const m   = myStrategies[key];
+    if (m.claimableVal === 0) return;
+
+    const btn = document.getElementById('ms-reinvest-btn');
+    const lbl = document.getElementById('ms-reinvest-label');
+    btn.className = MS_RI_SUCCESS;
+    btn.disabled  = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1">check_circle</span><span>Profit Re-invested!</span>';
+
+    setTimeout(() => {
+      btn.className = MS_RI_READY;
+      btn.disabled  = false;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">refresh</span><span id="ms-reinvest-label">Re-invest Profit</span>';
+      closeMyStrategy();
+    }, 2000);
+  }
+
 </script>
 
 </body>

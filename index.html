@@ -2064,8 +2064,9 @@
 
 
 <!-- Wallet Page -->
-<div id="page-wallet" class="hidden fixed inset-0 bg-[#fcf8f8] z-30 overflow-y-auto pb-36">
-  <header class="flex items-center justify-between w-full px-6 h-16 pt-4">
+<div id="page-wallet" class="hidden fixed inset-0 bg-[#fcf8f8] z-30 overflow-y-auto hide-scrollbar pb-36">
+  <!-- Header -->
+  <header class="flex items-center justify-between w-full px-6 h-16 pt-4 shrink-0">
     <h1 class="font-heading-md text-[20px] font-bold tracking-tight text-primary">Wallet</h1>
     <div class="flex items-center gap-2">
       <button class="relative w-10 h-10 flex items-center justify-center text-on-surface hover:opacity-70 transition-opacity">
@@ -2077,30 +2078,626 @@
       </button>
     </div>
   </header>
-  <div class="px-6 flex flex-col gap-4">
-    <div class="flex items-baseline gap-1 mb-2">
-      <span class="font-display-lg text-[48px] font-semibold tracking-tight leading-none text-primary">$48,</span><span class="font-display-lg text-[48px] font-semibold tracking-tight leading-none text-outline">291.04</span>
-    </div>
-    <div class="flex gap-3">
-      <button class="flex-1 bg-primary text-on-primary font-label-sm text-[13px] font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[18px]">arrow_upward</span>Send</button>
-      <button class="flex-1 bg-surface-container-lowest border border-outline-variant/60 text-primary font-label-sm text-[13px] font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[18px]">arrow_downward</span>Receive</button>
-      <button class="flex-1 bg-surface-container-lowest border border-outline-variant/60 text-primary font-label-sm text-[13px] font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[18px]">swap_horiz</span>Swap</button>
-    </div>
-    <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mt-2">Holdings</h2>
-    <div class="flex flex-col gap-0">
-      <div class="flex items-center justify-between py-3.5 border-b border-outline-variant/25">
-        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-[#F7931A]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#F7931A] text-[20px]">currency_bitcoin</span></div><div><p class="font-body-md text-[15px] font-semibold text-primary">Bitcoin</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">0.4812 BTC</p></div></div>
-        <div class="text-right"><p class="font-body-md text-[15px] font-semibold text-primary">$31,904.10</p><p class="font-label-sm text-[11px] text-[#1a7f4b] mt-0.5">+1.24%</p></div>
+
+  <div class="px-6 flex flex-col gap-5">
+
+    <!-- ── HERO / PORTFOLIO OVERVIEW ── -->
+    <div class="bg-primary rounded-[22px] p-5 relative overflow-hidden">
+      <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/5 pointer-events-none"></div>
+      <div class="absolute -left-4 -bottom-8 w-28 h-28 rounded-full bg-white/3 pointer-events-none"></div>
+      <div class="relative z-10">
+        <!-- User ID & tier -->
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-2">
+            <span class="font-label-sm text-[10px] tracking-[0.06em] uppercase text-on-primary/50">USR-10482</span>
+            <div class="w-1 h-1 rounded-full bg-on-primary/30"></div>
+            <div class="flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded-full">
+              <span class="material-symbols-outlined text-[11px]" style="font-variation-settings:'FILL' 1,'wght' 400;color:#FFD700;">star</span>
+              <span class="font-label-sm text-[10px] text-on-primary font-semibold tracking-wide">Gold</span>
+            </div>
+          </div>
+          <button id="w-balance-toggle" onclick="toggleWalletBalance()" class="w-7 h-7 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            <span id="w-balance-eye" class="material-symbols-outlined text-[15px] text-on-primary/70">visibility</span>
+          </button>
+        </div>
+        <!-- Total balance -->
+        <p class="font-label-sm text-[10px] tracking-[0.06em] uppercase text-on-primary/50 mb-1">Total Portfolio</p>
+        <div class="flex items-baseline gap-2 mb-2">
+          <span id="w-bal-main" class="font-display-lg text-[46px] font-semibold tracking-tight leading-none text-on-primary">$30,</span><span id="w-bal-dec" class="font-display-lg text-[46px] font-semibold tracking-tight leading-none text-on-primary/50">040.00</span>
+        </div>
+        <!-- Today delta -->
+        <div class="flex items-center gap-2 mb-5">
+          <div class="flex items-center gap-1 bg-white/10 px-2.5 py-1 rounded-full">
+            <span class="material-symbols-outlined text-[12px]" style="font-variation-settings:'FILL' 1,'wght' 400;color:#4ade80;">north_east</span>
+            <span class="font-label-sm text-[11px] font-semibold text-on-primary tracking-wide">+$114.00 today</span>
+          </div>
+        </div>
+        <!-- Sub-balance chips -->
+        <div class="grid grid-cols-3 gap-2">
+          <div class="bg-white/8 rounded-[14px] px-3 py-2.5 text-center">
+            <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-primary/50 mb-0.5">Available</p>
+            <p id="w-chip-avail" class="font-numeric-data text-[14px] font-semibold text-on-primary leading-none">$18,240</p>
+          </div>
+          <div class="bg-white/8 rounded-[14px] px-3 py-2.5 text-center">
+            <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-primary/50 mb-0.5">Locked</p>
+            <p id="w-chip-locked" class="font-numeric-data text-[14px] font-semibold text-on-primary leading-none">$9,800</p>
+          </div>
+          <div class="bg-white/8 rounded-[14px] px-3 py-2.5 text-center">
+            <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-primary/50 mb-0.5">Pending</p>
+            <p id="w-chip-pend" class="font-numeric-data text-[14px] font-semibold text-on-primary leading-none">$2,000</p>
+          </div>
+        </div>
       </div>
-      <div class="flex items-center justify-between py-3.5 border-b border-outline-variant/25">
-        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-[#627EEA]/10 flex items-center justify-center"><span class="material-symbols-outlined text-[#627EEA] text-[20px]">diamond</span></div><div><p class="font-body-md text-[15px] font-semibold text-primary">Ethereum</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">4.218 ETH</p></div></div>
-        <div class="text-right"><p class="font-body-md text-[15px] font-semibold text-primary">$12,891.44</p><p class="font-label-sm text-[11px] text-[#1a7f4b] mt-0.5">+2.87%</p></div>
+    </div>
+
+    <!-- ── QUICK ACTIONS BAR ── -->
+    <div class="grid grid-cols-5 gap-1.5">
+      <button onclick="openWalletSheet('deposit')" class="flex flex-col items-center gap-1.5 py-3 bg-surface-container-lowest border border-outline-variant/40 rounded-[16px] shadow-[0_2px_8px_rgba(0,0,0,0.03)] active:scale-95 transition-all hover:bg-surface-container-low">
+        <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-primary text-[18px]">arrow_downward</span>
+        </div>
+        <span class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Deposit</span>
+      </button>
+      <button onclick="openWalletSheet('withdraw')" class="flex flex-col items-center gap-1.5 py-3 bg-surface-container-lowest border border-outline-variant/40 rounded-[16px] shadow-[0_2px_8px_rgba(0,0,0,0.03)] active:scale-95 transition-all hover:bg-surface-container-low">
+        <div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-surface-variant text-[18px]">arrow_upward</span>
+        </div>
+        <span class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Withdraw</span>
+      </button>
+      <button onclick="openWalletSheet('transfer')" class="flex flex-col items-center gap-1.5 py-3 bg-surface-container-lowest border border-outline-variant/40 rounded-[16px] shadow-[0_2px_8px_rgba(0,0,0,0.03)] active:scale-95 transition-all hover:bg-surface-container-low">
+        <div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-surface-variant text-[18px]">swap_horiz</span>
+        </div>
+        <span class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Transfer</span>
+      </button>
+      <button onclick="openWalletSheet('history')" class="flex flex-col items-center gap-1.5 py-3 bg-surface-container-lowest border border-outline-variant/40 rounded-[16px] shadow-[0_2px_8px_rgba(0,0,0,0.03)] active:scale-95 transition-all hover:bg-surface-container-low">
+        <div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-surface-variant text-[18px]">history</span>
+        </div>
+        <span class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">History</span>
+      </button>
+      <button onclick="openWalletSheet('export')" class="flex flex-col items-center gap-1.5 py-3 bg-surface-container-lowest border border-outline-variant/40 rounded-[16px] shadow-[0_2px_8px_rgba(0,0,0,0.03)] active:scale-95 transition-all hover:bg-surface-container-low">
+        <div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center">
+          <span class="material-symbols-outlined text-on-surface-variant text-[18px]">download</span>
+        </div>
+        <span class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Export</span>
+      </button>
+    </div>
+
+    <!-- ── BALANCE SUMMARY PANEL ── -->
+    <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+      <p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-3">Balance Summary</p>
+      <div class="grid grid-cols-2 gap-2.5 mb-3">
+        <div class="bg-surface-container rounded-[14px] px-4 py-3">
+          <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Today's Earnings</p>
+          <p class="font-numeric-data text-[20px] font-semibold text-[#1a7f4b] leading-none">+$114.00</p>
+        </div>
+        <div class="bg-surface-container rounded-[14px] px-4 py-3">
+          <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Total Earnings</p>
+          <p class="font-numeric-data text-[20px] font-semibold text-primary leading-none">$8,420.00</p>
+        </div>
+        <div class="bg-surface-container rounded-[14px] px-4 py-3">
+          <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Total Deposits</p>
+          <p class="font-numeric-data text-[20px] font-semibold text-primary leading-none">$24,000.00</p>
+        </div>
+        <div class="bg-surface-container rounded-[14px] px-4 py-3">
+          <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-1">Total Withdrawals</p>
+          <p class="font-numeric-data text-[20px] font-semibold text-primary leading-none">$2,380.00</p>
+        </div>
       </div>
-      <div class="flex items-center justify-between py-3.5">
-        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-[#2775CA]/10 flex items-center justify-center"><span class="font-label-sm text-[10px] font-bold text-[#2775CA]">USDC</span></div><div><p class="font-body-md text-[15px] font-semibold text-primary">USDC</p><p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5">3,495.50 USDC</p></div></div>
-        <div class="text-right"><p class="font-body-md text-[15px] font-semibold text-primary">$3,495.50</p><p class="font-label-sm text-[11px] text-on-surface-variant/50 mt-0.5">0.00%</p></div>
+      <div class="flex items-center justify-between pt-3 border-t border-outline-variant/25">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-on-surface-variant text-[15px]">pending</span>
+          <span class="font-label-sm text-[11px] text-on-surface-variant">Pending Balance</span>
+          <span class="font-label-sm text-[11px] font-semibold text-primary">$2,000.00</span>
+        </div>
+        <span class="font-label-sm text-[10px] text-on-surface-variant/60 tracking-wide">Updated 2m ago</span>
       </div>
     </div>
+
+    <!-- ── MY WALLETS (horizontal scroll) ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">My Wallets</h2>
+        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">5 wallets</span>
+      </div>
+      <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-1 -mx-6 px-6">
+
+        <!-- Main Wallet -->
+        <div class="bg-primary rounded-[20px] p-4 shrink-0 w-[220px] relative overflow-hidden">
+          <div class="absolute -right-4 -top-4 w-20 h-20 rounded-full bg-white/5"></div>
+          <div class="relative z-10">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+                <span class="material-symbols-outlined text-on-primary text-[18px]">account_balance_wallet</span>
+              </div>
+              <span class="font-label-sm text-[10px] text-on-primary/60 tracking-wide uppercase">Main</span>
+            </div>
+            <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-primary/50 mb-0.5">Available</p>
+            <p class="font-numeric-data text-[22px] font-semibold text-on-primary leading-none mb-3">$12,840</p>
+            <div class="flex gap-2 text-center mb-3">
+              <div class="flex-1 bg-white/8 rounded-[10px] py-1.5">
+                <p class="font-label-sm text-[8px] text-on-primary/50 mb-0.5">Locked</p>
+                <p class="font-body-md text-[11px] font-semibold text-on-primary">$4,200</p>
+              </div>
+              <div class="flex-1 bg-white/8 rounded-[10px] py-1.5">
+                <p class="font-label-sm text-[8px] text-on-primary/50 mb-0.5">Pending</p>
+                <p class="font-body-md text-[11px] font-semibold text-on-primary">$800</p>
+              </div>
+            </div>
+            <div class="flex gap-1.5">
+              <button onclick="openWalletSheet('deposit')" class="flex-1 bg-white text-primary font-label-sm text-[10px] font-bold py-2 rounded-full flex items-center justify-center gap-1 active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-[13px]">arrow_downward</span>Deposit
+              </button>
+              <button onclick="openWalletSheet('withdraw')" class="flex-1 bg-white/15 text-on-primary font-label-sm text-[10px] font-semibold py-2 rounded-full flex items-center justify-center gap-1 active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-[13px]">arrow_upward</span>Withdraw
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profit Wallet -->
+        <div class="bg-[#1a7f4b] rounded-[20px] p-4 shrink-0 w-[220px] relative overflow-hidden">
+          <div class="absolute -right-4 -top-4 w-20 h-20 rounded-full bg-white/5"></div>
+          <div class="relative z-10">
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-[18px]">trending_up</span>
+              </div>
+              <span class="font-label-sm text-[10px] text-white/60 tracking-wide uppercase">Profit</span>
+            </div>
+            <p class="font-label-sm text-[9px] tracking-wide uppercase text-white/50 mb-0.5">Available</p>
+            <p class="font-numeric-data text-[22px] font-semibold text-white leading-none mb-3">$8,420</p>
+            <div class="flex gap-2 text-center mb-3">
+              <div class="flex-1 bg-white/8 rounded-[10px] py-1.5">
+                <p class="font-label-sm text-[8px] text-white/50 mb-0.5">Locked</p>
+                <p class="font-body-md text-[11px] font-semibold text-white">$0</p>
+              </div>
+              <div class="flex-1 bg-white/8 rounded-[10px] py-1.5">
+                <p class="font-label-sm text-[8px] text-white/50 mb-0.5">Pending</p>
+                <p class="font-body-md text-[11px] font-semibold text-white">$114</p>
+              </div>
+            </div>
+            <div class="flex gap-1.5">
+              <button onclick="openWalletSheet('transfer')" class="flex-1 bg-white/20 text-white font-label-sm text-[10px] font-semibold py-2 rounded-full flex items-center justify-center gap-1 active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-[13px]">swap_horiz</span>Transfer
+              </button>
+              <button onclick="openWalletSheet('withdraw')" class="flex-1 bg-white text-[#1a7f4b] font-label-sm text-[10px] font-bold py-2 rounded-full flex items-center justify-center gap-1 active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-[13px]">arrow_upward</span>Withdraw
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Investment Wallet (locked) -->
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shrink-0 w-[220px] shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-9 h-9 rounded-full bg-secondary/10 flex items-center justify-center">
+              <span class="material-symbols-outlined text-secondary text-[18px]">lock</span>
+            </div>
+            <span class="font-label-sm text-[10px] text-on-surface-variant tracking-wide uppercase">Investment</span>
+          </div>
+          <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-surface-variant/60 mb-0.5">Available</p>
+          <p class="font-numeric-data text-[22px] font-semibold text-primary leading-none mb-3">$0.00</p>
+          <div class="flex gap-2 text-center mb-3">
+            <div class="flex-1 bg-surface-container rounded-[10px] py-1.5">
+              <p class="font-label-sm text-[8px] text-on-surface-variant mb-0.5">Locked</p>
+              <p class="font-body-md text-[11px] font-semibold text-primary">$5,200</p>
+            </div>
+            <div class="flex-1 bg-surface-container rounded-[10px] py-1.5">
+              <p class="font-label-sm text-[8px] text-on-surface-variant mb-0.5">Pending</p>
+              <p class="font-body-md text-[11px] font-semibold text-primary">$0</p>
+            </div>
+          </div>
+          <div class="w-full bg-surface-container-highest text-on-surface-variant/40 font-label-sm text-[10px] font-semibold py-2 rounded-full flex items-center justify-center gap-1 cursor-not-allowed">
+            <span class="material-symbols-outlined text-[13px]">lock</span>Locked until maturity
+          </div>
+        </div>
+
+        <!-- Referral Wallet -->
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shrink-0 w-[220px] shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-9 h-9 rounded-full bg-[#eef3ff] flex items-center justify-center">
+              <span class="material-symbols-outlined text-secondary text-[18px]">group_add</span>
+            </div>
+            <span class="font-label-sm text-[10px] text-on-surface-variant tracking-wide uppercase">Referral</span>
+          </div>
+          <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-surface-variant/60 mb-0.5">Available</p>
+          <p class="font-numeric-data text-[22px] font-semibold text-primary leading-none mb-3">$192.00</p>
+          <div class="flex gap-2 text-center mb-3">
+            <div class="flex-1 bg-surface-container rounded-[10px] py-1.5">
+              <p class="font-label-sm text-[8px] text-on-surface-variant mb-0.5">Locked</p>
+              <p class="font-body-md text-[11px] font-semibold text-primary">$0</p>
+            </div>
+            <div class="flex-1 bg-surface-container rounded-[10px] py-1.5">
+              <p class="font-label-sm text-[8px] text-on-surface-variant mb-0.5">Pending</p>
+              <p class="font-body-md text-[11px] font-semibold text-primary">$38.50</p>
+            </div>
+          </div>
+          <button onclick="openWalletSheet('withdraw')" class="w-full bg-primary text-on-primary font-label-sm text-[10px] font-bold py-2 rounded-full flex items-center justify-center gap-1 active:scale-95 transition-transform">
+            <span class="material-symbols-outlined text-[13px]">arrow_upward</span>Withdraw
+          </button>
+        </div>
+
+        <!-- Bonus Wallet -->
+        <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shrink-0 w-[220px] shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-9 h-9 rounded-full bg-[#fff8e1] flex items-center justify-center">
+              <span class="material-symbols-outlined text-[#f59e0b] text-[18px]">redeem</span>
+            </div>
+            <span class="font-label-sm text-[10px] text-on-surface-variant tracking-wide uppercase">Bonus</span>
+          </div>
+          <p class="font-label-sm text-[9px] tracking-wide uppercase text-on-surface-variant/60 mb-0.5">Available</p>
+          <p class="font-numeric-data text-[22px] font-semibold text-primary leading-none mb-3">$388.00</p>
+          <div class="flex gap-2 text-center mb-3">
+            <div class="flex-1 bg-surface-container rounded-[10px] py-1.5">
+              <p class="font-label-sm text-[8px] text-on-surface-variant mb-0.5">Locked</p>
+              <p class="font-body-md text-[11px] font-semibold text-primary">$400</p>
+            </div>
+            <div class="flex-1 bg-surface-container rounded-[10px] py-1.5">
+              <p class="font-label-sm text-[8px] text-on-surface-variant mb-0.5">Pending</p>
+              <p class="font-body-md text-[11px] font-semibold text-primary">$0</p>
+            </div>
+          </div>
+          <button onclick="openWalletSheet('transfer')" class="w-full bg-primary text-on-primary font-label-sm text-[10px] font-bold py-2 rounded-full flex items-center justify-center gap-1 active:scale-95 transition-transform">
+            <span class="material-symbols-outlined text-[13px]">swap_horiz</span>Transfer
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── EARNINGS SUMMARY (7-day chart) ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">Earnings</h2>
+        <span class="font-label-sm text-[11px] text-on-surface-variant tracking-wide">Last 7 days</span>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <!-- Bar chart -->
+        <div class="mb-4">
+          <div class="flex items-end gap-[6px] h-14 mb-1">
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-sm bg-surface-container-highest" style="height:52%"></div>
+              <span class="font-label-sm text-[9px] text-on-surface-variant">Mon</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-sm bg-surface-container-highest" style="height:68%"></div>
+              <span class="font-label-sm text-[9px] text-on-surface-variant">Tue</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-sm bg-surface-container-highest" style="height:45%"></div>
+              <span class="font-label-sm text-[9px] text-on-surface-variant">Wed</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-sm bg-surface-container-highest" style="height:80%"></div>
+              <span class="font-label-sm text-[9px] text-on-surface-variant">Thu</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-sm bg-surface-container-highest" style="height:72%"></div>
+              <span class="font-label-sm text-[9px] text-on-surface-variant">Fri</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-1">
+              <div class="w-full rounded-sm bg-surface-container-highest" style="height:60%"></div>
+              <span class="font-label-sm text-[9px] text-on-surface-variant">Sat</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center gap-1 relative">
+              <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-primary text-on-primary font-label-sm text-[8px] font-semibold px-1.5 py-0.5 rounded-full whitespace-nowrap">Today</div>
+              <div class="w-full rounded-sm bg-primary" style="height:100%"></div>
+              <span class="font-label-sm text-[9px] font-semibold text-primary">Sun</span>
+            </div>
+          </div>
+        </div>
+        <!-- Stat tiles -->
+        <div class="grid grid-cols-4 gap-2">
+          <div class="bg-surface-container rounded-[12px] py-2.5 text-center">
+            <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Today</p>
+            <p class="font-body-md text-[12px] font-bold text-[#1a7f4b]">$114</p>
+          </div>
+          <div class="bg-surface-container rounded-[12px] py-2.5 text-center">
+            <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">This Week</p>
+            <p class="font-body-md text-[12px] font-bold text-primary">$798</p>
+          </div>
+          <div class="bg-surface-container rounded-[12px] py-2.5 text-center">
+            <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">This Month</p>
+            <p class="font-body-md text-[12px] font-bold text-primary">$2,840</p>
+          </div>
+          <div class="bg-[#e6f5ee] rounded-[12px] py-2.5 text-center">
+            <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Available</p>
+            <p class="font-body-md text-[12px] font-bold text-[#1a7f4b]">$18,240</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RECENT TRANSACTIONS ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">Recent Transactions</h2>
+        <button class="font-label-sm text-[12px] text-secondary flex items-center gap-1 hover:opacity-70 transition-opacity">
+          View all<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+      <div class="flex flex-col gap-2.5">
+
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#e6f5ee] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[#1a7f4b] text-[20px]">arrow_downward</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Deposit USDC</p>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="font-label-sm text-[10px] text-on-surface-variant/60 tracking-wide">TXN-98210</span>
+                <div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+                <span class="font-label-sm text-[10px] text-on-surface-variant">Main Wallet</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+$2,000.00</p>
+            <p class="font-label-sm text-[10px] text-on-surface-variant mt-0.5">Aug 1, 11:03</p>
+          </div>
+        </div>
+
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#e6f5ee] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[#1a7f4b] text-[20px]">settings_input_antenna</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Mining Reward</p>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="font-label-sm text-[10px] text-on-surface-variant/60 tracking-wide">TXN-98198</span>
+                <div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+                <span class="font-label-sm text-[10px] text-on-surface-variant">Profit Wallet</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+$114.00</p>
+            <p class="font-label-sm text-[10px] text-on-surface-variant mt-0.5">Aug 2, 06:14</p>
+          </div>
+        </div>
+
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[20px]">arrow_upward</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Withdrawal</p>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="font-label-sm text-[10px] text-on-surface-variant/60 tracking-wide">TXN-98142</span>
+                <div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+                <span class="font-label-sm text-[10px] text-on-surface-variant">Main Wallet</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-primary">−$500.00</p>
+            <p class="font-label-sm text-[10px] text-on-surface-variant mt-0.5">Jul 31, 14:22</p>
+          </div>
+        </div>
+
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#e6f5ee] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[#1a7f4b] text-[20px]">group_add</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Referral Bonus</p>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="font-label-sm text-[10px] text-on-surface-variant/60 tracking-wide">TXN-98101</span>
+                <div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+                <span class="font-label-sm text-[10px] text-on-surface-variant">Referral Wallet</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+$38.50</p>
+            <p class="font-label-sm text-[10px] text-on-surface-variant mt-0.5">Jul 30, 09:45</p>
+          </div>
+        </div>
+
+        <div class="bg-[#F2F4F6] rounded-[16px] px-4 py-3.5 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-[#fff8e1] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[#f59e0b] text-[20px]">redeem</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Bonus Credited</p>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                <span class="font-label-sm text-[10px] text-on-surface-variant/60 tracking-wide">TXN-98088</span>
+                <div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+                <span class="font-label-sm text-[10px] text-on-surface-variant">Bonus Wallet</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="font-body-md text-[14px] font-semibold text-[#1a7f4b]">+$100.00</p>
+            <p class="font-label-sm text-[10px] text-on-surface-variant mt-0.5">Jul 29, 18:30</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── PENDING TRANSACTIONS ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <div class="flex items-center gap-2">
+          <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">Pending</h2>
+          <span class="bg-primary text-on-primary font-label-sm text-[10px] font-semibold px-2 py-0.5 rounded-full">1</span>
+        </div>
+      </div>
+      <div class="bg-surface-container-lowest border border-[#f59e0b]/30 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex items-start gap-3">
+          <div class="w-10 h-10 rounded-full bg-[#fff8e1] flex items-center justify-center shrink-0 mt-0.5">
+            <span class="material-symbols-outlined text-[#f59e0b] text-[20px]">pending</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-start justify-between mb-1">
+              <p class="font-body-md text-[14px] font-semibold text-primary">Withdrawal Request</p>
+              <div class="flex items-center gap-1 bg-[#fff8e1] px-2 py-0.5 rounded-full ml-2 shrink-0">
+                <div class="w-1.5 h-1.5 rounded-full bg-[#f59e0b] bar-active"></div>
+                <span class="font-label-sm text-[9px] text-[#f59e0b] font-semibold tracking-wide">Pending</span>
+              </div>
+            </div>
+            <p class="font-label-sm text-[11px] text-on-surface-variant tracking-wide mb-1">$500.00 · Main Wallet</p>
+            <p class="font-label-sm text-[10px] text-on-surface-variant/60 tracking-wide">ETA: 1–3 business days</p>
+          </div>
+        </div>
+        <div class="flex gap-2 mt-4">
+          <button class="flex-1 border border-outline-variant/60 text-primary font-label-sm text-[12px] font-semibold py-2.5 rounded-full flex items-center justify-center gap-1.5 hover:bg-surface-container-low transition-colors active:scale-95">
+            <span class="material-symbols-outlined text-[15px]">info</span>Details
+          </button>
+          <button class="flex-1 border border-error/40 text-error font-label-sm text-[12px] font-semibold py-2.5 rounded-full flex items-center justify-center gap-1.5 hover:bg-error/5 transition-colors active:scale-95">
+            <span class="material-symbols-outlined text-[15px]">cancel</span>Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ACTIVITY LOG ── -->
+    <div>
+      <div class="flex justify-between items-center mb-3">
+        <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary">Activity Log</h2>
+        <button class="font-label-sm text-[12px] text-secondary flex items-center gap-1 hover:opacity-70 transition-opacity">
+          See all<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <div class="flex flex-col gap-0">
+
+          <div class="flex items-start gap-3 py-3 border-b border-outline-variant/20">
+            <div class="w-7 h-7 rounded-full bg-[#e6f5ee] flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-[#1a7f4b] text-[14px]">check_circle</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-body-md text-[13px] font-semibold text-primary">Mining reward credited to Profit Wallet</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant mt-0.5 tracking-wide">Aug 2, 06:14</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 py-3 border-b border-outline-variant/20">
+            <div class="w-7 h-7 rounded-full bg-[#e6f5ee] flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-[#1a7f4b] text-[14px]">check_circle</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-body-md text-[13px] font-semibold text-primary">Withdrawal of $500 approved & processing</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant mt-0.5 tracking-wide">Jul 31, 14:30</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 py-3 border-b border-outline-variant/20">
+            <div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-on-surface-variant text-[14px]">swap_horiz</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-body-md text-[13px] font-semibold text-primary">Transfer from Bonus to Main Wallet completed</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant mt-0.5 tracking-wide">Jul 30, 16:45</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 py-3">
+            <div class="w-7 h-7 rounded-full bg-[#fff8e1] flex items-center justify-center shrink-0 mt-0.5">
+              <span class="material-symbols-outlined text-[#f59e0b] text-[14px]">redeem</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-body-md text-[13px] font-semibold text-primary">Gold tier bonus $100 added to Bonus Wallet</p>
+              <p class="font-label-sm text-[10px] text-on-surface-variant mt-0.5 tracking-wide">Jul 29, 18:30</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── WALLET SECURITY ── -->
+    <div>
+      <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mb-3">Wallet Security</h2>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+
+        <!-- 2FA -->
+        <div class="flex items-center justify-between px-4 py-4 border-b border-outline-variant/25">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-full bg-[#e6f5ee] flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[#1a7f4b] text-[18px]">security</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Two-Factor Auth</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Google Authenticator · Active</p>
+            </div>
+          </div>
+          <div class="relative">
+            <button id="w-2fa-toggle" onclick="toggleWSecurity('2fa')" class="w-11 h-6 rounded-full bg-[#1a7f4b] flex items-center px-0.5 transition-colors">
+              <div class="w-5 h-5 rounded-full bg-white shadow-sm ml-auto transition-all"></div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Transaction PIN -->
+        <div class="flex items-center justify-between px-4 py-4 border-b border-outline-variant/25">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[18px]">pin</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Transaction PIN</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Last changed Jul 15, 2026</p>
+            </div>
+          </div>
+          <button class="font-label-sm text-[12px] text-secondary font-semibold hover:opacity-70 transition-opacity">Change</button>
+        </div>
+
+        <!-- Withdrawal Protection -->
+        <div class="flex items-center justify-between px-4 py-4">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-on-surface-variant text-[18px]">shield</span>
+            </div>
+            <div>
+              <p class="font-body-md text-[14px] font-semibold text-primary">Withdrawal Protection</p>
+              <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Email confirmation required</p>
+            </div>
+          </div>
+          <div class="relative">
+            <button id="w-protect-toggle" onclick="toggleWSecurity('protect')" class="w-11 h-6 rounded-full bg-[#1a7f4b] flex items-center px-0.5 transition-colors">
+              <div class="w-5 h-5 rounded-full bg-white shadow-sm ml-auto transition-all"></div>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── DOWNLOAD STATEMENTS ── -->
+    <div>
+      <h2 class="font-heading-md text-[18px] font-semibold tracking-tight text-primary mb-3">Download Statements</h2>
+      <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+        <p class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant mb-3">Select Format</p>
+        <div class="flex gap-2 mb-4">
+          <button onclick="setExportFmt('CSV')" id="efmt-CSV" class="flex-1 py-2.5 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[12px] font-semibold transition-colors">CSV</button>
+          <button onclick="setExportFmt('Excel')" id="efmt-Excel" class="flex-1 py-2.5 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors">Excel</button>
+          <button onclick="setExportFmt('PDF')" id="efmt-PDF" class="flex-1 py-2.5 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors">PDF</button>
+        </div>
+        <button onclick="openWalletSheet('export')" class="w-full bg-primary text-on-primary font-label-sm text-[13px] font-bold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[18px]">download</span>
+          Export Statement
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── WALLET ACTION SHEET ── -->
+<div id="wallet-sheet" class="hidden fixed inset-0 z-50 flex items-end">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeWalletSheet()"></div>
+  <div class="relative w-full bg-[#fcf8f8] rounded-t-[28px] px-6 pt-6 pb-10 z-10 max-h-[90vh] overflow-y-auto hide-scrollbar" style="max-width:600px;margin:0 auto;">
+    <div class="w-10 h-1 bg-outline-variant/60 rounded-full mx-auto mb-5"></div>
+    <div id="wallet-sheet-content"></div>
   </div>
 </div>
 
@@ -3238,6 +3835,255 @@
       btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">refresh</span><span id="ms-reinvest-label">Re-invest Profit</span>';
       closeMyStrategy();
     }, 2000);
+  }
+
+  // ── WALLET PAGE FUNCTIONS ─────────────────────────────────────────
+
+  let wBalanceVisible = true;
+  const wBalanceValues = {
+    main: '$30,', dec: '040.00',
+    avail: '$18,240', locked: '$9,800', pend: '$2,000'
+  };
+
+  function toggleWalletBalance() {
+    wBalanceVisible = !wBalanceVisible;
+    const eye  = document.getElementById('w-balance-eye');
+    const main = document.getElementById('w-bal-main');
+    const dec  = document.getElementById('w-bal-dec');
+    const avail = document.getElementById('w-chip-avail');
+    const locked = document.getElementById('w-chip-locked');
+    const pend  = document.getElementById('w-chip-pend');
+
+    if (wBalanceVisible) {
+      eye.textContent = 'visibility';
+      main.textContent = wBalanceValues.main;
+      dec.textContent  = wBalanceValues.dec;
+      main.style.filter = dec.style.filter = '';
+      avail.textContent  = wBalanceValues.avail;
+      locked.textContent = wBalanceValues.locked;
+      pend.textContent   = wBalanceValues.pend;
+      [avail, locked, pend].forEach(el => el.style.filter = '');
+    } else {
+      eye.textContent = 'visibility_off';
+      main.textContent = '$••,';
+      dec.textContent  = '•••.••';
+      main.style.filter = dec.style.filter = 'blur(6px)';
+      avail.textContent  = '••••';
+      locked.textContent = '••••';
+      pend.textContent   = '••••';
+      [avail, locked, pend].forEach(el => el.style.filter = 'blur(4px)');
+    }
+  }
+
+  // Security toggles
+  const wSecurityState = { '2fa': true, 'protect': true };
+  function toggleWSecurity(key) {
+    wSecurityState[key] = !wSecurityState[key];
+    const ids = { '2fa': 'w-2fa-toggle', 'protect': 'w-protect-toggle' };
+    const btn = document.getElementById(ids[key]);
+    if (!btn) return;
+    const thumb = btn.querySelector('div');
+    if (wSecurityState[key]) {
+      btn.style.backgroundColor = '#1a7f4b';
+      thumb.style.marginLeft = 'auto';
+      thumb.style.marginRight = '';
+    } else {
+      btn.style.backgroundColor = '#c4c7c7';
+      thumb.style.marginLeft = '';
+      thumb.style.marginRight = 'auto';
+    }
+  }
+
+  // Export format selector
+  let currentExportFmt = 'CSV';
+  function setExportFmt(fmt) {
+    currentExportFmt = fmt;
+    ['CSV','Excel','PDF'].forEach(f => {
+      const btn = document.getElementById('efmt-' + f);
+      if (!btn) return;
+      if (f === fmt) {
+        btn.className = 'flex-1 py-2.5 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[12px] font-semibold transition-colors';
+      } else {
+        btn.className = 'flex-1 py-2.5 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold transition-colors';
+      }
+    });
+  }
+
+  // Wallet action sheets
+  const walletSheetContent = {
+    deposit: `
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-12 h-12 rounded-full bg-[#e6f5ee] flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[#1a7f4b] text-[24px]">arrow_downward</span>
+        </div>
+        <div>
+          <p class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">Deposit</p>
+          <p class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">Add funds to your wallet</p>
+        </div>
+      </div>
+      <div class="bg-surface-container rounded-[16px] p-4 mb-4 text-center">
+        <p class="font-label-sm text-[10px] uppercase tracking-wide text-on-surface-variant mb-2">Deposit Address (USDC · TRC20)</p>
+        <p class="font-numeric-data text-[13px] text-primary break-all leading-relaxed">TRx9kA4mBvuP2xLqQwRnYjh8FEd7CsP3Kz</p>
+        <button onclick="navigator.clipboard.writeText('TRx9kA4mBvuP2xLqQwRnYjh8FEd7CsP3Kz')" class="mt-3 flex items-center justify-center gap-1.5 bg-primary text-on-primary font-label-sm text-[12px] font-semibold px-4 py-2 rounded-full mx-auto active:scale-95 transition-transform">
+          <span class="material-symbols-outlined text-[15px]">content_copy</span>Copy Address
+        </button>
+      </div>
+      <div class="bg-[#fff8e1] border border-[#f59e0b]/30 rounded-[14px] px-4 py-3 flex items-start gap-2.5">
+        <span class="material-symbols-outlined text-[#f59e0b] text-[17px] mt-0.5">info</span>
+        <p class="font-label-sm text-[11px] text-[#92400e] tracking-wide leading-relaxed">Only send USDC (TRC20) to this address. Minimum deposit: $10. Funds credit within 10–30 minutes.</p>
+      </div>`,
+
+    withdraw: `
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-on-surface-variant text-[24px]">arrow_upward</span>
+        </div>
+        <div>
+          <p class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">Withdraw</p>
+          <p class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">Available: $18,240.00</p>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">Amount (USD)</label>
+        <div class="flex items-center bg-surface-container rounded-[12px] px-4 py-3 gap-2 mb-3">
+          <span class="font-body-md text-[16px] text-on-surface-variant">$</span>
+          <input type="number" value="500" min="10" class="flex-1 bg-transparent font-numeric-data text-[20px] text-primary outline-none" placeholder="0.00"/>
+        </div>
+        <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">Destination Address</label>
+        <div class="flex items-center bg-surface-container rounded-[12px] px-4 py-3 gap-2">
+          <input type="text" class="flex-1 bg-transparent font-body-md text-[13px] text-primary outline-none" placeholder="TRC20 wallet address…"/>
+        </div>
+      </div>
+      <button class="w-full bg-primary text-on-primary font-label-sm text-[14px] font-bold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[18px]">arrow_upward</span>Request Withdrawal
+      </button>`,
+
+    transfer: `
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-on-surface-variant text-[24px]">swap_horiz</span>
+        </div>
+        <div>
+          <p class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">Transfer</p>
+          <p class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">Move funds between your wallets</p>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">From</label>
+        <div class="bg-surface-container rounded-[12px] px-4 py-3 mb-3">
+          <select class="w-full bg-transparent font-body-md text-[14px] text-primary outline-none">
+            <option>Profit Wallet · $8,420.00</option>
+            <option>Bonus Wallet · $388.00</option>
+            <option>Referral Wallet · $192.00</option>
+          </select>
+        </div>
+        <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">To</label>
+        <div class="bg-surface-container rounded-[12px] px-4 py-3 mb-3">
+          <select class="w-full bg-transparent font-body-md text-[14px] text-primary outline-none">
+            <option>Main Wallet · $12,840.00</option>
+            <option>Profit Wallet · $8,420.00</option>
+          </select>
+        </div>
+        <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">Amount</label>
+        <div class="flex items-center bg-surface-container rounded-[12px] px-4 py-3 gap-2">
+          <span class="font-body-md text-[16px] text-on-surface-variant">$</span>
+          <input type="number" value="100" class="flex-1 bg-transparent font-numeric-data text-[20px] text-primary outline-none" placeholder="0.00"/>
+        </div>
+      </div>
+      <button class="w-full bg-primary text-on-primary font-label-sm text-[14px] font-bold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[18px]">swap_horiz</span>Confirm Transfer
+      </button>`,
+
+    history: `
+      <div class="flex items-center gap-4 mb-5">
+        <div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-on-surface-variant text-[24px]">history</span>
+        </div>
+        <div>
+          <p class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">Full History</p>
+          <p class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">All wallet transactions</p>
+        </div>
+      </div>
+      <div class="flex gap-2 mb-4 overflow-x-auto hide-scrollbar pb-1">
+        <button class="shrink-0 px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-[11px] font-semibold">All</button>
+        <button class="shrink-0 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[11px]">Deposits</button>
+        <button class="shrink-0 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[11px]">Withdrawals</button>
+        <button class="shrink-0 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[11px]">Earnings</button>
+        <button class="shrink-0 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[11px]">Transfers</button>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        <div class="bg-[#F2F4F6] rounded-[14px] px-4 py-3 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-[#e6f5ee] flex items-center justify-center"><span class="material-symbols-outlined text-[#1a7f4b] text-[17px]">arrow_downward</span></div><div><p class="font-body-md text-[13px] font-semibold text-primary">Deposit USDC</p><p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Aug 1 · Main Wallet</p></div></div><p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">+$2,000.00</p></div>
+        <div class="bg-[#F2F4F6] rounded-[14px] px-4 py-3 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-[#e6f5ee] flex items-center justify-center"><span class="material-symbols-outlined text-[#1a7f4b] text-[17px]">settings_input_antenna</span></div><div><p class="font-body-md text-[13px] font-semibold text-primary">Mining Reward</p><p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Aug 2 · Profit Wallet</p></div></div><p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">+$114.00</p></div>
+        <div class="bg-[#F2F4F6] rounded-[14px] px-4 py-3 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-on-surface-variant text-[17px]">arrow_upward</span></div><div><p class="font-body-md text-[13px] font-semibold text-primary">Withdrawal</p><p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Jul 31 · Main Wallet</p></div></div><p class="font-body-md text-[13px] font-semibold text-primary">−$500.00</p></div>
+        <div class="bg-[#F2F4F6] rounded-[14px] px-4 py-3 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-[#e6f5ee] flex items-center justify-center"><span class="material-symbols-outlined text-[#1a7f4b] text-[17px]">group_add</span></div><div><p class="font-body-md text-[13px] font-semibold text-primary">Referral Bonus</p><p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Jul 30 · Referral Wallet</p></div></div><p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">+$38.50</p></div>
+        <div class="bg-[#F2F4F6] rounded-[14px] px-4 py-3 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-[#fff8e1] flex items-center justify-center"><span class="material-symbols-outlined text-[#f59e0b] text-[17px]">redeem</span></div><div><p class="font-body-md text-[13px] font-semibold text-primary">Bonus Credited</p><p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Jul 29 · Bonus Wallet</p></div></div><p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">+$100.00</p></div>
+        <div class="bg-[#F2F4F6] rounded-[14px] px-4 py-3 flex items-center justify-between"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-on-surface-variant text-[17px]">swap_horiz</span></div><div><p class="font-body-md text-[13px] font-semibold text-primary">Transfer</p><p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Jul 28 · Bonus → Main</p></div></div><p class="font-body-md text-[13px] font-semibold text-primary">$200.00</p></div>
+      </div>`,
+
+    export: `
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-on-surface-variant text-[24px]">download</span>
+        </div>
+        <div>
+          <p class="font-heading-md text-[22px] font-semibold text-primary tracking-tight">Export Statement</p>
+          <p class="font-label-sm text-[12px] text-on-surface-variant tracking-wide mt-0.5">Download your transaction history</p>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">Date Range</label>
+        <div class="flex gap-2 mb-4">
+          <button class="flex-1 py-2 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[11px] font-semibold">This Month</button>
+          <button class="flex-1 py-2 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[11px]">Last 3 Months</button>
+          <button class="flex-1 py-2 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[11px]">All Time</button>
+        </div>
+        <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">Format</label>
+        <div class="flex gap-2 mb-4">
+          <button class="flex-1 py-2.5 rounded-full border border-primary bg-primary text-on-primary font-label-sm text-[12px] font-semibold">CSV</button>
+          <button class="flex-1 py-2.5 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold">Excel</button>
+          <button class="flex-1 py-2.5 rounded-full border border-outline-variant/50 text-on-surface-variant font-label-sm text-[12px] font-semibold">PDF</button>
+        </div>
+        <label class="font-label-sm text-[11px] uppercase tracking-wide text-on-surface-variant block mb-2">Wallet</label>
+        <div class="bg-surface-container rounded-[12px] px-4 py-3">
+          <select class="w-full bg-transparent font-body-md text-[14px] text-primary outline-none">
+            <option>All Wallets</option>
+            <option>Main Wallet</option>
+            <option>Profit Wallet</option>
+            <option>Referral Wallet</option>
+            <option>Bonus Wallet</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="simulateExport()" id="export-btn" class="w-full bg-primary text-on-primary font-label-sm text-[14px] font-bold py-4 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[18px]">download</span>
+        <span>Generate & Download</span>
+      </button>`
+  };
+
+  function openWalletSheet(type) {
+    const el = document.getElementById('wallet-sheet');
+    const content = document.getElementById('wallet-sheet-content');
+    content.innerHTML = walletSheetContent[type] || '';
+    el.classList.remove('hidden');
+    el.classList.add('flex');
+  }
+
+  function closeWalletSheet() {
+    const el = document.getElementById('wallet-sheet');
+    el.classList.add('hidden');
+    el.classList.remove('flex');
+  }
+
+  function simulateExport() {
+    const btn = document.getElementById('export-btn');
+    if (!btn) return;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="animation:spin 1s linear infinite;display:inline-block">autorenew</span><span>Generating…</span>';
+    setTimeout(() => {
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1">check_circle</span><span>Downloaded!</span>';
+      btn.style.background = '#1a7f4b';
+      setTimeout(() => { closeWalletSheet(); }, 1600);
+    }, 1800);
   }
 
 </script>

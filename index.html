@@ -821,136 +821,337 @@
       <div class="flex flex-col gap-3">
 
         <!-- Package: Starter -->
-        <div onclick="openPackage('starter')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">bolt</span>
+        <div onclick="openPackage('starter')" class="bg-primary rounded-[20px] p-4 shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/5 pointer-events-none"></div>
+          <div class="absolute -left-4 -bottom-4 w-24 h-24 rounded-full bg-white/3 pointer-events-none"></div>
+          <div class="relative z-10">
+            <!-- Header -->
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-on-primary text-[22px]">bolt</span>
+                </div>
+                <div>
+                  <p class="font-body-md text-[15px] font-semibold text-on-primary">Starter</p>
+                  <p class="font-label-sm text-[11px] text-on-primary/60 mt-0.5 tracking-wide">5 TH/s · 30 days · $VALO</p>
+                </div>
               </div>
-              <div>
-                <p class="font-body-md text-[15px] font-semibold text-primary">Starter</p>
-                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">5 TH/s · 30 days</p>
+              <div class="text-right">
+                <p class="font-numeric-data text-[22px] font-semibold text-on-primary leading-none">$49</p>
+                <p class="font-label-sm text-[10px] text-on-primary/50 tracking-wide mt-0.5">one-time</p>
               </div>
             </div>
-            <div class="text-right">
-              <p class="font-body-md text-[15px] font-bold text-primary">$49</p>
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">one-time</p>
+            <!-- Hashrate mini-bars -->
+            <div class="mb-3">
+              <p class="font-label-sm text-[9px] tracking-[0.05em] uppercase text-on-primary/40 mb-1.5">Estimated Hashrate Output</p>
+              <div class="flex items-end gap-[3px] h-6">
+                <div class="flex-1 rounded-sm" style="height:55%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:65%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:50%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:70%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:60%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:75%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:65%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:80%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:70%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:85%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:75%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:90%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm bar-active" style="height:85%;background:rgba(255,255,255,0.4)"></div>
+                <div class="flex-1 rounded-sm bar-active" style="height:100%;background:rgba(255,255,255,0.4)"></div>
+              </div>
             </div>
-          </div>
-          <div class="grid grid-cols-3 gap-2 text-center">
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily ROI</p>
-              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">1.5%</p>
+            <!-- Stats grid -->
+            <div class="grid grid-cols-3 gap-2 text-center mb-2">
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Daily ROI</p>
+                <p class="font-body-md text-[13px] font-semibold text-[#4ade80]">1.5%</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Hashrate</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">5 TH/s</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Duration</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">30 days</p>
+              </div>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Hashrate</p>
-              <p class="font-body-md text-[13px] font-semibold text-primary">5 TH/s</p>
+            <div class="grid grid-cols-3 gap-2 text-center mb-3">
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Est./mo</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">$22</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Power</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">Incl.</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Coin</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">$VALO</p>
+              </div>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Est. Return</p>
-              <p class="font-body-md text-[13px] font-semibold text-primary">$22/mo</p>
+            <!-- Total projected profit highlight -->
+            <div class="bg-white/10 rounded-[12px] px-3 py-2.5 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#4ade80] text-[15px]" style="font-variation-settings:'FILL' 1,'wght' 400;">trending_up</span>
+                <p class="font-label-sm text-[11px] text-on-primary/70 tracking-wide">Projected Total Profit</p>
+              </div>
+              <p class="font-body-md text-[14px] font-bold text-[#4ade80]">+$22.05</p>
             </div>
           </div>
         </div>
 
         <!-- Package: Pro -->
-        <div onclick="openPackage('pro')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">rocket_launch</span>
-              </div>
-              <div>
-                <div class="flex items-center gap-2">
-                  <p class="font-body-md text-[15px] font-semibold text-primary">Pro</p>
-                  <span class="bg-primary text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">Popular</span>
+        <div onclick="openPackage('pro')" class="bg-primary rounded-[20px] p-4 shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/5 pointer-events-none"></div>
+          <div class="absolute -left-4 -bottom-4 w-24 h-24 rounded-full bg-white/3 pointer-events-none"></div>
+          <div class="relative z-10">
+            <!-- Header -->
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-on-primary text-[22px]">rocket_launch</span>
                 </div>
-                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">25 TH/s · 60 days</p>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <p class="font-body-md text-[15px] font-semibold text-on-primary">Pro</p>
+                    <span class="bg-white/20 text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">Popular</span>
+                  </div>
+                  <p class="font-label-sm text-[11px] text-on-primary/60 mt-0.5 tracking-wide">25 TH/s · 60 days · $VALO</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="font-numeric-data text-[22px] font-semibold text-on-primary leading-none">$199</p>
+                <p class="font-label-sm text-[10px] text-on-primary/50 tracking-wide mt-0.5">one-time</p>
               </div>
             </div>
-            <div class="text-right">
-              <p class="font-body-md text-[15px] font-bold text-primary">$199</p>
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">one-time</p>
+            <!-- Hashrate mini-bars -->
+            <div class="mb-3">
+              <p class="font-label-sm text-[9px] tracking-[0.05em] uppercase text-on-primary/40 mb-1.5">Estimated Hashrate Output</p>
+              <div class="flex items-end gap-[3px] h-6">
+                <div class="flex-1 rounded-sm" style="height:45%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:60%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:55%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:72%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:63%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:78%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:68%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:82%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:74%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:88%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:80%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:92%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm bar-active" style="height:88%;background:rgba(255,255,255,0.4)"></div>
+                <div class="flex-1 rounded-sm bar-active" style="height:100%;background:rgba(255,255,255,0.4)"></div>
+              </div>
             </div>
-          </div>
-          <div class="grid grid-cols-3 gap-2 text-center">
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily ROI</p>
-              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">2.0%</p>
+            <!-- Stats grid row 1 -->
+            <div class="grid grid-cols-3 gap-2 text-center mb-2">
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Daily ROI</p>
+                <p class="font-body-md text-[13px] font-semibold text-[#4ade80]">2.0%</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Hashrate</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">25 TH/s</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Duration</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">60 days</p>
+              </div>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Hashrate</p>
-              <p class="font-body-md text-[13px] font-semibold text-primary">25 TH/s</p>
+            <!-- Stats grid row 2 -->
+            <div class="grid grid-cols-3 gap-2 text-center mb-3">
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Est./mo</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">$119</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Power</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">Incl.</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Coin</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">$VALO</p>
+              </div>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Est. Return</p>
-              <p class="font-body-md text-[13px] font-semibold text-primary">$119/mo</p>
+            <!-- Projected profit footer -->
+            <div class="bg-white/10 rounded-[12px] px-3 py-2.5 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#4ade80] text-[15px]" style="font-variation-settings:'FILL' 1,'wght' 400;">trending_up</span>
+                <p class="font-label-sm text-[11px] text-on-primary/70 tracking-wide">Projected Total Profit</p>
+              </div>
+              <p class="font-body-md text-[14px] font-bold text-[#4ade80]">+$238.00</p>
             </div>
           </div>
         </div>
 
         <!-- Package: Elite -->
-        <div onclick="openPackage('elite')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">workspace_premium</span>
+        <div onclick="openPackage('elite')" class="bg-primary rounded-[20px] p-4 shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/5 pointer-events-none"></div>
+          <div class="absolute -left-4 -bottom-4 w-24 h-24 rounded-full bg-white/3 pointer-events-none"></div>
+          <div class="relative z-10">
+            <!-- Header -->
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-on-primary text-[22px]">workspace_premium</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <p class="font-body-md text-[15px] font-semibold text-on-primary">Elite</p>
+                    <span class="bg-white/20 text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">Best Value</span>
+                  </div>
+                  <p class="font-label-sm text-[11px] text-on-primary/60 mt-0.5 tracking-wide">100 TH/s · 90 days · $VALO</p>
+                </div>
               </div>
-              <div>
-                <p class="font-body-md text-[15px] font-semibold text-primary">Elite</p>
-                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">100 TH/s · 90 days</p>
+              <div class="text-right">
+                <p class="font-numeric-data text-[22px] font-semibold text-on-primary leading-none">$699</p>
+                <p class="font-label-sm text-[10px] text-on-primary/50 tracking-wide mt-0.5">one-time</p>
               </div>
             </div>
-            <div class="text-right">
-              <p class="font-body-md text-[15px] font-bold text-primary">$699</p>
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">one-time</p>
+            <!-- Hashrate mini-bars -->
+            <div class="mb-3">
+              <p class="font-label-sm text-[9px] tracking-[0.05em] uppercase text-on-primary/40 mb-1.5">Estimated Hashrate Output</p>
+              <div class="flex items-end gap-[3px] h-6">
+                <div class="flex-1 rounded-sm" style="height:50%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:68%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:58%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:74%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:65%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:80%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:72%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:86%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:78%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:90%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:83%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:94%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm bar-active" style="height:90%;background:rgba(255,255,255,0.4)"></div>
+                <div class="flex-1 rounded-sm bar-active" style="height:100%;background:rgba(255,255,255,0.4)"></div>
+              </div>
             </div>
-          </div>
-          <div class="grid grid-cols-3 gap-2 text-center">
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily ROI</p>
-              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">2.5%</p>
+            <!-- Stats grid row 1 -->
+            <div class="grid grid-cols-3 gap-2 text-center mb-2">
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Daily ROI</p>
+                <p class="font-body-md text-[13px] font-semibold text-[#4ade80]">2.5%</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Hashrate</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">100 TH/s</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Duration</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">90 days</p>
+              </div>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Hashrate</p>
-              <p class="font-body-md text-[13px] font-semibold text-primary">100 TH/s</p>
+            <!-- Stats grid row 2 -->
+            <div class="grid grid-cols-3 gap-2 text-center mb-3">
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Est./mo</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">$524</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Power</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">Incl.</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Coin</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">$VALO</p>
+              </div>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Est. Return</p>
-              <p class="font-body-md text-[13px] font-semibold text-primary">$524/mo</p>
+            <!-- Projected profit footer -->
+            <div class="bg-white/10 rounded-[12px] px-3 py-2.5 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#4ade80] text-[15px]" style="font-variation-settings:'FILL' 1,'wght' 400;">trending_up</span>
+                <p class="font-label-sm text-[11px] text-on-primary/70 tracking-wide">Projected Total Profit</p>
+              </div>
+              <p class="font-body-md text-[14px] font-bold text-[#4ade80]">+$1,572.00</p>
             </div>
           </div>
         </div>
 
         <!-- Package: Whale -->
-        <div onclick="openPackage('whale')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">diamond</span>
+        <div onclick="openPackage('whale')" class="bg-primary rounded-[20px] p-4 shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-white/5 pointer-events-none"></div>
+          <div class="absolute -left-4 -bottom-4 w-24 h-24 rounded-full bg-white/3 pointer-events-none"></div>
+          <div class="relative z-10">
+            <!-- Header -->
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-on-primary text-[22px]">diamond</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <p class="font-body-md text-[15px] font-semibold text-on-primary">Whale</p>
+                    <span class="bg-white/20 text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">Max Power</span>
+                  </div>
+                  <p class="font-label-sm text-[11px] text-on-primary/60 mt-0.5 tracking-wide">500 TH/s · 180 days · $VALO</p>
+                </div>
               </div>
-              <div>
-                <p class="font-body-md text-[15px] font-semibold text-primary">Whale</p>
-                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">500 TH/s · 180 days</p>
+              <div class="text-right">
+                <p class="font-numeric-data text-[22px] font-semibold text-on-primary leading-none">$2,999</p>
+                <p class="font-label-sm text-[10px] text-on-primary/50 tracking-wide mt-0.5">one-time</p>
               </div>
             </div>
-            <div class="text-right">
-              <p class="font-body-md text-[15px] font-bold text-primary">$2,999</p>
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">one-time</p>
+            <!-- Hashrate mini-bars -->
+            <div class="mb-3">
+              <p class="font-label-sm text-[9px] tracking-[0.05em] uppercase text-on-primary/40 mb-1.5">Estimated Hashrate Output</p>
+              <div class="flex items-end gap-[3px] h-6">
+                <div class="flex-1 rounded-sm" style="height:60%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:72%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:65%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:78%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:70%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:84%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:76%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:88%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:82%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:92%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm" style="height:87%;background:rgba(255,255,255,0.15)"></div>
+                <div class="flex-1 rounded-sm" style="height:96%;background:rgba(255,255,255,0.2)"></div>
+                <div class="flex-1 rounded-sm bar-active" style="height:93%;background:rgba(255,255,255,0.4)"></div>
+                <div class="flex-1 rounded-sm bar-active" style="height:100%;background:rgba(255,255,255,0.4)"></div>
+              </div>
             </div>
-          </div>
-          <div class="grid grid-cols-3 gap-2 text-center">
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Daily ROI</p>
-              <p class="font-body-md text-[13px] font-semibold text-[#1a7f4b]">2.5%</p>
+            <!-- Stats grid row 1 -->
+            <div class="grid grid-cols-3 gap-2 text-center mb-2">
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Daily ROI</p>
+                <p class="font-body-md text-[13px] font-semibold text-[#4ade80]">2.5%</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Hashrate</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">500 TH/s</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Duration</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">180 days</p>
+              </div>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Hashrate</p>
-              <p class="font-body-md text-[13px] font-semibold text-primary">500 TH/s</p>
+            <!-- Stats grid row 2 -->
+            <div class="grid grid-cols-3 gap-2 text-center mb-3">
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Est./mo</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">$2,249</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Power</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">Incl.</p>
+              </div>
+              <div class="bg-white/8 rounded-[10px] py-2.5">
+                <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Coin</p>
+                <p class="font-body-md text-[13px] font-semibold text-on-primary">$VALO</p>
+              </div>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide mb-0.5">Est. Return</p>
-              <p class="font-body-md text-[13px] font-semibold text-primary">$2,249/mo</p>
+            <!-- Projected profit footer -->
+            <div class="bg-white/10 rounded-[12px] px-3 py-2.5 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#4ade80] text-[15px]" style="font-variation-settings:'FILL' 1,'wght' 400;">trending_up</span>
+                <p class="font-label-sm text-[11px] text-on-primary/70 tracking-wide">Projected Total Profit</p>
+              </div>
+              <p class="font-body-md text-[14px] font-bold text-[#4ade80]">+$13,494.00</p>
             </div>
           </div>
         </div>
@@ -1577,156 +1778,248 @@
       <div class="flex flex-col gap-3">
 
         <!-- Strategy: BTC Scalper -->
-        <div onclick="openStrategy('btc_scalper')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+        <div onclick="openStrategy('btc_scalper')" class="bg-primary rounded-[20px] p-4 shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-white/5 pointer-events-none"></div>
+          <div class="relative z-10">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">currency_bitcoin</span>
+              <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-primary text-[22px]">currency_bitcoin</span>
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <p class="font-body-md text-[15px] font-semibold text-primary">BTC Scalper</p>
-                  <span class="bg-primary text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">Hot</span>
+                  <p class="font-body-md text-[15px] font-semibold text-on-primary">BTC Scalper</p>
+                  <span class="bg-white/20 text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">Hot</span>
                 </div>
-                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">AI Scalper · BTC/USDT · 15m</p>
+                <p class="font-label-sm text-[11px] text-on-primary/60 mt-0.5 tracking-wide">AI Scalper · BTC/USDT · 15m</p>
               </div>
             </div>
             <div class="text-right">
-              <p class="font-body-md text-[15px] font-bold text-[#1a7f4b]">+2.8%</p>
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Daily ROI</p>
+              <p class="font-body-md text-[15px] font-bold text-[#4ade80]">+2.8%</p>
+              <p class="font-label-sm text-[10px] text-on-primary/60 tracking-wide">Daily ROI</p>
+            </div>
+          </div>
+          <!-- ROI Bars -->
+          <div class="mb-3">
+            <p class="font-label-sm text-[10px] tracking-[0.05em] uppercase text-on-primary/50 mb-1.5">Performance — Last 14 Days</p>
+            <div class="flex items-end gap-[3px] h-7">
+              <div class="flex-1 rounded-sm" style="height:55%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:70%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:60%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:80%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:50%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:75%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:65%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:85%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:70%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:90%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:75%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:95%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm bar-active" style="height:88%;background:rgba(255,255,255,0.5)"></div>
+              <div class="flex-1 rounded-sm bar-active" style="height:100%;background:rgba(255,255,255,0.5)"></div>
             </div>
           </div>
           <div class="grid grid-cols-4 gap-1.5 text-center">
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Min. Invest</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">$200</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Min. Invest</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">$200</p>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Lock Time</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">30d</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Lock Time</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">30d</p>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Drawdown</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">6.2%</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Drawdown</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">6.2%</p>
             </div>
-            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Total ROI</p>
-              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">84%</p>
+            <div class="bg-white/15 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-[#4ade80] tracking-wide mb-0.5">Total ROI</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#4ade80]">84%</p>
             </div>
+          </div>
           </div>
         </div>
 
         <!-- Strategy: ETH Grid -->
-        <div onclick="openStrategy('eth_grid')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+        <div onclick="openStrategy('eth_grid')" class="bg-primary rounded-[20px] p-4 shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-white/5 pointer-events-none"></div>
+          <div class="relative z-10">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">diamond</span>
+              <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-primary text-[22px]">diamond</span>
               </div>
               <div>
-                <p class="font-body-md text-[15px] font-semibold text-primary">ETH Grid Bot</p>
-                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Grid DCA · ETH/USDT · 1h</p>
+                <p class="font-body-md text-[15px] font-semibold text-on-primary">ETH Grid Bot</p>
+                <p class="font-label-sm text-[11px] text-on-primary/60 mt-0.5 tracking-wide">Grid DCA · ETH/USDT · 1h</p>
               </div>
             </div>
             <div class="text-right">
-              <p class="font-body-md text-[15px] font-bold text-[#1a7f4b]">+1.9%</p>
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Daily ROI</p>
+              <p class="font-body-md text-[15px] font-bold text-[#4ade80]">+1.9%</p>
+              <p class="font-label-sm text-[10px] text-on-primary/60 tracking-wide">Daily ROI</p>
+            </div>
+          </div>
+          <!-- ROI Bars -->
+          <div class="mb-3">
+            <p class="font-label-sm text-[10px] tracking-[0.05em] uppercase text-on-primary/50 mb-1.5">Performance — Last 14 Days</p>
+            <div class="flex items-end gap-[3px] h-7">
+              <div class="flex-1 rounded-sm" style="height:60%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:50%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:70%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:65%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:55%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:75%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:68%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:80%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:72%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:85%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:78%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:90%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm bar-active" style="height:92%;background:rgba(255,255,255,0.5)"></div>
+              <div class="flex-1 rounded-sm bar-active" style="height:100%;background:rgba(255,255,255,0.5)"></div>
             </div>
           </div>
           <div class="grid grid-cols-4 gap-1.5 text-center">
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Min. Invest</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">$500</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Min. Invest</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">$500</p>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Lock Time</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">60d</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Lock Time</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">60d</p>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Drawdown</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">9.1%</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Drawdown</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">9.1%</p>
             </div>
-            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Total ROI</p>
-              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">114%</p>
+            <div class="bg-white/15 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-[#4ade80] tracking-wide mb-0.5">Total ROI</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#4ade80]">114%</p>
             </div>
+          </div>
           </div>
         </div>
 
         <!-- Strategy: SOL Swing -->
-        <div onclick="openStrategy('sol_swing')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+        <div onclick="openStrategy('sol_swing')" class="bg-primary rounded-[20px] p-4 shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-white/5 pointer-events-none"></div>
+          <div class="relative z-10">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">bolt</span>
+              <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-primary text-[22px]">bolt</span>
               </div>
               <div>
-                <p class="font-body-md text-[15px] font-semibold text-primary">SOL Swing</p>
-                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">Swing · SOL/USDT · 4h</p>
+                <p class="font-body-md text-[15px] font-semibold text-on-primary">SOL Swing</p>
+                <p class="font-label-sm text-[11px] text-on-primary/60 mt-0.5 tracking-wide">Swing · SOL/USDT · 4h</p>
               </div>
             </div>
             <div class="text-right">
-              <p class="font-body-md text-[15px] font-bold text-[#1a7f4b]">+3.2%</p>
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Daily ROI</p>
+              <p class="font-body-md text-[15px] font-bold text-[#4ade80]">+3.2%</p>
+              <p class="font-label-sm text-[10px] text-on-primary/60 tracking-wide">Daily ROI</p>
+            </div>
+          </div>
+          <!-- ROI Bars -->
+          <div class="mb-3">
+            <p class="font-label-sm text-[10px] tracking-[0.05em] uppercase text-on-primary/50 mb-1.5">Performance — Last 14 Days</p>
+            <div class="flex items-end gap-[3px] h-7">
+              <div class="flex-1 rounded-sm" style="height:45%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:60%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:52%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:72%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:65%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:80%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:58%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:87%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:70%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:92%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:76%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:95%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm bar-active" style="height:90%;background:rgba(255,255,255,0.5)"></div>
+              <div class="flex-1 rounded-sm bar-active" style="height:100%;background:rgba(255,255,255,0.5)"></div>
             </div>
           </div>
           <div class="grid grid-cols-4 gap-1.5 text-center">
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Min. Invest</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">$300</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Min. Invest</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">$300</p>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Lock Time</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">45d</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Lock Time</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">45d</p>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Drawdown</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">11.8%</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Drawdown</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">11.8%</p>
             </div>
-            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Total ROI</p>
-              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">144%</p>
+            <div class="bg-white/15 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-[#4ade80] tracking-wide mb-0.5">Total ROI</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#4ade80]">144%</p>
             </div>
+          </div>
           </div>
         </div>
 
         <!-- Strategy: Multi-Asset -->
-        <div onclick="openStrategy('multi_asset')" class="bg-surface-container-lowest border border-outline-variant/40 rounded-[20px] p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] cursor-pointer hover:bg-surface-container-low transition-colors active:scale-[0.99]">
+        <div onclick="openStrategy('multi_asset')" class="bg-primary rounded-[20px] p-4 shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer active:scale-[0.99] relative overflow-hidden">
+          <div class="absolute -right-6 -top-6 w-28 h-28 rounded-full bg-white/5 pointer-events-none"></div>
+          <div class="relative z-10">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-on-surface-variant text-[22px]">auto_awesome</span>
+              <div class="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-on-primary text-[22px]">auto_awesome</span>
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <p class="font-body-md text-[15px] font-semibold text-primary">Multi-Asset AI</p>
-                  <span class="bg-secondary text-on-secondary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">New</span>
+                  <p class="font-body-md text-[15px] font-semibold text-on-primary">Multi-Asset AI</p>
+                  <span class="bg-white/20 text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full tracking-wide">New</span>
                 </div>
-                <p class="font-label-sm text-[11px] text-on-surface-variant mt-0.5 tracking-wide">AI Quant · BTC+ETH+SOL · 1d</p>
+                <p class="font-label-sm text-[11px] text-on-primary/60 mt-0.5 tracking-wide">AI Quant · BTC+ETH+SOL · 1d</p>
               </div>
             </div>
             <div class="text-right">
-              <p class="font-body-md text-[15px] font-bold text-[#1a7f4b]">+4.1%</p>
-              <p class="font-label-sm text-[10px] text-on-surface-variant tracking-wide">Daily ROI</p>
+              <p class="font-body-md text-[15px] font-bold text-[#4ade80]">+4.1%</p>
+              <p class="font-label-sm text-[10px] text-on-primary/60 tracking-wide">Daily ROI</p>
+            </div>
+          </div>
+          <!-- ROI Bars -->
+          <div class="mb-3">
+            <p class="font-label-sm text-[10px] tracking-[0.05em] uppercase text-on-primary/50 mb-1.5">Performance — Last 14 Days</p>
+            <div class="flex items-end gap-[3px] h-7">
+              <div class="flex-1 rounded-sm" style="height:40%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:55%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:62%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:50%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:70%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:78%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:68%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:83%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:75%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:88%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm" style="height:80%;background:rgba(255,255,255,0.2)"></div>
+              <div class="flex-1 rounded-sm" style="height:93%;background:rgba(255,255,255,0.3)"></div>
+              <div class="flex-1 rounded-sm bar-active" style="height:96%;background:rgba(255,255,255,0.5)"></div>
+              <div class="flex-1 rounded-sm bar-active" style="height:100%;background:rgba(255,255,255,0.5)"></div>
             </div>
           </div>
           <div class="grid grid-cols-4 gap-1.5 text-center">
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Min. Invest</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">$1,000</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Min. Invest</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">$1,000</p>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Lock Time</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">90d</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Lock Time</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">90d</p>
             </div>
-            <div class="bg-surface-container rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-on-surface-variant tracking-wide mb-0.5">Drawdown</p>
-              <p class="font-body-md text-[12px] font-semibold text-primary">7.5%</p>
+            <div class="bg-white/8 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-on-primary/50 tracking-wide mb-0.5">Drawdown</p>
+              <p class="font-body-md text-[12px] font-semibold text-on-primary">7.5%</p>
             </div>
-            <div class="bg-[#e6f5ee] rounded-[10px] py-2">
-              <p class="font-label-sm text-[9px] text-[#1a7f4b] tracking-wide mb-0.5">Total ROI</p>
-              <p class="font-body-md text-[12px] font-semibold text-[#1a7f4b]">369%</p>
+            <div class="bg-white/15 rounded-[10px] py-2">
+              <p class="font-label-sm text-[9px] text-[#4ade80] tracking-wide mb-0.5">Total ROI</p>
+              <p class="font-body-md text-[12px] font-semibold text-[#4ade80]">369%</p>
             </div>
+          </div>
           </div>
         </div>
 
